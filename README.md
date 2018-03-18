@@ -1,5 +1,5 @@
 # WxUv
-Desktop application that utilizes the OpenUV API
+VB.Net 4.7.1 desktop application that utilizes the OpenUV API.
 
 Requires:
 1. OpenUV API key
