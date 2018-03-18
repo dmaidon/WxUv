@@ -39,7 +39,7 @@ Namespace Google
     Partial Public Class Goog
 
         Public Shared Function FromJson(ByVal json As String) As Goog
-            Return JsonConvert.DeserializeObject(Of Goog)(json, Google.Converter.Settings)
+            Return JsonConvert.DeserializeObject(Of Goog)(json, Converter.Settings)
         End Function
 
     End Class
@@ -48,7 +48,7 @@ Namespace Google
 
         <Extension()>
         Function ToJson(ByVal self As Goog) As String
-            Return JsonConvert.SerializeObject(self, Google.Converter.Settings)
+            Return JsonConvert.SerializeObject(self, Converter.Settings)
         End Function
 
     End Module

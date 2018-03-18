@@ -61,7 +61,7 @@ Public Class FrmMain
             GetElevation()
         Else
             RtbLog.AppendText($"Altitude set from Registry: {KInfo.GetValue("Altitude", 0)} meters{vbCrLf}")
-            LblAltitude.Text = $"Altitude: {KInfo.GetValue("Altitude", 0)} meters"
+            'LblAltitude.Text = $"Altitude: {KInfo.GetValue("Altitude", 0)} meters"
         End If
         Altitude = ($"{KInfo.GetValue("Altitude", 0)}")
 
@@ -293,91 +293,6 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
 
 #End Region
 
-#Region "TpSettings"
-
-    Private Sub TxtUvKey_TextChanged(sender As Object, e As EventArgs) Handles TxtUvKey.TextChanged
-        ''My.Computer.Registry.CurrentUser.DeleteSubKey("Software\TestApp")
-        Kuv.SetValue("Key", TxtUvKey.Text, RegistryValueKind.String)
-    End Sub
-
-    Private Sub TxtGoogleKey_TextChanged(sender As Object, e As EventArgs) Handles TxtGoogleKey.TextChanged
-        Kg.SetValue("Elevation API Key", TxtGoogleKey.Text, RegistryValueKind.String)
-    End Sub
-
-    Private Sub ChkHideDebuf_CheckedChanged(sender As Object, e As EventArgs) Handles ChkHideDebug.CheckedChanged
-        KSet.SetValue("Hide Debug Tab", ChkHideDebug.Checked, RegistryValueKind.DWord)
-        If ChkHideDebug.Checked Then
-            TC.TabPages.Remove(TpDebug)
-        Else
-            TC.TabPages.Insert(5, TpDebug)
-        End If
-    End Sub
-
-    Private Sub ChkHideLog_CheckedChanged(sender As Object, e As EventArgs) Handles ChkHideLog.CheckedChanged
-        KSet.SetValue("Hide Log Tab", ChkHideLog.Checked, RegistryValueKind.DWord)
-        If ChkHideLog.Checked Then
-            TC.TabPages.Remove(TpLog)
-        Else
-            TC.TabPages.Insert(6, TpLog)
-        End If
-    End Sub
-
-    Private Sub TpSettings_Enter(sender As Object, e As EventArgs) Handles TpSettings.Enter
-        TxtLatitude.Text = KSet.GetValue("Latitude", "37.787644")
-        TxtLongitude.Text = KSet.GetValue("Longitude", "-79.44189")
-        TxtUvKey.Text = Kuv.GetValue("Key", "")
-        TxtGoogleKey.Text = Kg.GetValue("Elevation API key", "")
-        ChkHideDebug.Checked = KSet.GetValue("Hide Debug Page", 0)
-        ChkHideLog.Checked = KSet.GetValue("Hide Log Page", 0)
-    End Sub
-
-    Private Sub BntResetAlt_Click(sender As Object, e As EventArgs) Handles BntResetAlt.Click
-        Const msg = "Are you sure that you would like to reset the Altitude?"
-        Const caption = "Reset Altitude"
-        Dim result = MessageBox.Show(msg, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
-        ' If the no button was pressed ...
-        If (result = DialogResult.No) Then
-            ' cancel reset
-            Exit Sub
-        Else
-            RtbLog.AppendText($"{Squiggley}{vbCrLf}")
-            Try
-                Dim ue = Path.Combine(TempPath, GElev)
-                If IO.File.Exists(ue) Then
-                    IO.File.Delete(ue)
-                    RtbLog.AppendText($"Delete -> {ue}{vbCrLf}")
-                End If
-            Catch ex As Exception
-                RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
-            Finally
-                ''
-            End Try
-            KInfo.SetValue("Altitude Set", 0)
-            RtbLog.AppendText($"~~~~~ Altitude reset{vbCrLf}{Squiggley}{vbCrLf}")
-            RtbDebug.AppendText($"~~~~~ Altitude reset{vbCrLf}{vbCrLf}")
-            DownloadElevation()
-        End If
-    End Sub
-
-    Private Sub TxtLatitude_TextChanged(sender As Object, e As EventArgs) Handles TxtLatitude.TextChanged
-        KSet.SetValue("Latitude", TxtLatitude.Text, RegistryValueKind.String)
-    End Sub
-
-    Private Sub TxtLongitude_TextChanged(sender As Object, e As EventArgs) Handles TxtLongitude.TextChanged
-        KSet.SetValue("Longitude", TxtLongitude.Text, RegistryValueKind.String)
-    End Sub
-
-    Private Sub NumRTInterval_Enter(sender As Object, e As EventArgs) Handles NumRTInterval.Enter
-        NumRTInterval.Select(0, NumRTInterval.Text.Length)
-    End Sub
-
-    Private Sub NumRTInterval_ValueChanged(sender As Object, e As EventArgs) Handles NumRTInterval.ValueChanged
-        KInfo.SetValue("RealTime UV Interval", NumRTInterval.Value, RegistryValueKind.DWord)
-    End Sub
-
-#End Region
-
 #Region "Protection"
 
     Private Shared Sub BtnProtection_Click(sender As Object, e As EventArgs) Handles BtnProtection.Click
@@ -440,6 +355,101 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
 
     Private Shared Sub TpAbout_Leave(sender As Object, e As EventArgs) Handles TpAbout.Leave
         SaveLogs()
+    End Sub
+
+#End Region
+
+#Region "TpSettings"
+
+    Private Sub TxtUvKey_TextChanged(sender As Object, e As EventArgs) Handles TxtUvKey.TextChanged
+        ''My.Computer.Registry.CurrentUser.DeleteSubKey("Software\TestApp")
+        Kuv.SetValue("Key", TxtUvKey.Text, RegistryValueKind.String)
+    End Sub
+
+    Private Sub TxtGoogleKey_TextChanged(sender As Object, e As EventArgs) Handles TxtGoogleKey.TextChanged
+        Kg.SetValue("Elevation API Key", TxtGoogleKey.Text, RegistryValueKind.String)
+    End Sub
+
+    Private Sub ChkHideDebuf_CheckedChanged(sender As Object, e As EventArgs) Handles ChkHideDebug.CheckedChanged
+        KSet.SetValue("Hide Debug Tab", ChkHideDebug.Checked, RegistryValueKind.DWord)
+        If ChkHideDebug.Checked Then
+            TC.TabPages.Remove(TpDebug)
+        Else
+            TC.TabPages.Insert(5, TpDebug)
+        End If
+    End Sub
+
+    Private Sub ChkHideLog_CheckedChanged(sender As Object, e As EventArgs) Handles ChkHideLog.CheckedChanged
+        KSet.SetValue("Hide Log Tab", ChkHideLog.Checked, RegistryValueKind.DWord)
+        If ChkHideLog.Checked Then
+            TC.TabPages.Remove(TpLog)
+        Else
+            TC.TabPages.Insert(6, TpLog)
+        End If
+    End Sub
+
+    Private Sub TpSettings_Enter(sender As Object, e As EventArgs) Handles TpSettings.Enter
+        TxtLatitude.Text = KSet.GetValue("Latitude", "37.787644")
+        TxtLongitude.Text = KSet.GetValue("Longitude", "-79.44189")
+        TxtUvKey.Text = Kuv.GetValue("Key", "")
+        TxtGoogleKey.Text = Kg.GetValue("Elevation API key", "")
+        ChkHideDebug.Checked = KSet.GetValue("Hide Debug Page", 0)
+        ChkHideLog.Checked = KSet.GetValue("Hide Log Page", 0)
+        NumElevation.Value = KInfo.GetValue("Altitude", 0)
+        NumRTInterval.Value = KInfo.GetValue("RealTime UV Interval", 0)
+    End Sub
+
+    Private Sub BntResetAlt_Click(sender As Object, e As EventArgs) Handles BntResetAlt.Click
+        Const msg = "Are you sure that you would like to reset the Altitude?"
+        Const caption = "Reset Altitude"
+        Dim result = MessageBox.Show(msg, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+        ' If the no button was pressed ...
+        If (result = DialogResult.No) Then
+            ' cancel reset
+            Exit Sub
+        Else
+            RtbLog.AppendText($"{Squiggley}{vbCrLf}")
+            Try
+                Dim ue = Path.Combine(TempPath, GElev)
+                If IO.File.Exists(ue) Then
+                    IO.File.Delete(ue)
+                    RtbLog.AppendText($"Delete -> {ue}{vbCrLf}")
+                End If
+            Catch ex As Exception
+                RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
+            Finally
+                ''
+            End Try
+            KInfo.SetValue("Altitude Set", 0)
+            RtbLog.AppendText($"~~~~~ Altitude reset{vbCrLf}{Squiggley}{vbCrLf}")
+            RtbDebug.AppendText($"~~~~~ Altitude reset{vbCrLf}{vbCrLf}")
+            DownloadElevation()
+        End If
+    End Sub
+
+    Private Sub TxtLatitude_TextChanged(sender As Object, e As EventArgs) Handles TxtLatitude.TextChanged
+        KSet.SetValue("Latitude", TxtLatitude.Text, RegistryValueKind.String)
+    End Sub
+
+    Private Sub TxtLongitude_TextChanged(sender As Object, e As EventArgs) Handles TxtLongitude.TextChanged
+        KSet.SetValue("Longitude", TxtLongitude.Text, RegistryValueKind.String)
+    End Sub
+
+    Private Sub NumRTInterval_Enter(sender As Object, e As EventArgs) Handles NumRTInterval.Enter
+        NumRTInterval.Select(0, NumRTInterval.Text.Length)
+    End Sub
+
+    Private Sub NumRTInterval_ValueChanged(sender As Object, e As EventArgs) Handles NumRTInterval.ValueChanged
+        KInfo.SetValue("RealTime UV Interval", NumRTInterval.Value, RegistryValueKind.DWord)
+    End Sub
+
+    Private Sub NumElevation_ValueChanged(sender As Object, e As EventArgs) Handles NumElevation.ValueChanged
+        KInfo.SetValue("Altitude", $"{NumElevation.Value:N0}", RegistryValueKind.DWord)
+    End Sub
+
+    Private Sub NumElevation_Enter(sender As Object, e As EventArgs) Handles NumElevation.Enter
+        NumElevation.Select(0, NumElevation.Text.Length)
     End Sub
 
 #End Region

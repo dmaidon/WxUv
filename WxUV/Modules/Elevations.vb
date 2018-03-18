@@ -5,7 +5,6 @@ Imports WxUV.Google
 
 Namespace Modules
     Module Elevations
-        Private ue As String
 
         ''' <summary>
         '''     Google Maps Elevation API
@@ -13,13 +12,12 @@ Namespace Modules
         '''     enter this information on the Settings tab
         ''' </summary>
         Public Sub GetElevation()
-            ue = Path.Combine(TempPath, GElev)
             DownloadElevation()
         End Sub
 
         Public Sub DownloadElevation()
             GoogleKey = Kg.GetValue("Elevation API Key", "")
-
+            Dim ue = Path.Combine(TempPath, GElev)
             If GoogleKey.Trim() = "" Then
                 ''if we don't have the Google Elevation Key set, exit this sub
                 FrmMain.RtbLog.AppendText($"Google Elevation API Key not set -> Elevation not set.")
@@ -38,17 +36,19 @@ Namespace Modules
                     File.WriteAllText(ue, resp)
                     GNfo = Goog.FromJson(resp)
                     reader.Close()
-                    KInfo.SetValue("Altitude Set", True, RegistryValueKind.DWord)
+                    'KInfo.SetValue("Altitude Set", True, RegistryValueKind.DWord)
                     KInfo.SetValue("Altitude", $"{GNfo.Results(0).elevation:N0}", RegistryValueKind.DWord)
-                    FrmMain.LblAltitude.Text = $"Altitude: {GNfo.Results(0).elevation:N0} meters"
                     Response.Close()
                     FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Google Elevation file -> [{ue}]")
                     FrmMain.RtbDebug.AppendText($"Elevation: {GNfo.Results(0).elevation:N6}{vbCrLf}{vbCrLf}")
                 Catch ex As Exception
                     FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
+                Finally
+                    FrmMain.RtbLog.AppendText($"{Squiggley}{vbCrLf}")
+                    SaveLogs()
                 End Try
             End If
-            SaveLogs()
+
         End Sub
 
     End Module
