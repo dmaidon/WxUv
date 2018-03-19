@@ -155,6 +155,8 @@ Partial Class FrmMain
         Me.Lbl2 = New System.Windows.Forms.Label()
         Me.LblFrom = New System.Windows.Forms.Label()
         Me.TpSettings = New System.Windows.Forms.TabPage()
+        Me.NumLogDays = New System.Windows.Forms.NumericUpDown()
+        Me.Label48 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.NumRTInterval = New System.Windows.Forms.NumericUpDown()
         Me.Label19 = New System.Windows.Forms.Label()
@@ -241,6 +243,7 @@ Partial Class FrmMain
         CType(Me.NumTo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumFrom, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TpSettings.SuspendLayout()
+        CType(Me.NumLogDays, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         CType(Me.NumRTInterval, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel7.SuspendLayout()
@@ -1861,6 +1864,8 @@ Partial Class FrmMain
         '
         Me.TpSettings.BackColor = System.Drawing.SystemColors.Info
         Me.TpSettings.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.TpSettings.Controls.Add(Me.NumLogDays)
+        Me.TpSettings.Controls.Add(Me.Label48)
         Me.TpSettings.Controls.Add(Me.Panel1)
         Me.TpSettings.Controls.Add(Me.Panel7)
         Me.TpSettings.Controls.Add(Me.ChkHideLog)
@@ -1874,6 +1879,23 @@ Partial Class FrmMain
         Me.TpSettings.Size = New System.Drawing.Size(434, 405)
         Me.TpSettings.TabIndex = 2
         Me.TpSettings.Text = "Settings"
+        '
+        'NumLogDays
+        '
+        Me.NumLogDays.Location = New System.Drawing.Point(118, 87)
+        Me.NumLogDays.Maximum = New Decimal(New Integer() {360, 0, 0, 0})
+        Me.NumLogDays.Name = "NumLogDays"
+        Me.NumLogDays.Size = New System.Drawing.Size(49, 20)
+        Me.NumLogDays.TabIndex = 0
+        '
+        'Label48
+        '
+        Me.Label48.AutoSize = True
+        Me.Label48.Location = New System.Drawing.Point(7, 91)
+        Me.Label48.Name = "Label48"
+        Me.Label48.Size = New System.Drawing.Size(111, 13)
+        Me.Label48.TabIndex = 18
+        Me.Label48.Text = "Days to keep log files:"
         '
         'Panel1
         '
@@ -1938,7 +1960,7 @@ Partial Class FrmMain
         Me.ChkHideLog.Location = New System.Drawing.Point(7, 272)
         Me.ChkHideLog.Name = "ChkHideLog"
         Me.ChkHideLog.Size = New System.Drawing.Size(87, 17)
-        Me.ChkHideLog.TabIndex = 1
+        Me.ChkHideLog.TabIndex = 2
         Me.ChkHideLog.Text = "Hide Log tab"
         Me.ChkHideLog.UseVisualStyleBackColor = True
         '
@@ -1948,7 +1970,7 @@ Partial Class FrmMain
         Me.ChkHideDebug.Location = New System.Drawing.Point(7, 249)
         Me.ChkHideDebug.Name = "ChkHideDebug"
         Me.ChkHideDebug.Size = New System.Drawing.Size(101, 17)
-        Me.ChkHideDebug.TabIndex = 0
+        Me.ChkHideDebug.TabIndex = 1
         Me.ChkHideDebug.Text = "Hide Debug tab"
         Me.ChkHideDebug.UseVisualStyleBackColor = True
         '
@@ -1999,7 +2021,7 @@ Partial Class FrmMain
         Me.NumElevation.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
         Me.NumElevation.Name = "NumElevation"
         Me.NumElevation.Size = New System.Drawing.Size(49, 20)
-        Me.NumElevation.TabIndex = 3
+        Me.NumElevation.TabIndex = 0
         '
         'LblAltitude
         '
@@ -2017,7 +2039,7 @@ Partial Class FrmMain
         Me.BntResetAlt.Location = New System.Drawing.Point(9, 31)
         Me.BntResetAlt.Name = "BntResetAlt"
         Me.BntResetAlt.Size = New System.Drawing.Size(94, 23)
-        Me.BntResetAlt.TabIndex = 0
+        Me.BntResetAlt.TabIndex = 1
         Me.BntResetAlt.Text = "Reset Altitude"
         Me.BntResetAlt.UseVisualStyleBackColor = True
         '
@@ -2387,6 +2409,7 @@ Partial Class FrmMain
         CType(Me.NumFrom, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TpSettings.ResumeLayout(False)
         Me.TpSettings.PerformLayout()
+        CType(Me.NumLogDays, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.NumRTInterval, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2595,4 +2618,6 @@ Partial Class FrmMain
     Friend WithEvents Label46 As Label
     Friend WithEvents Label47 As Label
     Friend WithEvents NumElevation As NumericUpDown
+    Friend WithEvents NumLogDays As NumericUpDown
+    Friend WithEvents Label48 As Label
 End Class

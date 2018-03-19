@@ -27,6 +27,8 @@ Public Class FrmMain
         Loading = False
         Cpy = $"©{DateTime.Now.Year}, {Application.CompanyName}"
         CreateFolders()
+
+        ''set the header for the .log file
         Dim timesRun As Long
         timesRun = CLng((KInfo.GetValue("TimesRun", 0))) + 1
         KInfo.SetValue("TimesRun", timesRun, RegistryValueKind.QWord)
@@ -39,8 +41,9 @@ Public Class FrmMain
         LMsg = LMsg & $"Times run: {timesRun}{vbCrLf}"
         LMsg = LMsg & $"Update frequency: {Updatetime} minutes.{vbCrLf}{Separator}{vbCrLf}"
         RtbLog.AppendText(LMsg)
+
+        ''cleanup the logfile folder and delete the old files.
         PerformLogMaintenance()
-        'CacheSunriseSunset()
         GetUVRealTime()
         InitializeArrays()
         With Me
@@ -50,9 +53,6 @@ Public Class FrmMain
             .TsslVer.Text = $"{Application.ProductVersion}"
             .TsslCpy.Text = $"{Cpy}"
             .TsslTimesRun.Text = $"[{timesRun}]"
-            ''.TmrOzone.Interval = 180 * TimerMultiplier
-            ''.TmrOzone.Enabled = True
-            ''.TmrOzone.Start()
             .SetTimers()
             .Show()
         End With
@@ -61,7 +61,6 @@ Public Class FrmMain
             GetElevation()
         Else
             RtbLog.AppendText($"Altitude set from Registry: {KInfo.GetValue("Altitude", 0)} meters{vbCrLf}")
-            'LblAltitude.Text = $"Altitude: {KInfo.GetValue("Altitude", 0)} meters"
         End If
         Altitude = ($"{KInfo.GetValue("Altitude", 0)}")
 
@@ -397,6 +396,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
         ChkHideLog.Checked = KSet.GetValue("Hide Log Page", 0)
         NumElevation.Value = KInfo.GetValue("Altitude", 0)
         NumRTInterval.Value = KInfo.GetValue("RealTime UV Interval", 0)
+        NumLogDays.Value = KSet.GetValue("Days to keep logs", 3)
     End Sub
 
     Private Sub BntResetAlt_Click(sender As Object, e As EventArgs) Handles BntResetAlt.Click
@@ -450,6 +450,15 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
 
     Private Sub NumElevation_Enter(sender As Object, e As EventArgs) Handles NumElevation.Enter
         NumElevation.Select(0, NumElevation.Text.Length)
+    End Sub
+
+    Private Sub NumLogDays_Enter(sender As Object, e As EventArgs) Handles NumLogDays.Enter
+        ''set the number of days to maintain the log files in the LOG folder.
+        NumLogDays.Select(0, NumLogDays.Text.Length)
+    End Sub
+
+    Private Sub NumLogDays_ValueChanged(sender As Object, e As EventArgs) Handles NumLogDays.ValueChanged
+        KSet.SetValue("Days to keep logs", NumLogDays.Value, RegistryValueKind.DWord)
     End Sub
 
 #End Region
