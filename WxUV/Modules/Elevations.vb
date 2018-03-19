@@ -36,7 +36,6 @@ Namespace Modules
                     File.WriteAllText(ue, resp)
                     GNfo = Goog.FromJson(resp)
                     reader.Close()
-                    'KInfo.SetValue("Altitude Set", True, RegistryValueKind.DWord)
                     KInfo.SetValue("Altitude", $"{GNfo.Results(0).elevation:N0}", RegistryValueKind.DWord)
                     Response.Close()
                     FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Google Elevation file -> [{ue}]")

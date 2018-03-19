@@ -3,20 +3,19 @@ Imports System.Security
 
 Namespace Modules
     ''' <summary>
-    '''     keep the log folder clean and only store a set number of log files.  Days to keep is set on the Options tab
+    '''     keep the log folder clean and only store a set number of log files.  Days to keep is set on the "Settings" tab
     ''' </summary>
     Module LogMaint
 
         ''http://stackoverflow.com/questions/9194749/trying-to-delete-files-older-than-x-days-vb-net
-        '' LogFile = $"{Path.Combine(Application.StartupPath, LogDir)}\f5_{Format(Now, "MMddyyyy_").ToString}{timesRun}.log"
         Public Sub PerformLogMaintenance()
 
             FrmMain.RtbLog.AppendText($"<{Separator}{vbCrLf}")
-            Const intdays = 3       'KSet.GetValue("Days to keep logs", 5)
-            'If intdays <= 0 Then
-            '    FrmMain.RtbLog.AppendText($"Logs set to keep all.{vbCrLf}")
-            '    Exit Sub
-            'End If
+            Dim intdays = KSet.GetValue("Days to keep logs", 5)
+            If intdays <= 0 Then
+                FrmMain.RtbLog.AppendText($"Logs set to keep all.{vbCrLf}")
+                Exit Sub
+            End If
 
             Dim fc As Short
             Try
