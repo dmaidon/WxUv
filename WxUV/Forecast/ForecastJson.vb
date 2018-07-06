@@ -19,6 +19,19 @@ Namespace Forecast
         <JsonProperty("uv_time")>
         Public Property UvTime As Date
 
+        <JsonProperty("sun_position")>
+        Public Property SunPosition As SunPosition
+
+    End Class
+
+    Partial Public Class SunPosition
+
+        <JsonProperty("azimuth")>
+        Public Property Azimuth As Double
+
+        <JsonProperty("altitude")>
+        Public Property Altitude As Double
+
     End Class
 
     Partial Public Class UvFcast

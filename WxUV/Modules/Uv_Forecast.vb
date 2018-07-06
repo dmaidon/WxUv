@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Net
+Imports System.Text
 Imports WxUV.Forecast
 
 Namespace Modules
@@ -50,7 +51,15 @@ Namespace Modules
                     UvArr(j).Image = Image.FromFile(_tmpImg)
                     UvArr(j).BorderStyle = BorderStyle.FixedSingle
                     LblArr(j).Text = $"{aa.Item(1)}{vbCrLf}{(UvNfo.result(j).uvtime).tolocaltime.hour}{vbCrLf}{""}"
-                    FrmMain.TTip.SetToolTip(UvArr(j), aa.Item(4))
+
+                    ''add the sun altitude and azimuth to tooltip popup.
+                    Dim abc As New StringBuilder(aa.Item(4))
+                    abc.Append($"{vbCrLf}{vbCrLf}Altitude: {UvNfo.result(j).sunposition.altitude}{vbCrLf}Azimuth: {UvNfo.result(j).sunposition.azimuth}")
+                    FrmMain.TTip.SetToolTip(UvArr(j), abc.ToString())
+
+                    ''uncomment the line below and comment the 3 lines above to remove the altitude and azimuth from the hourly tooltips.
+                    'FrmMain.TTip.SetToolTip(UvArr(j), aa.Item(4))
+
                     FrmMain.RtbDebug.AppendText(
                         $"{ab} @ {tm}:{vbCrLf}     Level name: {aa.Item(0)}{vbCrLf}     Level short name: {aa.Item(1)}{vbCrLf}     Color id: {aa.Item(2)}{vbCrLf}     Color name: { _
                                                    aa.Item(3)}{vbCrLf}{vbCrLf}")
