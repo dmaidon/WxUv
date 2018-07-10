@@ -54,10 +54,10 @@ Namespace Modules
 
                     ''add the sun altitude and azimuth to tooltip popup.
                     Dim abc As New StringBuilder(aa.Item(4))
-                    abc.Append($"{vbCrLf}{vbCrLf}Altitude: {UvNfo.result(j).sunposition.altitude}{vbCrLf}Azimuth: {UvNfo.result(j).sunposition.azimuth}")
+                    abc.Append($"{vbCrLf}{vbCrLf}Sun position:{vbCrLf}Altitude: {UvNfo.result(j).sunposition.altitude}{vbCrLf}Azimuth: {UvNfo.result(j).sunposition.azimuth}")
                     FrmMain.TTip.SetToolTip(UvArr(j), abc.ToString())
 
-                    ''uncomment the line below and comment the 3 lines above to remove the altitude and azimuth from the hourly tooltips.
+                    ''uncomment the line below and comment the 3 lines above to remove the altitude and azimuth from the hourly tool tips.
                     'FrmMain.TTip.SetToolTip(UvArr(j), aa.Item(4))
 
                     FrmMain.RtbDebug.AppendText(
