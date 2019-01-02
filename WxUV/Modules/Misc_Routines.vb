@@ -1,9 +1,9 @@
 ﻿Namespace Modules
-    Module Misc_Routines
+    Module MiscRoutines
 
         ''count the number of times a string occurs within a string.  used bu UVForecast to determine max array of counter
-        Public Function CountString(ByVal inputString As String, ByVal SearchStr As String) As Integer
-            Return System.Text.RegularExpressions.Regex.Split(inputString, SearchStr).Length - 1
+        Public Function CountString(inputString As String, searchStr As String) As Integer
+            Return Text.RegularExpressions.Regex.Split(inputString, searchStr).Length - 1
         End Function
 
         ''' <summary>
@@ -31,10 +31,10 @@
         End Function
 
         Public Function CalcUpTime() As TimeSpan
-            Dim uptimeTs As New TimeSpan()
+            'Dim uptimeTs As New TimeSpan()
             Dim pc As New PerformanceCounter("System", "System Up Time")
             pc.NextValue()
-            uptimeTs = TimeSpan.FromSeconds(pc.NextValue())
+            Dim uptimeTs = TimeSpan.FromSeconds(pc.NextValue())
             Return uptimeTs
         End Function
 
@@ -64,9 +64,9 @@
         ''' Methods to convert DateTime to Unix time stamp
         ''' </summary>
         ''' <returns>Return Unix time stamp as long type</returns>
-        Public Function Date2Unix(_DateTime As Date) As Long
-            Dim _UnixTimeSpan = (_DateTime.Subtract(New DateTime(1970, 1, 1, 0, 0, 0)))
-            Return Fix(_UnixTimeSpan.TotalSeconds)
+        Public Function Date2Unix(dt As Date) As Long
+            Dim unixTimeSpan = Dt.Subtract(New DateTime(1970, 1, 1, 0, 0, 0))
+            Return Fix(unixTimeSpan.TotalSeconds)
         End Function
 
     End Module

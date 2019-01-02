@@ -60,10 +60,5 @@ Namespace Modules
             End Try
         End Sub
 
-        Friend Sub CloseLogFile()
-            FrmMain.RtbLog.AppendText($"{Separator}>{vbCrLf}")
-            FrmMain.RtbLog.AppendText($"Closing log: {Now.ToString}{vbCrLf}")
-        End Sub
-
-    End Module
+       End Module
 End Namespace

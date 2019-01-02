@@ -2,14 +2,14 @@
     Module Uvlevels
 
         Public Function GetUvLevel(lev As Double) As List(Of String)
-            Dim UvLev As New List(Of String)
+            Dim uvLev As New List(Of String)
             ' Dim bc As Color = Color.Green
             Select Case lev
                 Case 0 To 2.5
-                    UvLev.Add("Low")
-                    UvLev.Add("Low")
-                    UvLev.Add("#558b2f")
-                    UvLev.Add("Green")
+                    uvLev.Add("Low")
+                    uvLev.Add("Low")
+                    uvLev.Add("#558b2f")
+                    uvLev.Add("Green")
                     Dim msg = <msg>
 A UV Index reading of 0 to 2 means low danger from the sun's UV rays for the average person.
 
@@ -17,12 +17,12 @@ A UV Index reading of 0 to 2 means low danger from the sun's UV rays for the ave
    - If you burn easily, cover up and use broad spectrum SPF 30+ sunscreen.
    - Watch out for bright surfaces, like sand, water and snow, which reflect UV and increase exposure.
                             </msg>.Value
-                    UvLev.Add(msg)
+                    uvLev.Add(msg)
                 Case Is <= 5.5
-                    UvLev.Add("Moderate")
-                    UvLev.Add("Mod")
-                    UvLev.Add("#f9a825")
-                    UvLev.Add("Yellow")
+                    uvLev.Add("Moderate")
+                    uvLev.Add("Mod")
+                    uvLev.Add("#f9a825")
+                    uvLev.Add("Yellow")
                     Dim msg = <msg>
 A UV Index reading of 3 to 5 means moderate risk of harm from unprotected sun exposure.
 
@@ -31,12 +31,12 @@ A UV Index reading of 3 to 5 means moderate risk of harm from unprotected sun ex
    - Generously apply broad spectrum SPF 30+ sunscreen every 2 hours, even on cloudy days, and after swimming or sweating.
    - Watch out for bright surfaces, like sand, water and snow, which reflect UV and increase exposure.
                              </msg>.Value
-                    UvLev.Add(msg)
+                    uvLev.Add(msg)
                 Case Is <= 7.5
-                    UvLev.Add("High")
-                    UvLev.Add("High")
-                    UvLev.Add("#ef6c00")
-                    UvLev.Add("Orange")
+                    uvLev.Add("High")
+                    uvLev.Add("High")
+                    uvLev.Add("#ef6c00")
+                    uvLev.Add("Orange")
                     Dim msg = <msg>
 A UV Index reading of 6 to 7 means high risk of harm from unprotected sun exposure. Protection against skin and eye damage is needed.
 
@@ -45,12 +45,12 @@ A UV Index reading of 6 to 7 means high risk of harm from unprotected sun exposu
    - Generously apply broad spectrum SPF 30+ sunscreen every 2 hours, even on cloudy days, and after swimming or sweating.
    - Watch out for bright surfaces, like sand, water and snow, which reflect UV and increase exposure.
                             </msg>.Value
-                    UvLev.Add(msg)
+                    uvLev.Add(msg)
                 Case <= 10.5
-                    UvLev.Add("Very High")
-                    UvLev.Add("VHigh")
-                    UvLev.Add("#b71c1c")
-                    UvLev.Add("Red")
+                    uvLev.Add("Very High")
+                    uvLev.Add("VHigh")
+                    uvLev.Add("#b71c1c")
+                    uvLev.Add("Red")
                     Dim msg = <msg>
 A UV Index reading of 8 to 10 means very high risk of harm from unprotected sun exposure. Take extra precautions because unprotected skin and eyes will be damaged and can burn quickly.
 
@@ -59,12 +59,12 @@ A UV Index reading of 8 to 10 means very high risk of harm from unprotected sun 
    - Generously apply broad spectrum SPF 30+ sunscreen every 2 hours, even on cloudy days, and after swimming or sweating.
    - Watch out for bright surfaces, like sand, water and snow, which reflect UV and increase exposure.
                             </msg>.Value
-                    UvLev.Add(msg)
+                    uvLev.Add(msg)
                 Case Else
-                    UvLev.Add("Extreme")
-                    UvLev.Add("Extr")
-                    UvLev.Add("#6a1b9a")
-                    UvLev.Add("Violet")
+                    uvLev.Add("Extreme")
+                    uvLev.Add("Extr")
+                    uvLev.Add("#6a1b9a")
+                    uvLev.Add("Violet")
                     Dim msg = <msg>
 A UV Index reading of 11 or more means extreme risk of harm from unprotected sun exposure. Take all precautions because unprotected skin and eyes can burn in minutes.
 
@@ -73,9 +73,9 @@ A UV Index reading of 11 or more means extreme risk of harm from unprotected sun
    - Generously apply broad spectrum SPF 30+ sunscreen every 2 hours, even on cloudy days, and after swimming or sweating.
    - Watch out for bright surfaces, like sand, water and snow, which reflect UV and increase exposure.
                             </msg>.Value
-                    UvLev.Add(msg)
+                    uvLev.Add(msg)
             End Select
-            Return UvLev
+            Return uvLev
         End Function
 
     End Module

@@ -4,21 +4,21 @@ Imports Microsoft.Win32
 Imports WxUV.RealTime
 
 Namespace Modules
-    Module Uv_RealTime
-        Private urt
+    Module UvRealTime
+        Private _urt
 
-        Public Sub GetUVRealTime()
-            urt = Path.Combine(TempPath, RtFil)
+        Public Sub GetUvRealTime()
+            _urt = Path.Combine(TempPath, RtFil)
             'If File.Exists(urt) Then
             '    FrmMain.RtbLog.AppendText($"Reading cached Real-time UV file -> [{urt}]{vbCrLf}")
             '    ParseJson(urt)
             'Else
-            DownloadUVRealTime()
+            DownloadUvRealTime()
             ' End If
 
         End Sub
 
-        Private Sub DownloadUVRealTime()
+        Private Sub DownloadUvRealTime()
             ''https://api.openuv.io/api/v1/uv?lat=-33.34&lng=115.342&dt=2018-01-24T10:50:52.283Z
             ''date "&dt=" defaults to current time
             'OzLevel = KInfo.GetValue("Ozone", 0)
@@ -35,22 +35,22 @@ Namespace Modules
             FrmMain.RtbLog.AppendText($"Time: {Now:G}     UTC: {Now.ToUniversalTime():O}{vbCrLf}")
             Try
                 ''Dim Request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/uv?lat={cLatitude}&lng={cLongitude}&alt={Altitude}&ozone={OzLevel}&dt={dt}"), HttpWebRequest)
-                Dim Request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/uv?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&dt={dt}"), HttpWebRequest)
-                Request.Headers.Add($"x-access-token: {ApiKey}")
+                Dim request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/uv?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&dt={dt}"), HttpWebRequest)
+                request.Headers.Add($"x-access-token: {ApiKey}")
 
-                Dim Response = CType(Request.GetResponse(), HttpWebResponse)
-                FrmMain.RtbDebug.AppendText(Response.StatusCode & vbCrLf)
-                FrmMain.RtbDebug.AppendText(Response.StatusDescription & vbCrLf & vbCrLf)
-                Dim dStr = Response.GetResponseStream()
+                Dim response = CType(request.GetResponse(), HttpWebResponse)
+                FrmMain.RtbDebug.AppendText(response.StatusCode & vbCrLf)
+                FrmMain.RtbDebug.AppendText(response.StatusDescription & vbCrLf & vbCrLf)
+                Dim dStr = response.GetResponseStream()
                 Dim reader As New StreamReader(dStr)
                 Dim resp = reader.ReadToEnd()
                 FrmMain.RtbDebug.AppendText(resp & vbCrLf & vbCrLf)
-                File.WriteAllText(urt, resp)
+                File.WriteAllText(_urt, resp)
                 RtNfo = UvRtCast.FromJson(resp)
                 reader.Close()
-                Dim _tmpImg = Path.Combine(Application.StartupPath, "Images", $"{RtNfo.result.uv:N0}.png")
-                FrmMain.RtbLog.AppendText($"Set Image: {_tmpImg}{vbCrLf}")
-                FrmMain.PbUV.Image = Image.FromFile(_tmpImg)
+                Dim tmpImg = Path.Combine(Application.StartupPath, "Images", $"{RtNfo.result.uv:N0}.png")
+                FrmMain.RtbLog.AppendText($"Set Image: {tmpImg}{vbCrLf}")
+                FrmMain.PbUV.Image = Image.FromFile(tmpImg)
 
                 ''set ozone level in registry to UV Forecast
                 KInfo.SetValue("Ozone", $"{RtNfo.result.Ozone:N0}", RegistryValueKind.String)
@@ -87,8 +87,8 @@ Namespace Modules
                 Dim x As Date = RtNfo.result.sun_info.sun_times.sunset
                 t = t.ToLocalTime.ToString
                 x = x.ToLocalTime.ToString
-                Dim DttSunrise As Date = t.ToShortTimeString()
-                Dim DttSunset As Date = x.ToShortTimeString()
+                Dim dttSunrise As Date = t.ToShortTimeString()
+                Dim dttSunset As Date = x.ToShortTimeString()
                 If Now.IsDaylightSavingTime() Then
                     sunrise = sunrise.Add(Subduration)
                     sunset = sunset.Add(Subduration)
@@ -98,7 +98,7 @@ Namespace Modules
                 FrmMain.RtbLog.AppendText($"Now: {Now.ToLongTimeString()}     Sunrise: {sunrise}     Sunset: {sunset}{vbCrLf}")
                 'If Now.ToLongTimeString() >= $"{sunrise}" And Now.ToLongTimeString() <= $"{sunset}" Then
                 'MsgBox(My.Computer.Clock.LocalTime.ToShortTimeString & vbCrLf & sunrise.ToLocalTime.ToShortTimeString())
-                If My.Computer.Clock.LocalTime.ToShortTimeString >= DttSunrise And My.Computer.Clock.LocalTime.ToShortTimeString <= DttSunset Then
+                If My.Computer.Clock.LocalTime.ToShortTimeString >= dttSunrise And My.Computer.Clock.LocalTime.ToShortTimeString <= dttSunset Then
                     Daylight = True
                 Else
                     Daylight = False
@@ -108,8 +108,8 @@ Namespace Modules
                 FrmMain.RtbLog.AppendText(Separator & vbCrLf)
                 DisplayInfo()
 
-                Response.Close()
-                FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Real-time UV Forecast -> [{urt}]{vbCrLf}")
+                response.Close()
+                FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Real-time UV Forecast -> [{_urt}]{vbCrLf}")
 
                 FrmMain.RtbDebug.AppendText(
                     $"Time: {(RtNfo.result.uv_time).tolocaltime}{vbCrLf}UV Level: {RtNfo.result.uv}{vbCrLf}UV Maximum Time: {RtNfo.result.uv_max_time}{vbCrLf _

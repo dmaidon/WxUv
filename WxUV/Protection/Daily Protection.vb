@@ -13,13 +13,13 @@ Namespace Protection
     Partial Public Class Result
 
         <JsonProperty("from_time")>
-        Public Property FromTime As System.DateTime
+        Public Property FromTime As DateTime
 
         <JsonProperty("from_uv")>
         Public Property FromUv As Double
 
         <JsonProperty("to_time")>
-        Public Property ToTime As System.DateTime
+        Public Property ToTime As DateTime
 
         <JsonProperty("to_uv")>
         Public Property ToUv As Double
@@ -43,7 +43,7 @@ Namespace Protection
 
         <Extension()>
         Function ToJson(self As Dpt) As String
-            Return JsonConvert.SerializeObject(self, Protection.Converter.Settings)
+            Return JsonConvert.SerializeObject(self, Converter.Settings)
         End Function
 
     End Module

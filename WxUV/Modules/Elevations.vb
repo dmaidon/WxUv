@@ -24,12 +24,12 @@ Namespace Modules
                 Exit Sub
             Else
                 Try
-                    Dim Request = CType(WebRequest.Create($"https://maps.googleapis.com/maps/api/elevation/json?locations={CLatitude},{CLongitude}&key={GoogleKey}"),
+                    Dim request = CType(WebRequest.Create($"https://maps.googleapis.com/maps/api/elevation/json?locations={CLatitude},{CLongitude}&key={GoogleKey}"),
                                         HttpWebRequest)
-                    Dim Response = CType(Request.GetResponse(), HttpWebResponse)
-                    FrmMain.RtbDebug.AppendText(Response.StatusCode & vbCrLf)
-                    FrmMain.RtbDebug.AppendText(Response.StatusDescription & vbCrLf & vbCrLf)
-                    Dim dStr = Response.GetResponseStream()
+                    Dim response = CType(request.GetResponse(), HttpWebResponse)
+                    FrmMain.RtbDebug.AppendText(response.StatusCode & vbCrLf)
+                    FrmMain.RtbDebug.AppendText(response.StatusDescription & vbCrLf & vbCrLf)
+                    Dim dStr = response.GetResponseStream()
                     Dim reader As New StreamReader(dStr)
                     Dim resp = reader.ReadToEnd()
                     FrmMain.RtbDebug.AppendText(resp & vbCrLf & vbCrLf)
@@ -37,7 +37,7 @@ Namespace Modules
                     GNfo = Goog.FromJson(resp)
                     reader.Close()
                     KInfo.SetValue("Altitude", $"{GNfo.Results(0).elevation:N0}", RegistryValueKind.DWord)
-                    Response.Close()
+                    response.Close()
                     FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Google Elevation file -> [{ue}]")
                     FrmMain.RtbDebug.AppendText($"Elevation: {GNfo.Results(0).elevation:N6}{vbCrLf}{vbCrLf}")
                 Catch ex As Exception

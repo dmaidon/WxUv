@@ -44,7 +44,7 @@ Public Class FrmMain
 
         ''cleanup the logfile folder and delete the old files.
         PerformLogMaintenance()
-        GetUVRealTime()
+        GetUvRealTime()
         InitializeArrays()
         With Me
             .Top = CInt(KMet.GetValue("Top", 100))
@@ -67,10 +67,10 @@ Public Class FrmMain
         RtbLog.AppendText($"{Squiggley}{vbCrLf}")
         SaveLogs()
 
-        GetUVForecast()
+        GetUvForecast()
 
         If NumTo.Value > 0 Then
-            GetUVProtection()
+            GetUvProtection()
         End If
 
         CollectMemoryGarbage()
@@ -186,8 +186,8 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
 #Region "TpDaily"
 
     Private Shared Sub BtnUpdateRT_Click(sender As Object, e As EventArgs) Handles BtnUpdateRT.Click
-        GetUVRealTime()
-        GetUVForecast()
+        GetUvRealTime()
+        GetUvForecast()
     End Sub
 
 #End Region
@@ -213,8 +213,8 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
     End Sub
 
     Private Shared Sub TmrRtUV_Elapsed(sender As Object, e As ElapsedEventArgs) Handles TmrRtUV.Elapsed
-        GetUVRealTime()
-        GetUVForecast()
+        GetUvRealTime()
+        GetUvForecast()
     End Sub
 
 #End Region
@@ -222,11 +222,11 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
 #Region "TpDebug"
 
     Private Shared Sub BtnForecast_Click(sender As Object, e As EventArgs) Handles BtnForecast.Click
-        GetUVForecast()
+        GetUvForecast()
     End Sub
 
     Private Shared Sub BtnRealTime_Click_1(sender As Object, e As EventArgs) Handles BtnRealTime.Click
-        GetUVRealTime()
+        GetUvRealTime()
     End Sub
 
 #End Region
@@ -295,7 +295,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
 #Region "Protection"
 
     Private Shared Sub BtnProtection_Click(sender As Object, e As EventArgs) Handles BtnProtection.Click
-        GetUVProtection()
+        GetUvProtection()
     End Sub
 
     Private Sub NumFrom_Enter(sender As Object, e As EventArgs) Handles NumFrom.Enter

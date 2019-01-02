@@ -4,16 +4,16 @@ Imports System.Text
 Imports WxUV.Forecast
 
 Namespace Modules
-    Module Uv_Forecast
-        Private uf As String
+    Module UvForecast
+        Private _uf As String
 
-        Public Sub GetUVForecast()
-            uf = Path.Combine(TempPath, UvFil)
-            If File.Exists(uf) Then
-                FrmMain.RtbLog.AppendText($"Reading cached UV file -> [{uf}]{vbCrLf}")
-                ParseJson(uf)
+        Public Sub GetUvForecast()
+            _uf = Path.Combine(TempPath, UvFil)
+            If File.Exists(_uf) Then
+                FrmMain.RtbLog.AppendText($"Reading cached UV file -> [{_uf}]{vbCrLf}")
+                ParseJson(_uf)
             Else
-                DownloadUVForecast()
+                DownloadUvForecast()
             End If
             DisplayUvForecast()
 
@@ -22,7 +22,7 @@ Namespace Modules
         Private Sub DisplayUvForecast()
             Try
                 Dim aa As List(Of String)
-                Dim rr = File.ReadAllText(uf)
+                Dim rr = File.ReadAllText(_uf)
                 Dim jj = CountString(rr, "uv_time")
                 FrmMain.LblDate.Text = $"{UvNfo.result(0).uvtime.tolocaltime:D}"
                 For j = 0 To jj - 1
@@ -47,8 +47,8 @@ Namespace Modules
                             UvArr(j).BackColor = Color.FromArgb(106, 27, 154)        ''#681b9a
                     End Select
 
-                    Dim _tmpImg = Path.Combine(Application.StartupPath, "Images", $"{UvNfo.result(j).uv:N0}.png")
-                    UvArr(j).Image = Image.FromFile(_tmpImg)
+                    Dim tmpImg = Path.Combine(Application.StartupPath, "Images", $"{UvNfo.result(j).uv:N0}.png")
+                    UvArr(j).Image = Image.FromFile(tmpImg)
                     UvArr(j).BorderStyle = BorderStyle.FixedSingle
                     LblArr(j).Text = $"{aa.Item(1)}{vbCrLf}{(UvNfo.result(j).uvtime).tolocaltime.hour}{vbCrLf}{""}"
 
@@ -98,25 +98,25 @@ Namespace Modules
             End Try
         End Sub
 
-        Private Sub DownloadUVForecast()
+        Private Sub DownloadUvForecast()
             OzLevel = KInfo.GetValue("Ozone", 0)
             ApiKey = Kuv.GetValue("Key", "")
             Try
-                Dim Request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/forecast?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&ozone={OzLevel}"), HttpWebRequest)
-                Request.Headers.Add($"x-access-token: {ApiKey}")
+                Dim request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/forecast?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&ozone={OzLevel}"), HttpWebRequest)
+                request.Headers.Add($"x-access-token: {ApiKey}")
 
-                Dim Response = CType(Request.GetResponse(), HttpWebResponse)
-                FrmMain.RtbDebug.AppendText(Response.StatusCode & vbCrLf)
-                FrmMain.RtbDebug.AppendText(Response.StatusDescription & vbCrLf & vbCrLf)
-                Dim dStr = Response.GetResponseStream()
+                Dim response = CType(request.GetResponse(), HttpWebResponse)
+                FrmMain.RtbDebug.AppendText(response.StatusCode & vbCrLf)
+                FrmMain.RtbDebug.AppendText(response.StatusDescription & vbCrLf & vbCrLf)
+                Dim dStr = response.GetResponseStream()
                 Dim reader As New StreamReader(dStr)
                 Dim resp = reader.ReadToEnd()
                 FrmMain.RtbDebug.AppendText(resp & vbCrLf & vbCrLf)
-                File.WriteAllText(uf, resp)
+                File.WriteAllText(_uf, resp)
                 UvNfo = UvFcast.FromJson(resp)
                 reader.Close()
-                Response.Close()
-                FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded UV Forecast -> [{uf}]{vbCrLf}")
+                response.Close()
+                FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded UV Forecast -> [{_uf}]{vbCrLf}")
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
             Finally
