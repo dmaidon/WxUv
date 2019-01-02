@@ -35,7 +35,7 @@ Namespace Modules
             FrmMain.RtbLog.AppendText($"Time: {Now:G}     UTC: {Now.ToUniversalTime():O}{vbCrLf}")
             Try
                 ''Dim Request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/uv?lat={cLatitude}&lng={cLongitude}&alt={Altitude}&ozone={OzLevel}&dt={dt}"), HttpWebRequest)
-                Dim Request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/uv?lat={cLatitude}&lng={cLongitude}&alt={Altitude}&dt={dt}"), HttpWebRequest)
+                Dim Request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/uv?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&dt={dt}"), HttpWebRequest)
                 Request.Headers.Add($"x-access-token: {ApiKey}")
 
                 Dim Response = CType(Request.GetResponse(), HttpWebResponse)

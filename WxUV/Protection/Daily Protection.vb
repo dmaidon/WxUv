@@ -1,8 +1,5 @@
-﻿Imports System
-Imports System.Net
-Imports System.Collections.Generic
+﻿Imports System.Runtime.CompilerServices
 Imports Newtonsoft.Json
-Imports System.Runtime.CompilerServices
 
 Namespace Protection
 
@@ -31,8 +28,13 @@ Namespace Protection
 
     Partial Public Class Dpt
 
-        Public Shared Function FromJson(ByVal json As String) As Dpt
-            Return JsonConvert.DeserializeObject(Of Dpt)(json, Protection.Converter.Settings)
+        Public Shared Function FromJson(json As String) As Dpt
+            ''https://stackoverflow.com/questions/31813055/how-to-handle-null-empty-values-in-jsonconvert-deserializeobject
+            Dim settings = New JsonSerializerSettings With {
+                    .NullValueHandling = NullValueHandling.Ignore,
+                    .MissingMemberHandling = MissingMemberHandling.Ignore
+                    }
+            Return JsonConvert.DeserializeObject(Of Dpt)(json, settings)
         End Function
 
     End Class
@@ -40,7 +42,7 @@ Namespace Protection
     Module Serialize
 
         <Extension()>
-        Function ToJson(ByVal self As Dpt) As String
+        Function ToJson(self As Dpt) As String
             Return JsonConvert.SerializeObject(self, Protection.Converter.Settings)
         End Function
 

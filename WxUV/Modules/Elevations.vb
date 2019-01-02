@@ -24,7 +24,7 @@ Namespace Modules
                 Exit Sub
             Else
                 Try
-                    Dim Request = CType(WebRequest.Create($"https://maps.googleapis.com/maps/api/elevation/json?locations={cLatitude},{cLongitude}&key={GoogleKey}"),
+                    Dim Request = CType(WebRequest.Create($"https://maps.googleapis.com/maps/api/elevation/json?locations={CLatitude},{CLongitude}&key={GoogleKey}"),
                                         HttpWebRequest)
                     Dim Response = CType(Request.GetResponse(), HttpWebResponse)
                     FrmMain.RtbDebug.AppendText(Response.StatusCode & vbCrLf)

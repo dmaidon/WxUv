@@ -57,10 +57,15 @@ Namespace RealTime
 
 #Enable Warning IDE1006 ' Naming Styles
 
-    Partial Public Class UVRTcast
+    Partial Public Class UvRtCast
 
-        Public Shared Function FromJson(ByVal json As String) As UvRtCast
-            Return JsonConvert.DeserializeObject(Of UvRtCast)(json, Converter.Settings)
+        Public Shared Function FromJson(json As String) As UvRtCast
+            ''https://stackoverflow.com/questions/31813055/how-to-handle-null-empty-values-in-jsonconvert-deserializeobject
+            Dim settings = New JsonSerializerSettings With {
+                    .NullValueHandling = NullValueHandling.Ignore,
+                    .MissingMemberHandling = MissingMemberHandling.Ignore
+                    }
+            Return JsonConvert.DeserializeObject(Of UvRtCast)(json, settings)
         End Function
 
     End Class
@@ -68,7 +73,7 @@ Namespace RealTime
     Module Serialize
 
         <Extension()>
-        Function ToJson(ByVal self As UvRtCast) As String
+        Function ToJson(self As UvRtCast) As String
             Return JsonConvert.SerializeObject(self, Converter.Settings)
         End Function
 

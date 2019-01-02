@@ -102,7 +102,7 @@ Namespace Modules
             OzLevel = KInfo.GetValue("Ozone", 0)
             ApiKey = Kuv.GetValue("Key", "")
             Try
-                Dim Request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/forecast?lat={cLatitude}&lng={cLongitude}&alt={Altitude}&ozone={OzLevel}"), HttpWebRequest)
+                Dim Request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/forecast?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&ozone={OzLevel}"), HttpWebRequest)
                 Request.Headers.Add($"x-access-token: {ApiKey}")
 
                 Dim Response = CType(Request.GetResponse(), HttpWebResponse)

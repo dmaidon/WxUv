@@ -17,8 +17,8 @@ Module Globals
     ''Google Elevation API Key
     Public GoogleKey As String = ""
 
-    Public cLatitude As Double = KSet.GetValue("Latitude", "37.787644")
-    Public cLongitude As Double = KSet.GetValue("Longitude", "-79.44189")
+    Public CLatitude As Double = KSet.GetValue("Latitude", "37.787644")
+    Public CLongitude As Double = KSet.GetValue("Longitude", "-79.44189")
 
     Public Const TempDir As String = "$tmp"
     Public TempPath As String
@@ -53,8 +53,8 @@ Module Globals
     Public Daylight As Boolean = False
 
     Public Subduration As TimeSpan = New TimeSpan(60)
-    Public ssFil As String = $"astro_{Now.ToString("Mdyy")}.json"
-    Public ssNfo As Object
+    Public SsFil As String = $"astro_{Now.ToString("Mdyy")}.json"
+    Public SsNfo As Object
 
     ''UV Forecast
     Public UvFil As String = $"uv-fc_{Now.ToString("Mdyy")}.json"

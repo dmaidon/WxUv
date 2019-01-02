@@ -8,23 +8,23 @@ Imports WxUV.Modules
 Public Class FrmMain
 
     'Adds the applications AssemblyName to the Desktop's path and adds the .lnk extension used for shortcuts
-    Private ReadOnly DesktopPathName As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), My.Application.Info.AssemblyName & $".lnk")
+    Private ReadOnly _desktopPathName As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), My.Application.Info.AssemblyName & $".lnk")
 
     'Adds the applications AssemblyName to the Startup folder path and adds the .lnk extension used for shortcuts
-    Private ReadOnly StartupPathName As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), My.Application.Info.AssemblyName & $".lnk")
+    Private ReadOnly _startupPathName As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), My.Application.Info.AssemblyName & $".lnk")
 
     'Used to stop the CheckBoxes CheckedChanged events from calling the CreateShortcut sub when the form is
     'loading and setting the Checkboxes states to true if the shortcuts exist.
-    Private Loading As Boolean = True
+    Private _loading As Boolean = True
 
     ''OpenUV
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Sets the Desktop checkbox checked state to true if the desktop shortcut exists
-        ChkDeskShort.Checked = IO.File.Exists(DesktopPathName)
+        ChkDeskShort.Checked = IO.File.Exists(_desktopPathName)
         'Sets the Startup Folder checkbox checked state to true if the Startup folder shortcut exists
-        ChkStartShort.Checked = IO.File.Exists(StartupPathName)
+        ChkStartShort.Checked = IO.File.Exists(_startupPathName)
         'The checkboxes checked states have been set so set Loading to false to allow the CreateShortcut sub to be called now
-        Loading = False
+        _loading = False
         Cpy = $"©{DateTime.Now.Year}, {Application.CompanyName}"
         CreateFolders()
 
@@ -234,21 +234,21 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
 #Region "Shortcuts"
 
     Private Sub ChkDeskShort_CheckedChanged(sender As Object, e As EventArgs) Handles ChkDeskShort.CheckedChanged
-        If Not Loading Then
+        If Not _loading Then
             If ChkDeskShort.Checked Then
-                CreateShortcut(DesktopPathName, True) 'Create a shortcut on the desktop
+                CreateShortcut(_desktopPathName, True) 'Create a shortcut on the desktop
             Else
-                CreateShortcut(DesktopPathName, False) 'Remove the shortcut from the desktop
+                CreateShortcut(_desktopPathName, False) 'Remove the shortcut from the desktop
             End If
         End If
     End Sub
 
     Private Sub ChkStartShort_CheckedChanged(sender As Object, e As EventArgs) Handles ChkStartShort.CheckedChanged
-        If Not Loading Then
+        If Not _loading Then
             If ChkStartShort.Checked Then
-                CreateShortcut(StartupPathName, True) 'Create a shortcut in the startup folder
+                CreateShortcut(_startupPathName, True) 'Create a shortcut in the startup folder
             Else
-                CreateShortcut(StartupPathName, False) 'Remove the shortcut in the startup folder
+                CreateShortcut(_startupPathName, False) 'Remove the shortcut in the startup folder
             End If
         End If
     End Sub
@@ -405,7 +405,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
         Dim result = MessageBox.Show(msg, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         ' If the no button was pressed ...
-        If (result = DialogResult.No) Then
+        If result = DialogResult.No Then
             ' cancel reset
             Exit Sub
         Else

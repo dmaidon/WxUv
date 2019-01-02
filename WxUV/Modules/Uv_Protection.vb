@@ -17,9 +17,9 @@ Namespace Modules
             If Not Keyset Then
                 Exit Sub
             End If
-            FrmMain.RtbDebug.AppendText($"Protection Debug{vbCrLf}Lat: {cLatitude}   Long: {cLongitude}{vbCrLf}Altitude: {Altitude}{vbCrLf}Ozone: {OzLevel}{vbCrLf}From: {fromm}   To: {too}{vbCrLf}{vbCrLf}")
+            FrmMain.RtbDebug.AppendText($"Protection Debug{vbCrLf}Lat: {CLatitude}   Long: {CLongitude}{vbCrLf}Altitude: {Altitude}{vbCrLf}Ozone: {OzLevel}{vbCrLf}From: {fromm}   To: {too}{vbCrLf}{vbCrLf}")
             Try
-                Dim Request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/protection?lat={cLatitude}&lng={cLongitude}&alt={Altitude}&ozone={OzLevel}&from={fromm}&to={too}"), HttpWebRequest)
+                Dim Request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/protection?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&ozone={OzLevel}&from={fromm}&to={too}"), HttpWebRequest)
                 Request.Headers.Add($"x-access-token: {ApiKey}")
 
                 Dim Response = CType(Request.GetResponse(), HttpWebResponse)

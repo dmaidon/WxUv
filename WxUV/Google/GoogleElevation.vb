@@ -1,5 +1,5 @@
-﻿Imports Newtonsoft.Json
-Imports System.Runtime.CompilerServices
+﻿Imports System.Runtime.CompilerServices
+Imports Newtonsoft.Json
 
 Namespace Google
 
@@ -38,8 +38,13 @@ Namespace Google
 
     Partial Public Class Goog
 
-        Public Shared Function FromJson(ByVal json As String) As Goog
-            Return JsonConvert.DeserializeObject(Of Goog)(json, Converter.Settings)
+        Public Shared Function FromJson(json As String) As Goog
+            ''https://stackoverflow.com/questions/31813055/how-to-handle-null-empty-values-in-jsonconvert-deserializeobject
+            Dim settings = New JsonSerializerSettings With {
+                    .NullValueHandling = NullValueHandling.Ignore,
+                    .MissingMemberHandling = MissingMemberHandling.Ignore
+                    }
+            Return JsonConvert.DeserializeObject(Of Goog)(json, settings)
         End Function
 
     End Class
@@ -47,7 +52,7 @@ Namespace Google
     Module Serialize
 
         <Extension()>
-        Function ToJson(ByVal self As Goog) As String
+        Function ToJson(self As Goog) As String
             Return JsonConvert.SerializeObject(self, Converter.Settings)
         End Function
 
