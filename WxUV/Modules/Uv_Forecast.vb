@@ -22,7 +22,12 @@ Namespace Modules
         Private Sub DisplayUvForecast()
             Try
                 Dim aa As List(Of String)
-                Dim rr = File.ReadAllText(_uf)
+                Dim rr As String
+                If File.Exists(_uf) Then
+                    rr = File.ReadAllText(_uf)
+                Else
+                    Return
+                End If
                 Dim jj = CountString(rr, "uv_time")
                 FrmMain.LblDate.Text = $"{UvNfo.result(0).uvtime.tolocaltime:D}"
                 For j = 0 To jj - 1
@@ -93,7 +98,7 @@ Namespace Modules
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
             Finally
-                FrmMain.RtbLog.AppendText($"{Separator}{vbCrLf}")
+                FrmMain.RtbLog.AppendText($"{SEPARATOR}{vbCrLf}")
                 SaveLogs()
             End Try
         End Sub
@@ -101,6 +106,14 @@ Namespace Modules
         Private Sub DownloadUvForecast()
             OzLevel = KInfo.GetValue("Ozone", 0)
             ApiKey = Kuv.GetValue("Key", "")
+            If ApiKey.Trim() = "" Then
+                Keyset = False
+                'MsgBox($"OpenUV API key not entered.{vbCrLf}Please enter key on 'Settings' tab.")
+                FrmMain.TC.SelectedTab = FrmMain.TpSettings
+                Return
+            Else
+                Keyset = True
+            End If
             Try
                 Dim request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/forecast?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&ozone={OzLevel}"), HttpWebRequest)
                 request.Headers.Add($"x-access-token: {ApiKey}")
@@ -120,7 +133,7 @@ Namespace Modules
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
             Finally
-                FrmMain.RtbLog.AppendText($"{Separator}{vbCrLf}")
+                FrmMain.RtbLog.AppendText($"{SEPARATOR}{vbCrLf}")
                 SaveLogs()
             End Try
 
@@ -138,7 +151,7 @@ Namespace Modules
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
             Finally
-                FrmMain.RtbLog.AppendText($"{Separator}{vbCrLf}")
+                FrmMain.RtbLog.AppendText($"{SEPARATOR}{vbCrLf}")
             End Try
             SaveLogs()
         End Sub

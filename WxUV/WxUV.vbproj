@@ -28,7 +28,7 @@
     <ProductName>WxUV</ProductName>
     <PublisherName>PAROLE Software</PublisherName>
     <ApplicationRevision>105</ApplicationRevision>
-    <ApplicationVersion>19.8.15.2</ApplicationVersion>
+    <ApplicationVersion>19.8.15.10</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <ShouldCreateLogs>True</ShouldCreateLogs>
@@ -135,6 +135,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ElevationAPI\ElevationData.vb" />
     <Compile Include="Forecast\ForecastJson.vb" />
     <Compile Include="FrmMain.vb">
       <SubType>Form</SubType>

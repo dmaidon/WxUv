@@ -5,54 +5,126 @@ Namespace RealTime
 #Disable Warning IDE1006 ' Naming Styles
 
     Partial Friend Class UvRtCast
-        Public Property result As Result
+
+        <JsonProperty("result")>
+        Public Property Result As Result
+
     End Class
 
-    Partial Public Class Result
-        Public Property uv As Double
-        Public Property uv_time As Date
-        Public Property uv_max As Single
-        Public Property uv_max_time As Date
-        Public Property ozone As Double
-        Public Property ozone_time As Date
-        Public Property safe_exposure_time As Safe_Exposure_Time
-        Public Property sun_info As Sun_Info
+    Partial Friend Class Result
+
+        <JsonProperty("uv")>
+        Public Property Uv As Double
+
+        <JsonProperty("uv_time")>
+        Public Property UvTime As Date
+
+        <JsonProperty("uv_max")>
+        Public Property UvMax As Single
+
+        <JsonProperty("uv_max_time")>
+        Public Property UvMaxTime As Date
+
+        <JsonProperty("ozone")>
+        Public Property Ozone As Double
+
+        <JsonProperty("ozone_time")>
+        Public Property OzoneTime As Date
+
+        <JsonProperty("safe_exposure_time")>
+        Public Property SafeExposureTime As SafeExposureTime
+
+        <JsonProperty("sun_info")>
+        Public Property SunInfo As SunInfo
+
     End Class
 
-    Partial Public Class Safe_Exposure_Time
-        Public Property st1 As Object
-        Public Property st2 As Object
-        Public Property st3 As Object
-        Public Property st4 As Object
-        Public Property st5 As Object
-        Public Property st6 As Object
+    Partial Friend MustInherit Class SafeExposureTime
+
+        <JsonProperty("st1")>
+        Public Property St1 As Integer
+
+        <JsonProperty("st2")>
+        Public Property St2 As Integer
+
+        <JsonProperty("st3")>
+        Public Property St3 As Integer
+
+        <JsonProperty("st4")>
+        Public Property St4 As Integer
+
+        <JsonProperty("st5")>
+        Public Property St5 As Integer
+
+        <JsonProperty("st6")>
+        Public Property St6 As Integer
+
     End Class
 
-    Partial Public Class Sun_Info
-        Public Property sun_times As Sun_Times
-        Public Property sun_position As Sun_Position
+    Partial Friend MustInherit Class SunInfo
+
+        <JsonProperty("sun_times")>
+        Public Property SunTimes As SunTimes
+
+        <JsonProperty("sun_position")>
+        Public Property SunPosition As SunPosition
+
     End Class
 
-    Partial Public Class Sun_Times
-        Public Property solarNoon As Date
-        Public Property nadir As Date
-        Public Property sunrise As Date
-        Public Property sunset As Date
-        Public Property sunriseEnd As Date
-        Public Property sunsetStart As Date
-        Public Property dawn As Date
-        Public Property dusk As Date
-        Public Property nauticalDawn As Date
-        Public Property nauticalDusk As Date
-        Public Property nightEnd As Date
-        Public Property night As Date
-        Public Property goldenHourEnd As Date
-        Public Property goldenHour As Date
+    Partial Friend MustInherit Class SunTimes
+
+        <JsonProperty("solarNoon")>
+        Public Property SolarNoon As Date
+
+        <JsonProperty("nadir")>
+        Public Property NaDir As Date
+
+        <JsonProperty("sunrise")>
+        Public Property Sunrise As Date
+
+        <JsonProperty("sunset")>
+        Public Property Sunset As Date
+
+        <JsonProperty("sunriseEnd")>
+        Public Property SunriseEnd As Date
+
+        <JsonProperty("sunsetStart")>
+        Public Property SunsetStart As Date
+
+        <JsonProperty("dawn")>
+        Public Property Dawn As Date
+
+        <JsonProperty("dusk")>
+        Public Property Dusk As Date
+
+        <JsonProperty("nauticalDawn")>
+        Public Property NauticalDawn As Date
+
+        <JsonProperty("nauticalDusk")>
+        Public Property NauticalDusk As Date
+
+        <JsonProperty("nightEnd")>
+        Public Property NightEnd As Date
+
+        <JsonProperty("night")>
+        Public Property Night As Date
+
+        <JsonProperty("goldenHourEnd")>
+        Public Property GoldenHourEnd As Date
+
+        <JsonProperty("goldenHour")>
+        Public Property GoldenHour As Date
+
     End Class
 
-    Partial Public Class Sun_Position
-        Public Property azimuth As Decimal
-        Public Property altitude As Decimal
+    Partial Friend MustInherit Class SunPosition
+
+        <JsonProperty("azimuth")>
+        Public Property Azimuth As Decimal
+
+        <JsonProperty("altitude")>
+        Public Property Altitude As Decimal
+
     End Class
 
 #Enable Warning IDE1006 ' Naming Styles

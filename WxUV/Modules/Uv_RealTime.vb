@@ -28,6 +28,7 @@ Namespace Modules
                 Keyset = False
                 'MsgBox($"OpenUV API key not entered.{vbCrLf}Please enter key on 'Settings' tab.")
                 FrmMain.TC.SelectedTab = FrmMain.TpSettings
+                Return
             Else
                 Keyset = True
             End If

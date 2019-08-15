@@ -19,7 +19,7 @@ Namespace Modules
             Dim ue = Path.Combine(TempPath, GElev)
             If GoogleKey.Trim() = "" Then
                 ''if we don't have the Google Elevation Key set, exit this sub
-                FrmMain.RtbLog.AppendText($"Google Elevation API Key not set -> Elevation not set.")
+                FrmMain.RtbLog.AppendText($"Google Elevation API Key not set -> Elevation not set.{vbLf}")
                 Return
             Else
                 Try
