@@ -4,26 +4,17 @@ Imports Newtonsoft.Json
 Namespace Protection
 
     Partial Public Class Dpt
-
-        <JsonProperty("result")>
-        Public Property Result As Result
-
+        <JsonProperty("result")> Public Property Result As Result
     End Class
 
     Partial Public Class Result
+        <JsonProperty("from_time")> Public Property FromTime As DateTime
 
-        <JsonProperty("from_time")>
-        Public Property FromTime As DateTime
+        <JsonProperty("from_uv")> Public Property FromUv As Double
 
-        <JsonProperty("from_uv")>
-        Public Property FromUv As Double
+        <JsonProperty("to_time")> Public Property ToTime As DateTime
 
-        <JsonProperty("to_time")>
-        Public Property ToTime As DateTime
-
-        <JsonProperty("to_uv")>
-        Public Property ToUv As Double
-
+        <JsonProperty("to_uv")> Public Property ToUv As Double
     End Class
 
     Partial Public Class Dpt
@@ -41,8 +32,7 @@ Namespace Protection
 
     Module Serialize
 
-        <Extension()>
-        Function ToJson(self As Dpt) As String
+        <Extension> Function ToJson(self As Dpt) As String
             Return JsonConvert.SerializeObject(self, Converter.Settings)
         End Function
 
@@ -50,9 +40,11 @@ Namespace Protection
 
     Friend Class Converter
 
-        Public Shared ReadOnly Settings As JsonSerializerSettings = New JsonSerializerSettings With {.MetadataPropertyHandling = MetadataPropertyHandling.Ignore, .DateParseHandling = DateParseHandling.None}
-    End Class
+        Public Shared ReadOnly _
+            Settings As JsonSerializerSettings = New JsonSerializerSettings _
+            With {.MetadataPropertyHandling = MetadataPropertyHandling.Ignore, .DateParseHandling = DateParseHandling.None}
 
+    End Class
 End Namespace
 
 ''{

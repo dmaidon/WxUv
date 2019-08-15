@@ -1,4 +1,7 @@
 ﻿Imports Microsoft.Win32
+Imports WxUV.Forecast
+Imports WxUV.RealTime
+Imports WxUV.Protection
 
 Module Globals
 
@@ -43,7 +46,7 @@ Module Globals
     Public Const SQUIGGLEY As String = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
     ''main items
-    Public TimerMultiplier As Long = 60000
+    Public Const TIMER_MULTIPLIER As Long = 60000
 
     Public Cpy As String
     Public LMsg As String
@@ -53,26 +56,26 @@ Module Globals
     Public Daylight As Boolean = False
 
     Public Subduration As TimeSpan = New TimeSpan(60)
-    Public SsFil As String = $"astro_{Now.ToString("Mdyy")}.json"
-    Public SsNfo As Object
+    'Public SsFil As String = $"astro_{Now.ToString("Mdyy")}.json"
+    'Public SsNfo As Object
 
     ''UV Forecast
     Public ReadOnly UvFil As String = $"uv-fc_{Now.ToString("Mdyy")}.json"
 
-    Public UvNfo As Object
+    Public UvNfo As UvFcast
 
     ''Real-time
     Public ReadOnly RtFil As String = $"uv-rt_{Now.ToString("Mdyy")}.json"
 
-    Public RtNfo As Object
+    Public RtNfo As UvRtCast
 
-    Public OzNfo As Object
+    'Public OzNfo As Object
     Public OzLevel As String
 
     ''Protection
     Public ReadOnly ProtFil As String = $"uv-pt_{Now.ToString("Mdyy")}.json"
 
-    Public ProtNfo As Object
+    Public ProtNfo As Dpt
     Public FrmNdx As Double = 0
     Public ToNdx As Double = 0
 
@@ -87,5 +90,6 @@ Module Globals
     Public ConsumerKey As String = ""
 
     Public ConsumerKeySecret As String = ""
+    Public Const USE_AGENT As String = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3794.0 Safari/537.36 Edg/76.0.162.0"
 
 End Module

@@ -29,16 +29,15 @@ Friend Class FrmMain
         CreateFolders()
 
         ''set the header for the .log file
-        Dim timesRun As Long
-        timesRun = CLng((KInfo.GetValue(My.Resources.timesrun, 0))) + 1
-        KInfo.SetValue("TimesRun", timesRun, RegistryValueKind.QWord)
+        Dim timesRun = CLng((KInfo.GetValue(My.Resources.timesrun, 0)))
+        KInfo.SetValue(My.Resources.timesrun, timesRun + 1, RegistryValueKind.QWord)
         KInfo.SetValue("Last Run", Now.ToString, RegistryValueKind.String)
         KInfo.SetValue("FirstRun", False, RegistryValueKind.String)
-        LogFile = $"{Path.Combine(Application.StartupPath, LOG_DIR)}\uv_{Format(Now, "MMddyyyy_").ToString}{timesRun}.log"
+        LogFile = $"{Path.Combine(Application.StartupPath, LOG_DIR)}\uv_{Format(Now, "MMddyyyy_").ToString}{timesRun + 1}.log"
         LMsg = ""
         LMsg = $"Log file started: {Now}{vbCrLf}"
         LMsg &= $"Program: {Application.ProductName} v{Application.ProductVersion}{vbCrLf}"
-        LMsg &= $"Times run: {timesRun}{vbCrLf}"
+        LMsg &= $"Times run: {timesRun + 1}{vbCrLf}"
         LMsg &= $"Update frequency: {Updatetime} minutes.{vbCrLf}{SEPARATOR}{vbCrLf}"
         RtbLog.AppendText(LMsg)
 
@@ -52,7 +51,7 @@ Friend Class FrmMain
             .Text = $"{Application.ProductName}"
             .TsslVer.Text = $"{Application.ProductVersion}"
             .TsslCpy.Text = $"{Cpy}"
-            .TsslTimesRun.Text = $"[{timesRun}]"
+            .TsslTimesRun.Text = String.Format(TsslTimesRun.Tag, timesRun)
             .SetTimers()
             .Show()
         End With
@@ -197,7 +196,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
     Private Sub SetTimers()
         Try
             If KInfo.GetValue(My.Resources.uv_int, 0) > 0 Then
-                TmrRtUV.Interval = KInfo.GetValue(My.Resources.uv_int, 0) * TimerMultiplier
+                TmrRtUV.Interval = KInfo.GetValue(My.Resources.uv_int, 0) * TIMER_MULTIPLIER
                 TmrRtUV.Enabled = True
                 TmrRtUV.Start()
             Else

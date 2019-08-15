@@ -9,12 +9,13 @@ Namespace Modules
 
         Public Sub GetUvRealTime()
             _urt = Path.Combine(TempPath, RtFil)
-            'If File.Exists(urt) Then
-            '    FrmMain.RtbLog.AppendText($"Reading cached Real-time UV file -> [{urt}]{vbCrLf}")
-            '    ParseJson(urt)
-            'Else
-            DownloadUvRealTime()
-            ' End If
+            If File.Exists(_urt) Then
+                FrmMain.RtbLog.AppendText($"Reading cached Real-time UV file -> [{_urt}]{vbCrLf}")
+                ParseRtJson(_urt)
+                DisplayInfo()
+            Else
+                DownloadUvRealTime()
+            End If
         End Sub
 
         Private Sub DownloadUvRealTime()
@@ -35,83 +36,86 @@ Namespace Modules
             FrmMain.RtbDebug.AppendText($"Time: {Now:G}     UTC: {Now.ToUniversalTime():O}{vbCrLf}")
             FrmMain.RtbLog.AppendText($"Time: {Now:G}     UTC: {Now.ToUniversalTime():O}{vbCrLf}")
             Try
-                ''Dim Request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/uv?lat={cLatitude}&lng={cLongitude}&alt={Altitude}&ozone={OzLevel}&dt={dt}"), HttpWebRequest)
                 Dim request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/uv?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&dt={dt}"), HttpWebRequest)
-                request.Headers.Add($"x-access-token: {ApiKey}")
+                With request
+                    .Headers.Add($"x-access-token: {ApiKey}")
+                    .AutomaticDecompression = DecompressionMethods.GZip Or DecompressionMethods.Deflate
+                    .Accept = "application/json"
+                    .Timeout = 120000
+                    .Headers.Add("Accept-Encoding", "gzip, deflate")
+                    .UserAgent = USE_AGENT
+                End With
 
-                Dim response = CType(request.GetResponse(), HttpWebResponse)
-                FrmMain.RtbDebug.AppendText(response.StatusCode & vbCrLf)
-                FrmMain.RtbDebug.AppendText(response.StatusDescription & vbCrLf & vbCrLf)
-                Dim dStr = response.GetResponseStream()
-                Dim reader As New StreamReader(dStr)
-                Dim resp = reader.ReadToEnd()
-                FrmMain.RtbDebug.AppendText(resp & vbCrLf & vbCrLf)
-                File.WriteAllText(_urt, resp)
-                RtNfo = UvRtCast.FromJson(resp)
-                reader.Close()
-                Dim tmpImg = Path.Combine(Application.StartupPath, "Images", $"{RtNfo.result.uv:N0}.png")
-                FrmMain.RtbLog.AppendText($"Set Image: {tmpImg}{vbCrLf}")
-                FrmMain.PbUV.Image = Image.FromFile(tmpImg)
+                Using response = CType(request.GetResponse(), HttpWebResponse)
+                    FrmMain.RtbDebug.AppendText(response.StatusCode & vbCrLf)
+                    FrmMain.RtbDebug.AppendText(response.StatusDescription & vbCrLf & vbCrLf)
+                    Dim dStr = response.GetResponseStream()
+                    Using reader As New StreamReader(dStr)
+                        Dim resp = reader.ReadToEnd()
+                        FrmMain.RtbDebug.AppendText(resp & vbCrLf & vbCrLf)
+                        File.WriteAllText(_urt, resp)
+                        RtNfo = UvRtCast.FromJson(resp)
+                    End Using
+                    Dim tmpImg = Path.Combine(Application.StartupPath, "Images", $"{RtNfo.Result.Uv:N0}.png")
+                    FrmMain.RtbLog.AppendText($"Set Image: {tmpImg}{vbCrLf}")
+                    FrmMain.PbUV.Image = Image.FromFile(tmpImg)
 
-                ''set ozone level in registry to UV Forecast
-                KInfo.SetValue(My.Resources.oz, $"{RtNfo.result.Ozone:N0}", RegistryValueKind.String)
-                FrmMain.LblCurOzone.Text = $"Ozone: {RtNfo.result.Ozone:N0}"
+                    ''set ozone level in registry to UV Forecast
+                    KInfo.SetValue(My.Resources.oz, $"{RtNfo.Result.Ozone:N0}", RegistryValueKind.String)
+                    FrmMain.LblCurOzone.Text = $"Ozone: {RtNfo.Result.Ozone:N0}"
 
-                Dim ab = RtNfo.result.uv
-                Dim aa = GetUvLevel(ab)
-                Select Case aa.Item(3)
-                    Case "Green"
-                        'UvArr(j).BackColor = Color.Green
-                        FrmMain.PbUV.BackColor = Color.FromArgb(85, 139, 47)        ''#558b25
-                    Case "Yellow"
-                        'UvArr(j).BackColor = Color.Yellow
-                        FrmMain.PbUV.BackColor = Color.FromArgb(247, 228, 0)        ''#f9a825
-                    Case "Orange"
-                        'UvArr(j).BackColor = Color.Orange
-                        FrmMain.PbUV.BackColor = Color.FromArgb(249, 108, 0)        ''#ef6c00
-                    Case "Red"
-                        'UvArr(j).BackColor = Color.Firebrick
-                        FrmMain.PbUV.BackColor = Color.FromArgb(183, 28, 28)        ''#b71c1c
-                    Case "Purple"
-                        'UvArr(j).BackColor = Color.Purple
-                        FrmMain.PbUV.BackColor = Color.FromArgb(106, 27, 154)        ''#681b9a
-                End Select
+                    Dim ab = RtNfo.Result.Uv
+                    Dim aa = GetUvLevel(ab)
+                    Select Case aa.Item(3)
+                        Case "Green"
+                            'UvArr(j).BackColor = Color.Green
+                            FrmMain.PbUV.BackColor = Color.FromArgb(85, 139, 47)        ''#558b25
+                        Case "Yellow"
+                            'UvArr(j).BackColor = Color.Yellow
+                            FrmMain.PbUV.BackColor = Color.FromArgb(247, 228, 0)        ''#f9a825
+                        Case "Orange"
+                            'UvArr(j).BackColor = Color.Orange
+                            FrmMain.PbUV.BackColor = Color.FromArgb(249, 108, 0)        ''#ef6c00
+                        Case "Red"
+                            'UvArr(j).BackColor = Color.Firebrick
+                            FrmMain.PbUV.BackColor = Color.FromArgb(183, 28, 28)        ''#b71c1c
+                        Case "Purple"
+                            'UvArr(j).BackColor = Color.Purple
+                            FrmMain.PbUV.BackColor = Color.FromArgb(106, 27, 154)        ''#681b9a
+                    End Select
 
-                Dim sunrise As Date = RtNfo.result.sun_info.sun_times.sunrise   '.tolocaltime5
-                'MsgBox(Date2Unix(RtNfo.result.sun_info.sun_times.sunrise))
-                Dim sunset As Date = RtNfo.result.sun_info.sun_times.sunset '.tolocaltime
-                Dim a = Date2Unix(RtNfo.result.sun_info.sun_times.sunrise)
-                Dim b = Date2Unix(RtNfo.result.sun_info.sun_times.sunset)
-                Dim dSpan = TimeSpan.FromSeconds(b - a)
-                FrmMain.LblDayLen.Text = $"LoD: {dSpan.Hours:N0} hrs. {dSpan.Minutes:N0} min. {dSpan.Seconds} sec."
-                Dim t As Date = RtNfo.result.sun_info.sun_times.sunrise
-                Dim x As Date = RtNfo.result.sun_info.sun_times.sunset
-                t = t.ToLocalTime.ToString
-                x = x.ToLocalTime.ToString
-                Dim dttSunrise As Date = t.ToShortTimeString()
-                Dim dttSunset As Date = x.ToShortTimeString()
-                If Now.IsDaylightSavingTime() Then
-                    sunrise = sunrise.Add(Subduration)
-                    sunset = sunset.Add(Subduration)
-                    FrmMain.RtbLog.AppendText($"Daylight Savings Time calculated.{vbCrLf}")
-                End If
+                    Dim sunrise As Date = RtNfo.Result.SunInfo.SunTimes.Sunrise   '.tolocaltime5
+                    'MsgBox(Date2Unix(RtNfo.result.suninfo.suntimes.sunrise))
+                    Dim sunset As Date = RtNfo.Result.SunInfo.SunTimes.Sunset '.tolocaltime
+                    Dim a = Date2Unix(RtNfo.Result.SunInfo.SunTimes.Sunrise)
+                    Dim b = Date2Unix(RtNfo.Result.SunInfo.SunTimes.Sunset)
+                    FrmMain.LblDayLen.Text = DisplayDayLen(TimeSpan.FromSeconds(b - a))
+                    'Dim dSpan = TimeSpan.FromSeconds(b - a)
+                    'FrmMain.LblDayLen.Text = $"LoD: {dSpan.Hours:N0} hrs. {dSpan.Minutes:N0} min. {dSpan.Seconds} sec."
 
-                FrmMain.RtbLog.AppendText($"Now: {Now.ToLongTimeString()}     Sunrise: {sunrise}     Sunset: {sunset}{vbCrLf}")
-                'If Now.ToLongTimeString() >= $"{sunrise}" And Now.ToLongTimeString() <= $"{sunset}" Then
-                'MsgBox(My.Computer.Clock.LocalTime.ToShortTimeString & vbCrLf & sunrise.ToLocalTime.ToShortTimeString())
-                Daylight = My.Computer.Clock.LocalTime.ToShortTimeString >= dttSunrise AndAlso My.Computer.Clock.LocalTime.ToShortTimeString <= dttSunset
-                'MsgBox(Daylight)
-                FrmMain.RtbLog.AppendText($"Sunrise: {sunrise}     Daylight = {Daylight}{vbCrLf}")
-                FrmMain.RtbLog.AppendText(SEPARATOR & vbCrLf)
-                DisplayInfo()
+                    Dim t As Date = RtNfo.Result.SunInfo.SunTimes.Sunrise
+                    Dim x As Date = RtNfo.Result.SunInfo.SunTimes.Sunset
+                    t = t.ToLocalTime.ToString
+                    x = x.ToLocalTime.ToString
+                    Dim dttSunrise As Date = t.ToShortTimeString()
+                    Dim dttSunset As Date = x.ToShortTimeString()
+                    If Now.IsDaylightSavingTime() Then
+                        sunrise = sunrise.Add(Subduration)
+                        sunset = sunset.Add(Subduration)
+                        FrmMain.RtbLog.AppendText($"Daylight Savings Time calculated.{vbCrLf}")
+                    End If
 
-                response.Close()
-                FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Real-time UV Forecast -> [{_urt}]{vbCrLf}")
-
-                FrmMain.RtbDebug.AppendText _
-                    ($"Time: {(RtNfo.result.uv_time).tolocaltime}{vbCrLf}UV Level: {RtNfo.result.uv}{vbCrLf}UV Maximum Time: {RtNfo.result.uv_max_time}{vbCrLf _
-                        }UV Maximum: {RtNfo.result.uv_max}{vbCrLf}Ozone: {RtNfo.result.ozone}{vbCrLf}Ozone Time: {(RtNfo.result.ozone_time).tolocaltime _
+                    FrmMain.RtbLog.AppendText($"Now: {Now.ToLongTimeString()}     Sunrise: {sunrise}     Sunset: {sunset}{vbCrLf}")
+                    Daylight = My.Computer.Clock.LocalTime.ToShortTimeString >= dttSunrise AndAlso My.Computer.Clock.LocalTime.ToShortTimeString <= dttSunset
+                    FrmMain.RtbLog.AppendText($"Sunrise: {sunrise}     Daylight = {Daylight}{vbCrLf}")
+                    FrmMain.RtbLog.AppendText(SEPARATOR & vbCrLf)
+                    DisplayInfo()
+                    FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Real-time UV Forecast -> [{_urt}]{vbCrLf}")
+                    FrmMain.RtbDebug.AppendText _
+                    ($"Time: {(RtNfo.Result.UvTime).ToLocalTime}{vbCrLf}UV Level: {RtNfo.Result.Uv}{vbCrLf}UV Maximum Time: {RtNfo.Result.UvMaxTime}{vbCrLf _
+                        }UV Maximum: {RtNfo.Result.UvMax}{vbCrLf}Ozone: {RtNfo.Result.Ozone}{vbCrLf}Ozone Time: {(RtNfo.Result.OzoneTime).ToLocalTime _
                         }{vbCrLf}{vbCrLf}")
+                End Using
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
             Finally
@@ -120,28 +124,52 @@ Namespace Modules
             End Try
         End Sub
 
+        Private Function DisplayDayLen(a As TimeSpan) As String
+            Return $"LoD: {a.Hours:N0} hrs. {a.Minutes:N0} min. {a.Seconds} sec."
+        End Function
+
         Private Sub DisplayInfo()
             With FrmMain
-                .LblSunrise.Text = $"Sunrise: {RtNfo.result.sun_info.sun_times.sunrise.tolocaltime:t}"
-                .LblSunset.Text = $"Sunset: {RtNfo.result.sun_info.sun_times.sunset.tolocaltime:t}"
-                .LblSolarNoon.Text = $"Solar Noon: {RtNfo.result.sun_info.sun_times.solarnoon.tolocaltime:t}"
-                '.LblDayLen.Text = $"Length of Day: {RtNfo.result.sun_info.sun_times.daylength}"
-                .LblSiSunrise.Text = $"Sunrise: {RtNfo.result.sun_info.sun_times.sunrise.tolocaltime:t}"
-                .LblSiSunset.Text = $"Sunset: {RtNfo.result.sun_info.sun_times.sunset.tolocaltime:t}"
-                .LblSiSolarNoon.Text = $"Solar Noon: {RtNfo.result.sun_info.sun_times.solarnoon.tolocaltime:t}"
-                .LblSiSunriseEnd.Text = $"Sunrise End: {RtNfo.result.sun_info.sun_times.sunriseend.tolocaltime:t}"
-                .LblSiSunsetStart.Text = $"Sunset Start: {RtNfo.result.sun_info.sun_times.sunsetstart.tolocaltime:t}"
-                .LblSiDawn.Text = $"Dawn: {RtNfo.result.sun_info.sun_times.dawn.tolocaltime:t}"
-                .LblSiDusk.Text = $"Dusk: {RtNfo.result.sun_info.sun_times.dusk.tolocaltime:t}"
-                .LblSiNautDawn.Text = $"Nautical Dawn: {RtNfo.result.sun_info.sun_times.nauticaldawn.tolocaltime:t}"
-                .LblSiNautDusk.Text = $"Nautical Dusk: {RtNfo.result.sun_info.sun_times.nauticaldusk.tolocaltime:t}"
-                .LblSiNightStart.Text = $"Night Begins: {RtNfo.result.sun_info.sun_times.night.tolocaltime:t}"
-                .LblSiNightEnd.Text = $"Night Ends: {RtNfo.result.sun_info.sun_times.nightend.tolocaltime:t}"
-                .LblSiNightDark.Text = $"Night Darkest: {RtNfo.result.sun_info.sun_times.nadir.tolocaltime:t}"
-                .LblsiGoldenStart.Text = $"Golden Hour Start: {RtNfo.result.sun_info.sun_times.goldenhour.tolocaltime:t}"
-                .LblSiGoldenEnd.Text = $"Golden Hour End: {RtNfo.result.sun_info.sun_times.goldenhourend.tolocaltime:t}"
-                .LblSunPos.Text = $"Azimuth: {RtNfo.result.sun_info.sun_position.azimuth.ToString()}     Altitude: {RtNfo.result.sun_info.sun_position.altitude.ToString()}"
+                .LblSunrise.Text = $"Sunrise: {RtNfo.Result.SunInfo.SunTimes.Sunrise.ToLocalTime:t}"
+                .LblSunset.Text = $"Sunset: {RtNfo.Result.SunInfo.SunTimes.Sunset.ToLocalTime:t}"
+                .LblSolarNoon.Text = $"Solar Noon: {RtNfo.Result.SunInfo.SunTimes.SolarNoon.ToLocalTime:t}"
+                '.LblDayLen.Text = $"Length of Day: {RtNfo.result.suninfo.suntimes.daylength}"
+                .LblSiSunrise.Text = $"Sunrise: {RtNfo.Result.SunInfo.SunTimes.Sunrise.ToLocalTime:t}"
+                .LblSiSunset.Text = $"Sunset: {RtNfo.Result.SunInfo.SunTimes.Sunset.ToLocalTime:t}"
+                .LblSiSolarNoon.Text = $"Solar Noon: {RtNfo.Result.SunInfo.SunTimes.SolarNoon.ToLocalTime:t}"
+                .LblSiSunriseEnd.Text = $"Sunrise End: {RtNfo.Result.SunInfo.SunTimes.SunriseEnd.ToLocalTime:t}"
+                .LblSiSunsetStart.Text = $"Sunset Start: {RtNfo.Result.SunInfo.SunTimes.SunsetStart.ToLocalTime:t}"
+                .LblSiDawn.Text = $"Dawn: {RtNfo.Result.SunInfo.SunTimes.Dawn.ToLocalTime:t}"
+                .LblSiDusk.Text = $"Dusk: {RtNfo.Result.SunInfo.SunTimes.Dusk.ToLocalTime:t}"
+                .LblSiNautDawn.Text = $"Nautical Dawn: {RtNfo.Result.SunInfo.SunTimes.NauticalDawn.ToLocalTime:t}"
+                .LblSiNautDusk.Text = $"Nautical Dusk: {RtNfo.Result.SunInfo.SunTimes.NauticalDusk.ToLocalTime:t}"
+                .LblSiNightStart.Text = $"Night Begins: {RtNfo.Result.SunInfo.SunTimes.Night.ToLocalTime:t}"
+                .LblSiNightEnd.Text = $"Night Ends: {RtNfo.Result.SunInfo.SunTimes.NightEnd.ToLocalTime:t}"
+                .LblSiNightDark.Text = $"Night Darkest: {RtNfo.Result.SunInfo.SunTimes.NaDir.ToLocalTime:t}"
+                .LblsiGoldenStart.Text = $"Golden Hour Start: {RtNfo.Result.SunInfo.SunTimes.GoldenHour.ToLocalTime:t}"
+                .LblSiGoldenEnd.Text = $"Golden Hour End: {RtNfo.Result.SunInfo.SunTimes.GoldenHourEnd.ToLocalTime:t}"
+                .LblSunPos.Text = $"Azimuth: {RtNfo.Result.SunInfo.SunPosition.Azimuth.ToString()}     Altitude: {RtNfo.Result.SunInfo.SunPosition.Altitude.ToString()}"
+                Dim a = Date2Unix(RtNfo.Result.SunInfo.SunTimes.Sunrise)
+                Dim b = Date2Unix(RtNfo.Result.SunInfo.SunTimes.Sunset)
+                FrmMain.LblDayLen.Text = DisplayDayLen(TimeSpan.FromSeconds(b - a))
             End With
+        End Sub
+
+        Private Sub ParseRtJson(fn As String)
+            FrmMain.RtbDebug.AppendText($"Reading from cached file. {vbCrLf}")
+
+            Try
+                Dim reader As New StreamReader(fn)
+                Dim resp = reader.ReadToEnd()
+                RtNfo = UvRtCast.FromJson(resp)
+                reader.Close()
+                FrmMain.RtbLog.AppendText($"-{Now:t}- Parsed UV Forecast -> [{fn}]{vbCrLf}")
+            Catch ex As Exception
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
+            Finally
+                FrmMain.RtbLog.AppendText($"{SEPARATOR}{vbCrLf}")
+            End Try
+            SaveLogs()
         End Sub
 
     End Module

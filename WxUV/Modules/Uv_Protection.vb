@@ -21,19 +21,26 @@ Namespace Modules
             FrmMain.RtbDebug.AppendText($"Protection Debug{vbCrLf}Lat: {CLatitude}   Long: {CLongitude}{vbCrLf}Altitude: {Altitude}{vbCrLf}Ozone: {OzLevel}{vbCrLf}From: {fromm}   To: {too}{vbCrLf}{vbCrLf}")
             Try
                 Dim request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/protection?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&ozone={OzLevel}&from={fromm}&to={too}"), HttpWebRequest)
-                request.Headers.Add($"x-access-token: {ApiKey}")
+                With request
+                    .Headers.Add($"x-access-token: {ApiKey}")
+                    .AutomaticDecompression = DecompressionMethods.GZip Or DecompressionMethods.Deflate
+                    .Accept = "application/json"
+                    .Timeout = 120000
+                    .Headers.Add("Accept-Encoding", "gzip, deflate")
+                    .UserAgent = USE_AGENT
+                End With
 
-                Dim response = CType(request.GetResponse(), HttpWebResponse)
-                FrmMain.RtbDebug.AppendText(response.StatusCode & vbCrLf)
-                FrmMain.RtbDebug.AppendText(response.StatusDescription & vbCrLf & vbCrLf)
-                Dim dStr = response.GetResponseStream()
-                Dim reader As New StreamReader(dStr)
-                Dim resp = reader.ReadToEnd()
-                FrmMain.RtbDebug.AppendText(resp & vbCrLf & vbCrLf)
-                File.WriteAllText(_upf, resp)
-                ProtNfo = Dpt.FromJson(resp)
-                reader.Close()
-                response.Close()
+                Using response = CType(request.GetResponse(), HttpWebResponse)
+                    FrmMain.RtbDebug.AppendText(response.StatusCode & vbCrLf)
+                    FrmMain.RtbDebug.AppendText(response.StatusDescription & vbCrLf & vbCrLf)
+                    Dim dStr = response.GetResponseStream()
+                    Using reader As New StreamReader(dStr)
+                        Dim resp = reader.ReadToEnd()
+                        FrmMain.RtbDebug.AppendText(resp & vbCrLf & vbCrLf)
+                        File.WriteAllText(_upf, resp)
+                        ProtNfo = Dpt.FromJson(resp)
+                    End Using
+                End Using
                 FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded UV Protection file -> [{_upf}]{vbCrLf}")
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
@@ -47,12 +54,12 @@ Namespace Modules
         Private Sub DisplayProtectionInfo()
             With FrmMain
                 Try
-                    .LblProtFrom.Text = $"From: {ProtNfo.result.fromtime.tolocaltime:t}"
-                    .LblProtTo.Text = $"To: {ProtNfo.result.totime.tolocaltime:t}"
+                    .LblProtFrom.Text = $"From: {ProtNfo.Result.FromTime.ToLocalTime:t}"
+                    .LblProtTo.Text = $"To: {ProtNfo.Result.ToTime.ToLocalTime:t}"
                     .LblProtLo.Left = .LblProtFrom.Left + .LblProtFrom.Width + 5
-                    .LblProtLo.Text = $"UV: {ProtNfo.result.fromuv}"
+                    .LblProtLo.Text = $"UV: {ProtNfo.Result.FromUv}"
                     .LblProtHi.Left = .LblProtTo.Left + .LblProtTo.Width + 5
-                    .LblProtHi.Text = $"UV: {ProtNfo.result.touv}"
+                    .LblProtHi.Text = $"UV: {ProtNfo.Result.ToUv}"
                 Catch ex As Exception
                     FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
                 End Try

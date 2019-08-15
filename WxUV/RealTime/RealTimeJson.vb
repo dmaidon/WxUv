@@ -2,134 +2,88 @@
 Imports Newtonsoft.Json
 
 Namespace RealTime
-#Disable Warning IDE1006 ' Naming Styles
 
-    Partial Friend Class UvRtCast
-
-        <JsonProperty("result")>
-        Public Property Result As Result
-
+    Partial Public Class UvRtCast
+        <JsonProperty("result")> Public Property Result() As Result
     End Class
 
-    Partial Friend Class Result
+    Partial Public Class Result
+        <JsonProperty("uv")> Public Property Uv As Double
 
-        <JsonProperty("uv")>
-        Public Property Uv As Double
+        <JsonProperty("uv_time")> Public Property UvTime As Date
 
-        <JsonProperty("uv_time")>
-        Public Property UvTime As Date
+        <JsonProperty("uv_max")> Public Property UvMax As Single
 
-        <JsonProperty("uv_max")>
-        Public Property UvMax As Single
+        <JsonProperty("uv_max_time")> Public Property UvMaxTime As Date
 
-        <JsonProperty("uv_max_time")>
-        Public Property UvMaxTime As Date
+        <JsonProperty("ozone")> Public Property Ozone As Double
 
-        <JsonProperty("ozone")>
-        Public Property Ozone As Double
+        <JsonProperty("ozone_time")> Public Property OzoneTime As Date
 
-        <JsonProperty("ozone_time")>
-        Public Property OzoneTime As Date
+        <JsonProperty("safe_exposure_time")> Public Property SafeExposureTime As SafeExposureTime
 
-        <JsonProperty("safe_exposure_time")>
-        Public Property SafeExposureTime As SafeExposureTime
-
-        <JsonProperty("sun_info")>
-        Public Property SunInfo As SunInfo
-
+        <JsonProperty("sun_info")> Public Property SunInfo As SunInfo
     End Class
 
-    Partial Friend MustInherit Class SafeExposureTime
+    Partial Public Class SafeExposureTime
+        <JsonProperty("st1")> Public Property St1 As Integer
 
-        <JsonProperty("st1")>
-        Public Property St1 As Integer
+        <JsonProperty("st2")> Public Property St2 As Integer
 
-        <JsonProperty("st2")>
-        Public Property St2 As Integer
+        <JsonProperty("st3")> Public Property St3 As Integer
 
-        <JsonProperty("st3")>
-        Public Property St3 As Integer
+        <JsonProperty("st4")> Public Property St4 As Integer
 
-        <JsonProperty("st4")>
-        Public Property St4 As Integer
+        <JsonProperty("st5")> Public Property St5 As Integer
 
-        <JsonProperty("st5")>
-        Public Property St5 As Integer
-
-        <JsonProperty("st6")>
-        Public Property St6 As Integer
-
+        <JsonProperty("st6")> Public Property St6 As Integer
     End Class
 
-    Partial Friend MustInherit Class SunInfo
+    Partial Public Class SunInfo
+        <JsonProperty("sun_times")> Public Property SunTimes As SunTimes
 
-        <JsonProperty("sun_times")>
-        Public Property SunTimes As SunTimes
-
-        <JsonProperty("sun_position")>
-        Public Property SunPosition As SunPosition
-
+        <JsonProperty("sun_position")> Public Property SunPosition As SunPosition
     End Class
 
-    Partial Friend MustInherit Class SunTimes
+    Partial Public Class SunTimes
+        <JsonProperty("solarNoon")> Public Property SolarNoon As Date
 
-        <JsonProperty("solarNoon")>
-        Public Property SolarNoon As Date
+        <JsonProperty("nadir")> Public Property NaDir As Date
 
-        <JsonProperty("nadir")>
-        Public Property NaDir As Date
+        <JsonProperty("sunrise")> Public Property Sunrise As Date
 
-        <JsonProperty("sunrise")>
-        Public Property Sunrise As Date
+        <JsonProperty("sunset")> Public Property Sunset As Date
 
-        <JsonProperty("sunset")>
-        Public Property Sunset As Date
+        <JsonProperty("sunriseEnd")> Public Property SunriseEnd As Date
 
-        <JsonProperty("sunriseEnd")>
-        Public Property SunriseEnd As Date
+        <JsonProperty("sunsetStart")> Public Property SunsetStart As Date
 
-        <JsonProperty("sunsetStart")>
-        Public Property SunsetStart As Date
+        <JsonProperty("dawn")> Public Property Dawn As Date
 
-        <JsonProperty("dawn")>
-        Public Property Dawn As Date
+        <JsonProperty("dusk")> Public Property Dusk As Date
 
-        <JsonProperty("dusk")>
-        Public Property Dusk As Date
+        <JsonProperty("nauticalDawn")> Public Property NauticalDawn As Date
 
-        <JsonProperty("nauticalDawn")>
-        Public Property NauticalDawn As Date
+        <JsonProperty("nauticalDusk")> Public Property NauticalDusk As Date
 
-        <JsonProperty("nauticalDusk")>
-        Public Property NauticalDusk As Date
+        <JsonProperty("nightEnd")> Public Property NightEnd As Date
 
-        <JsonProperty("nightEnd")>
-        Public Property NightEnd As Date
+        <JsonProperty("night")> Public Property Night As Date
 
-        <JsonProperty("night")>
-        Public Property Night As Date
+        <JsonProperty("goldenHourEnd")> Public Property GoldenHourEnd As Date
 
-        <JsonProperty("goldenHourEnd")>
-        Public Property GoldenHourEnd As Date
-
-        <JsonProperty("goldenHour")>
-        Public Property GoldenHour As Date
-
+        <JsonProperty("goldenHour")> Public Property GoldenHour As Date
     End Class
 
-    Partial Friend MustInherit Class SunPosition
+    Partial Public Class SunPosition
+        <JsonProperty("azimuth")> Public Property Azimuth As Decimal
 
-        <JsonProperty("azimuth")>
-        Public Property Azimuth As Decimal
-
-        <JsonProperty("altitude")>
-        Public Property Altitude As Decimal
-
+        <JsonProperty("altitude")> Public Property Altitude As Decimal
     End Class
 
 #Enable Warning IDE1006 ' Naming Styles
 
-    Partial Friend Class UvRtCast
+    Partial Public Class UvRtCast
 
         Friend Shared Function FromJson(json As String) As UvRtCast
             ''https://stackoverflow.com/questions/31813055/how-to-handle-null-empty-values-in-jsonconvert-deserializeobject
@@ -148,11 +102,10 @@ Namespace RealTime
 
     'End Module
 
-    'Friend Class Converter
+    'public Class Converter
 
     '    Public Shared ReadOnly Settings As JsonSerializerSettings = New JsonSerializerSettings With {.MetadataPropertyHandling = MetadataPropertyHandling.Ignore, .DateParseHandling = DateParseHandling.None}
     'End Class
-
 End Namespace
 
 ''{

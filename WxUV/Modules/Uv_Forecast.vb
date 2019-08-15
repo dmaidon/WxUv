@@ -29,10 +29,10 @@ Namespace Modules
                     Return
                 End If
                 Dim jj = CountString(rr, "uv_time")
-                FrmMain.LblDate.Text = $"{UvNfo.result(0).uvtime.tolocaltime:D}"
+                FrmMain.LblDate.Text = $"{UvNfo.Result(0).UvTime.ToLocalTime:D}"
                 For j = 0 To jj - 1
-                    Dim ab = UvNfo.result(j).uv
-                    Dim tm = (UvNfo.result(j).uvtime).tolocaltime
+                    Dim ab = UvNfo.Result(j).Uv
+                    Dim tm = (UvNfo.Result(j).UvTime).ToLocalTime
                     aa = GetUvLevel(ab)
                     Select Case aa.Item(3)
                         Case "Green"
@@ -52,14 +52,14 @@ Namespace Modules
                             UvArr(j).BackColor = Color.FromArgb(106, 27, 154)        ''#681b9a
                     End Select
 
-                    Dim tmpImg = Path.Combine(Application.StartupPath, "Images", $"{UvNfo.result(j).uv:N0}.png")
+                    Dim tmpImg = Path.Combine(Application.StartupPath, "Images", $"{UvNfo.Result(j).Uv:N0}.png")
                     UvArr(j).Image = Image.FromFile(tmpImg)
                     UvArr(j).BorderStyle = BorderStyle.FixedSingle
-                    LblArr(j).Text = $"{aa.Item(1)}{vbCrLf}{(UvNfo.result(j).uvtime).tolocaltime.hour}{vbCrLf}{""}"
+                    LblArr(j).Text = $"{aa.Item(1)}{vbCrLf}{(UvNfo.Result(j).UvTime).ToLocalTime.Hour}{vbCrLf}{""}"
 
                     ''add the sun altitude and azimuth to tooltip popup.
                     Dim abc As New StringBuilder(aa.Item(4))
-                    abc.Append($"{vbCrLf}{vbCrLf}Sun position:{vbCrLf}Altitude: {UvNfo.result(j).sunposition.altitude}{vbCrLf}Azimuth: {UvNfo.result(j).sunposition.azimuth}")
+                    abc.Append($"{vbCrLf}{vbCrLf}Sun position:{vbCrLf}Altitude: {UvNfo.Result(j).SunPosition.Altitude}{vbCrLf}Azimuth: {UvNfo.Result(j).SunPosition.Azimuth}")
                     FrmMain.TTip.SetToolTip(UvArr(j), abc.ToString())
 
                     ''uncomment the line below and comment the 3 lines above to remove the altitude and azimuth from the hourly tool tips.
@@ -71,23 +71,23 @@ Namespace Modules
                     Application.DoEvents()
                 Next j
 
-                FrmMain.GbEt.Text = $"Safe Exposure [UV: {RtNfo.result.uv:N2}]"
+                FrmMain.GbEt.Text = $"Safe Exposure [UV: {RtNfo.Result.Uv:N2}]"
                 Dim et As String
                 Dim mu = " minutes"
                 For j = 0 To 5
                     Select Case j + 1
                         Case 1
-                            et = RtNfo.result.safe_exposure_time.st1
+                            et = RtNfo.Result.SafeExposureTime.St1
                         Case 2
-                            et = RtNfo.result.safe_exposure_time.st2
+                            et = RtNfo.Result.SafeExposureTime.St2
                         Case 3
-                            et = RtNfo.result.safe_exposure_time.st3
+                            et = RtNfo.Result.SafeExposureTime.St3
                         Case 4
-                            et = RtNfo.result.safe_exposure_time.st4
+                            et = RtNfo.Result.SafeExposureTime.St4
                         Case 5
-                            et = RtNfo.result.safe_exposure_time.st5
+                            et = RtNfo.Result.SafeExposureTime.St5
                         Case Else
-                            et = RtNfo.result.safe_exposure_time.st6
+                            et = RtNfo.Result.SafeExposureTime.St6
                     End Select
                     If et = vbNullString Then
                         et = "N/A"
@@ -116,19 +116,26 @@ Namespace Modules
             End If
             Try
                 Dim request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/forecast?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&ozone={OzLevel}"), HttpWebRequest)
-                request.Headers.Add($"x-access-token: {ApiKey}")
+                With request
+                    .Headers.Add($"x-access-token: {ApiKey}")
+                    .AutomaticDecompression = DecompressionMethods.GZip Or DecompressionMethods.Deflate
+                    .Accept = "application/json"
+                    .Timeout = 120000
+                    .Headers.Add("Accept-Encoding", "gzip, deflate")
+                    .UserAgent = USE_AGENT
+                End With
 
-                Dim response = CType(request.GetResponse(), HttpWebResponse)
-                FrmMain.RtbDebug.AppendText(response.StatusCode & vbCrLf)
-                FrmMain.RtbDebug.AppendText(response.StatusDescription & vbCrLf & vbCrLf)
-                Dim dStr = response.GetResponseStream()
-                Dim reader As New StreamReader(dStr)
-                Dim resp = reader.ReadToEnd()
-                FrmMain.RtbDebug.AppendText(resp & vbCrLf & vbCrLf)
-                File.WriteAllText(_uf, resp)
-                UvNfo = UvFcast.FromJson(resp)
-                reader.Close()
-                response.Close()
+                Using response = CType(request.GetResponse(), HttpWebResponse)
+                    FrmMain.RtbDebug.AppendText(response.StatusCode & vbCrLf)
+                    FrmMain.RtbDebug.AppendText(response.StatusDescription & vbCrLf & vbCrLf)
+                    Dim dStr = response.GetResponseStream()
+                    Using reader As New StreamReader(dStr)
+                        Dim resp = reader.ReadToEnd()
+                        FrmMain.RtbDebug.AppendText(resp & vbCrLf & vbCrLf)
+                        File.WriteAllText(_uf, resp)
+                        UvNfo = UvFcast.FromJson(resp)
+                    End Using
+                End Using
                 FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded UV Forecast -> [{_uf}]{vbCrLf}")
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")

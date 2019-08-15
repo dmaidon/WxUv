@@ -5,33 +5,21 @@ Namespace Forecast
 
     ''https://app.quicktype.io/#r=json2csharp
     Partial Public Class UvFcast
-
-        <JsonProperty("result")>
-        Public Property Result As Result()
-
+        <JsonProperty("result")> Public Property Result As Result()
     End Class
 
     Partial Public Class Result
+        <JsonProperty("uv")> Public Property Uv As Double
 
-        <JsonProperty("uv")>
-        Public Property Uv As Double
+        <JsonProperty("uv_time")> Public Property UvTime As Date
 
-        <JsonProperty("uv_time")>
-        Public Property UvTime As Date
-
-        <JsonProperty("sun_position")>
-        Public Property SunPosition As SunPosition
-
+        <JsonProperty("sun_position")> Public Property SunPosition As SunPosition
     End Class
 
     Partial Public Class SunPosition
+        <JsonProperty("azimuth")> Public Property Azimuth As Double
 
-        <JsonProperty("azimuth")>
-        Public Property Azimuth As Double
-
-        <JsonProperty("altitude")>
-        Public Property Altitude As Double
-
+        <JsonProperty("altitude")> Public Property Altitude As Double
     End Class
 
     Partial Public Class UvFcast
@@ -49,8 +37,7 @@ Namespace Forecast
 
     Module Serialize
 
-        <Extension>
-        Function ToJson(self As UvFcast) As String
+        <Extension> Function ToJson(self As UvFcast) As String
             Return JsonConvert.SerializeObject(self, Converter.Settings)
         End Function
 
@@ -63,7 +50,6 @@ Namespace Forecast
             With {.MetadataPropertyHandling = MetadataPropertyHandling.Ignore, .DateParseHandling = DateParseHandling.None}
 
     End Class
-
 End Namespace
 
 ''{
