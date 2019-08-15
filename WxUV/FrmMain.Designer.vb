@@ -205,6 +205,8 @@ Partial Friend Class FrmMain
         Me.TsmiLocate = New System.Windows.Forms.ToolStripMenuItem()
         Me.TxmiClose = New System.Windows.Forms.ToolStripMenuItem()
         Me.TTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Label49 = New System.Windows.Forms.Label()
+        Me.TxtElevationApiKey = New System.Windows.Forms.TextBox()
         Me.TC.SuspendLayout()
         Me.TpDisplay.SuspendLayout()
         Me.PnlDisplay.SuspendLayout()
@@ -1867,13 +1869,13 @@ Partial Friend Class FrmMain
         Me.TpSettings.Controls.Add(Me.NumLogDays)
         Me.TpSettings.Controls.Add(Me.Label48)
         Me.TpSettings.Controls.Add(Me.Panel1)
-        Me.TpSettings.Controls.Add(Me.Panel7)
         Me.TpSettings.Controls.Add(Me.ChkHideLog)
         Me.TpSettings.Controls.Add(Me.ChkHideDebug)
         Me.TpSettings.Controls.Add(Me.Panel3)
         Me.TpSettings.Controls.Add(Me.GroupBox6)
         Me.TpSettings.Controls.Add(Me.GroupBox14)
         Me.TpSettings.Controls.Add(Me.GroupBox2)
+        Me.TpSettings.Controls.Add(Me.Panel7)
         Me.TpSettings.Location = New System.Drawing.Point(4, 22)
         Me.TpSettings.Name = "TpSettings"
         Me.TpSettings.Size = New System.Drawing.Size(434, 405)
@@ -1931,11 +1933,13 @@ Partial Friend Class FrmMain
         '
         Me.Panel7.BackColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel7.Controls.Add(Me.TxtElevationApiKey)
+        Me.Panel7.Controls.Add(Me.Label49)
         Me.Panel7.Controls.Add(Me.TxtGoogleKey)
         Me.Panel7.Controls.Add(Me.Label37)
         Me.Panel7.Location = New System.Drawing.Point(7, 193)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(242, 50)
+        Me.Panel7.Size = New System.Drawing.Size(242, 93)
         Me.Panel7.TabIndex = 16
         '
         'TxtGoogleKey
@@ -1957,7 +1961,7 @@ Partial Friend Class FrmMain
         'ChkHideLog
         '
         Me.ChkHideLog.AutoSize = True
-        Me.ChkHideLog.Location = New System.Drawing.Point(7, 272)
+        Me.ChkHideLog.Location = New System.Drawing.Point(7, 367)
         Me.ChkHideLog.Name = "ChkHideLog"
         Me.ChkHideLog.Size = New System.Drawing.Size(87, 17)
         Me.ChkHideLog.TabIndex = 2
@@ -1967,7 +1971,7 @@ Partial Friend Class FrmMain
         'ChkHideDebug
         '
         Me.ChkHideDebug.AutoSize = True
-        Me.ChkHideDebug.Location = New System.Drawing.Point(7, 249)
+        Me.ChkHideDebug.Location = New System.Drawing.Point(7, 344)
         Me.ChkHideDebug.Name = "ChkHideDebug"
         Me.ChkHideDebug.Size = New System.Drawing.Size(101, 17)
         Me.ChkHideDebug.TabIndex = 1
@@ -2080,7 +2084,7 @@ Partial Friend Class FrmMain
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(54, 13)
         Me.Label35.TabIndex = 1
-        Me.Label35.Text = "Longitude"
+        Me.Label35.Text = My.Resources.reg_lng
         '
         'Label34
         '
@@ -2089,7 +2093,7 @@ Partial Friend Class FrmMain
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(45, 13)
         Me.Label34.TabIndex = 0
-        Me.Label34.Text = "Latitude"
+        Me.Label34.Text = My.Resources.reg_lat
         '
         'GroupBox2
         '
@@ -2351,6 +2355,22 @@ Partial Friend Class FrmMain
         '
         Me.TTip.IsBalloon = True
         Me.TTip.ToolTipTitle = "Information"
+        '
+        'Label49
+        '
+        Me.Label49.AutoSize = True
+        Me.Label49.Location = New System.Drawing.Point(2, 48)
+        Me.Label49.Name = "Label49"
+        Me.Label49.Size = New System.Drawing.Size(95, 13)
+        Me.Label49.TabIndex = 14
+        Me.Label49.Text = "Elevation-API Key:"
+        '
+        'TxtElevationApiKey
+        '
+        Me.TxtElevationApiKey.Location = New System.Drawing.Point(2, 65)
+        Me.TxtElevationApiKey.Name = "TxtElevationApiKey"
+        Me.TxtElevationApiKey.Size = New System.Drawing.Size(236, 20)
+        Me.TxtElevationApiKey.TabIndex = 15
         '
         'FrmMain
         '
@@ -2622,4 +2642,6 @@ Partial Friend Class FrmMain
     Friend WithEvents NumElevation As NumericUpDown
     Friend WithEvents NumLogDays As NumericUpDown
     Friend WithEvents Label48 As Label
+    Friend WithEvents TxtElevationApiKey As TextBox
+    Friend WithEvents Label49 As Label
 End Class

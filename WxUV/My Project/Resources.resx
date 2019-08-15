@@ -160,4 +160,40 @@
   <data name="PS_LOGO_transparent_190x150" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PS_LOGO-transparent-190x150.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="alt" xml:space="preserve">
+    <value>Altitude</value>
+  </data>
+  <data name="goog_key" xml:space="preserve">
+    <value>Key: Google Elevation</value>
+  </data>
+  <data name="hide_debug" xml:space="preserve">
+    <value>Hide Debug Page</value>
+  </data>
+  <data name="hide_log" xml:space="preserve">
+    <value>Hide Log Page</value>
+  </data>
+  <data name="reg_lat" xml:space="preserve">
+    <value>Latitude</value>
+  </data>
+  <data name="reg_lng" xml:space="preserve">
+    <value>Longitude</value>
+  </data>
+  <data name="uv_key" xml:space="preserve">
+    <value>Key: UV</value>
+  </data>
+  <data name="alt_set" xml:space="preserve">
+    <value>Altitude Set</value>
+  </data>
+  <data name="log_days" xml:space="preserve">
+    <value>Keep Log Days</value>
+  </data>
+  <data name="oz" xml:space="preserve">
+    <value>Ozone</value>
+  </data>
+  <data name="timesrun" xml:space="preserve">
+    <value>Times Run</value>
+  </data>
+  <data name="uv_int" xml:space="preserve">
+    <value>Interval: UV RealTime</value>
+  </data>
 </root>

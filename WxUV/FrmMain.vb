@@ -30,7 +30,7 @@ Friend Class FrmMain
 
         ''set the header for the .log file
         Dim timesRun As Long
-        timesRun = CLng((KInfo.GetValue("TimesRun", 0))) + 1
+        timesRun = CLng((KInfo.GetValue(My.Resources.timesrun, 0))) + 1
         KInfo.SetValue("TimesRun", timesRun, RegistryValueKind.QWord)
         KInfo.SetValue("Last Run", Now.ToString, RegistryValueKind.String)
         KInfo.SetValue("FirstRun", False, RegistryValueKind.String)
@@ -57,12 +57,12 @@ Friend Class FrmMain
             .Show()
         End With
 
-        If KInfo.GetValue("Altitude Set", 0) = 0 Then
+        If KInfo.GetValue(My.Resources.alt_set, 0) = 0 Then
             GetElevation()
         Else
-            RtbLog.AppendText($"Altitude set from Registry: {KInfo.GetValue("Altitude", 0)} meters{vbCrLf}")
+            RtbLog.AppendText($"Altitude set from Registry: {KInfo.GetValue(My.Resources.alt, 0)} meters{vbCrLf}")
         End If
-        Altitude = ($"{KInfo.GetValue("Altitude", 0)}")
+        Altitude = ($"{KInfo.GetValue(My.Resources.alt, 0)}")
 
         RtbLog.AppendText($"{SQUIGGLEY}{vbCrLf}")
         SaveLogs()
@@ -196,8 +196,8 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
 
     Private Sub SetTimers()
         Try
-            If KInfo.GetValue("RealTime UV Interval", 0) > 0 Then
-                TmrRtUV.Interval = KInfo.GetValue("RealTime UV Interval", 0) * TimerMultiplier
+            If KInfo.GetValue(My.Resources.uv_int, 0) > 0 Then
+                TmrRtUV.Interval = KInfo.GetValue(My.Resources.uv_int, 0) * TimerMultiplier
                 TmrRtUV.Enabled = True
                 TmrRtUV.Start()
             Else
@@ -351,11 +351,11 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
 
     Private Sub TxtUvKey_TextChanged(sender As Object, e As EventArgs) Handles TxtUvKey.TextChanged
         ''My.Computer.Registry.CurrentUser.DeleteSubKey("Software\TestApp")
-        Kuv.SetValue("Key", TxtUvKey.Text, RegistryValueKind.String)
+        Kuv.SetValue(My.Resources.uv_key, TxtUvKey.Text, RegistryValueKind.String)
     End Sub
 
     Private Sub TxtGoogleKey_TextChanged(sender As Object, e As EventArgs) Handles TxtGoogleKey.TextChanged
-        Kg.SetValue("Elevation API Key", TxtGoogleKey.Text, RegistryValueKind.String)
+        Kg.SetValue(My.Resources.goog_key, TxtGoogleKey.Text, RegistryValueKind.String)
     End Sub
 
     Private Sub ChkHideDebuf_CheckedChanged(sender As Object, e As EventArgs) Handles ChkHideDebug.CheckedChanged
@@ -377,15 +377,15 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
     End Sub
 
     Private Sub TpSettings_Enter(sender As Object, e As EventArgs) Handles TpSettings.Enter
-        TxtLatitude.Text = KSet.GetValue("Latitude", "37.787644")
-        TxtLongitude.Text = KSet.GetValue("Longitude", "-79.44189")
-        TxtUvKey.Text = Kuv.GetValue("Key", "")
-        TxtGoogleKey.Text = Kg.GetValue("Elevation API key", "")
-        ChkHideDebug.Checked = KSet.GetValue("Hide Debug Page", 0)
-        ChkHideLog.Checked = KSet.GetValue("Hide Log Page", 0)
-        NumElevation.Value = KInfo.GetValue("Altitude", 0)
-        NumRTInterval.Value = KInfo.GetValue("RealTime UV Interval", 0)
-        NumLogDays.Value = KSet.GetValue("Days to keep logs", 3)
+        TxtLatitude.Text = KSet.GetValue(My.Resources.reg_lat, "37.787644")
+        TxtLongitude.Text = KSet.GetValue(My.Resources.reg_lng, "-79.44189")
+        TxtUvKey.Text = Kuv.GetValue(My.Resources.uv_key, "")
+        TxtGoogleKey.Text = Kg.GetValue(My.Resources.goog_key, "")
+        ChkHideDebug.Checked = KSet.GetValue(My.Resources.hide_debug, 0)
+        ChkHideLog.Checked = KSet.GetValue(My.Resources.hide_log, 0)
+        NumElevation.Value = KInfo.GetValue(My.Resources.alt, 0)
+        NumRTInterval.Value = KInfo.GetValue(My.Resources.uv_int, 0)
+        NumLogDays.Value = KSet.GetValue(My.Resources.log_days, 3)
     End Sub
 
     Private Sub BntResetAlt_Click(sender As Object, e As EventArgs) Handles BntResetAlt.Click
@@ -418,23 +418,23 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
     End Sub
 
     Private Sub TxtLatitude_TextChanged(sender As Object, e As EventArgs) Handles TxtLatitude.TextChanged
-        KSet.SetValue("Latitude", TxtLatitude.Text, RegistryValueKind.String)
+        KSet.SetValue(My.Resources.reg_lat, TxtLatitude.Text, RegistryValueKind.String)
     End Sub
 
     Private Sub TxtLongitude_TextChanged(sender As Object, e As EventArgs) Handles TxtLongitude.TextChanged
-        KSet.SetValue("Longitude", TxtLongitude.Text, RegistryValueKind.String)
+        KSet.SetValue(My.Resources.reg_lng, TxtLongitude.Text, RegistryValueKind.String)
     End Sub
 
     Private Sub NumRTInterval_ValueChanged(sender As Object, e As EventArgs) Handles NumRTInterval.ValueChanged
-        KInfo.SetValue("RealTime UV Interval", NumRTInterval.Value, RegistryValueKind.DWord)
+        KInfo.SetValue(My.Resources.uv_int, NumRTInterval.Value, RegistryValueKind.DWord)
     End Sub
 
     Private Sub NumElevation_ValueChanged(sender As Object, e As EventArgs) Handles NumElevation.ValueChanged
-        KInfo.SetValue("Altitude", $"{NumElevation.Value:N0}", RegistryValueKind.DWord)
+        KInfo.SetValue(My.Resources.alt, $"{NumElevation.Value:N0}", RegistryValueKind.DWord)
     End Sub
 
     Private Sub NumLogDays_ValueChanged(sender As Object, e As EventArgs) Handles NumLogDays.ValueChanged
-        KSet.SetValue("Days to keep logs", NumLogDays.Value, RegistryValueKind.DWord)
+        KSet.SetValue(My.Resources.log_days, NumLogDays.Value, RegistryValueKind.DWord)
     End Sub
 
 #End Region

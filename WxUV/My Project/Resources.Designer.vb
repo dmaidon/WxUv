@@ -181,6 +181,60 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Altitude.
+        '''</summary>
+        Friend ReadOnly Property alt() As String
+            Get
+                Return ResourceManager.GetString("alt", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Altitude Set.
+        '''</summary>
+        Friend ReadOnly Property alt_set() As String
+            Get
+                Return ResourceManager.GetString("alt_set", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Key: Google Elevation.
+        '''</summary>
+        Friend ReadOnly Property goog_key() As String
+            Get
+                Return ResourceManager.GetString("goog_key", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Hide Debug Page.
+        '''</summary>
+        Friend ReadOnly Property hide_debug() As String
+            Get
+                Return ResourceManager.GetString("hide_debug", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Hide Log Page.
+        '''</summary>
+        Friend ReadOnly Property hide_log() As String
+            Get
+                Return ResourceManager.GetString("hide_log", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Keep Log Days.
+        '''</summary>
+        Friend ReadOnly Property log_days() As String
+            Get
+                Return ResourceManager.GetString("log_days", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property OpenUV_Banner() As System.Drawing.Bitmap
@@ -191,12 +245,66 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Ozone.
+        '''</summary>
+        Friend ReadOnly Property oz() As String
+            Get
+                Return ResourceManager.GetString("oz", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property PS_LOGO_transparent_190x150() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("PS_LOGO_transparent_190x150", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Latitude.
+        '''</summary>
+        Friend ReadOnly Property reg_lat() As String
+            Get
+                Return ResourceManager.GetString("reg_lat", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Longitude.
+        '''</summary>
+        Friend ReadOnly Property reg_lng() As String
+            Get
+                Return ResourceManager.GetString("reg_lng", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Times Run.
+        '''</summary>
+        Friend ReadOnly Property timesrun() As String
+            Get
+                Return ResourceManager.GetString("timesrun", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Interval: UV RealTime.
+        '''</summary>
+        Friend ReadOnly Property uv_int() As String
+            Get
+                Return ResourceManager.GetString("uv_int", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Key: UV.
+        '''</summary>
+        Friend ReadOnly Property uv_key() As String
+            Get
+                Return ResourceManager.GetString("uv_key", resourceCulture)
             End Get
         End Property
     End Module

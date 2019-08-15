@@ -104,8 +104,8 @@ Namespace Modules
         End Sub
 
         Private Sub DownloadUvForecast()
-            OzLevel = KInfo.GetValue("Ozone", 0)
-            ApiKey = Kuv.GetValue("Key", "")
+            OzLevel = KInfo.GetValue(My.Resources.oz, 0)
+            ApiKey = Kuv.GetValue(My.Resources.uv_key, "")
             If ApiKey.Trim() = "" Then
                 Keyset = False
                 'MsgBox($"OpenUV API key not entered.{vbCrLf}Please enter key on 'Settings' tab.")

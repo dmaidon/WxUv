@@ -15,7 +15,7 @@ Namespace Modules
         End Sub
 
         Public Sub DownloadElevation()
-            GoogleKey = Kg.GetValue("Elevation API Key", "")
+            GoogleKey = Kg.GetValue(My.Resources.goog_key, "")
             Dim ue = Path.Combine(TempPath, GElev)
             If GoogleKey.Trim() = "" Then
                 ''if we don't have the Google Elevation Key set, exit this sub
@@ -35,7 +35,7 @@ Namespace Modules
                     File.WriteAllText(ue, resp)
                     GNfo = Goog.FromJson(resp)
                     reader.Close()
-                    KInfo.SetValue("Altitude", $"{GNfo.Results(0).elevation:N0}", RegistryValueKind.DWord)
+                    KInfo.SetValue(My.Resources.alt, $"{GNfo.Results(0).elevation:N0}", RegistryValueKind.DWord)
                     response.Close()
                     FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Google Elevation file -> [{ue}]")
                     FrmMain.RtbDebug.AppendText($"Elevation: {GNfo.Results(0).elevation:N6}{vbCrLf}{vbCrLf}")

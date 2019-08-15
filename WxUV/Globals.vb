@@ -17,8 +17,8 @@ Module Globals
     ''Google Elevation API Key
     Public GoogleKey As String = ""
 
-    Public ReadOnly CLatitude As Double = KSet.GetValue("Latitude", "37.787644")
-    Public ReadOnly CLongitude As Double = KSet.GetValue("Longitude", "-79.44189")
+    Public ReadOnly CLatitude As Double = KSet.GetValue(My.Resources.reg_lat, "37.787644")
+    Public ReadOnly CLongitude As Double = KSet.GetValue(My.Resources.reg_lng, "-79.44189")
 
     Public Const TEMP_DIR As String = "$tmp"
     Public TempPath As String

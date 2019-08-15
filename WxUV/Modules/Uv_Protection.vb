@@ -12,8 +12,8 @@ Namespace Modules
         End Sub
 
         Private Sub DownloadUvProtection(fromm As Double, too As Double)
-            OzLevel = KInfo.GetValue("Ozone", 0)
-            ApiKey = Kuv.GetValue("Key", "")
+            OzLevel = KInfo.GetValue(My.Resources.oz, 0)
+            ApiKey = Kuv.GetValue(My.Resources.uv_key, "")
             If Not Keyset Then
                 FrmMain.TC.SelectedTab = FrmMain.TpSettings
                 Return

@@ -15,7 +15,6 @@ Namespace Modules
             'Else
             DownloadUvRealTime()
             ' End If
-
         End Sub
 
         Private Sub DownloadUvRealTime()
@@ -23,7 +22,7 @@ Namespace Modules
             ''date "&dt=" defaults to current time
             'OzLevel = KInfo.GetValue("Ozone", 0)
             Dim dt = $"{Now:O}"
-            ApiKey = Kuv.GetValue("Key", "")
+            ApiKey = Kuv.GetValue(My.Resources.uv_key, "")
             If ApiKey.Trim() = "" Then
                 Keyset = False
                 'MsgBox($"OpenUV API key not entered.{vbCrLf}Please enter key on 'Settings' tab.")
@@ -55,7 +54,7 @@ Namespace Modules
                 FrmMain.PbUV.Image = Image.FromFile(tmpImg)
 
                 ''set ozone level in registry to UV Forecast
-                KInfo.SetValue("Ozone", $"{RtNfo.result.Ozone:N0}", RegistryValueKind.String)
+                KInfo.SetValue(My.Resources.oz, $"{RtNfo.result.Ozone:N0}", RegistryValueKind.String)
                 FrmMain.LblCurOzone.Text = $"Ozone: {RtNfo.result.Ozone:N0}"
 
                 Dim ab = RtNfo.result.uv
@@ -109,17 +108,16 @@ Namespace Modules
                 response.Close()
                 FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Real-time UV Forecast -> [{_urt}]{vbCrLf}")
 
-                FrmMain.RtbDebug.AppendText(
-                    $"Time: {(RtNfo.result.uv_time).tolocaltime}{vbCrLf}UV Level: {RtNfo.result.uv}{vbCrLf}UV Maximum Time: {RtNfo.result.uv_max_time}{vbCrLf _
-                                               }UV Maximum: {RtNfo.result.uv_max}{vbCrLf}Ozone: {RtNfo.result.ozone}{vbCrLf}Ozone Time: {(RtNfo.result.ozone_time).tolocaltime _
-                                               }{vbCrLf}{vbCrLf}")
+                FrmMain.RtbDebug.AppendText _
+                    ($"Time: {(RtNfo.result.uv_time).tolocaltime}{vbCrLf}UV Level: {RtNfo.result.uv}{vbCrLf}UV Maximum Time: {RtNfo.result.uv_max_time}{vbCrLf _
+                        }UV Maximum: {RtNfo.result.uv_max}{vbCrLf}Ozone: {RtNfo.result.ozone}{vbCrLf}Ozone Time: {(RtNfo.result.ozone_time).tolocaltime _
+                        }{vbCrLf}{vbCrLf}")
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
             Finally
                 FrmMain.RtbLog.AppendText($"{SQUIGGLEY}{vbCrLf}")
                 SaveLogs()
             End Try
-
         End Sub
 
         Private Sub DisplayInfo()

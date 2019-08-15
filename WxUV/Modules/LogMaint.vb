@@ -11,7 +11,7 @@ Namespace Modules
         Public Sub PerformLogMaintenance()
 
             FrmMain.RtbLog.AppendText($"<{SEPARATOR}{vbCrLf}")
-            Dim intdays = KSet.GetValue("Days to keep logs", 5)
+            Dim intdays = KSet.GetValue(My.Resources.log_days, 5)
             If intdays <= 0 Then
                 FrmMain.RtbLog.AppendText($"Logs set to keep all.{vbCrLf}")
                 Return

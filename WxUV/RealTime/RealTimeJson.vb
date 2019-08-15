@@ -1,4 +1,4 @@
-﻿Imports System.Runtime.CompilerServices
+﻿'Imports System.Runtime.CompilerServices
 Imports Newtonsoft.Json
 
 Namespace RealTime
@@ -142,19 +142,16 @@ Namespace RealTime
 
     End Class
 
-    Module Serialize
+    'Module Serialize
 
-        <Extension()>
-        Function ToJson(self As UvRtCast) As String
-            Return JsonConvert.SerializeObject(self, Converter.Settings)
-        End Function
+    ' <Extension()> Function ToJson(self As UvRtCast) As String Return JsonConvert.SerializeObject(self, Converter.Settings) End Function
 
-    End Module
+    'End Module
 
-    Friend Class Converter
+    'Friend Class Converter
 
-        Public Shared ReadOnly Settings As JsonSerializerSettings = New JsonSerializerSettings With {.MetadataPropertyHandling = MetadataPropertyHandling.Ignore, .DateParseHandling = DateParseHandling.None}
-    End Class
+    '    Public Shared ReadOnly Settings As JsonSerializerSettings = New JsonSerializerSettings With {.MetadataPropertyHandling = MetadataPropertyHandling.Ignore, .DateParseHandling = DateParseHandling.None}
+    'End Class
 
 End Namespace
 
