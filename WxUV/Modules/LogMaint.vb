@@ -3,18 +3,18 @@ Imports System.Security
 
 Namespace Modules
     ''' <summary>
-    '''     keep the log folder clean and only store a set number of log files.  Days to keep is set on the "Settings" tab
+    ''' keep the log folder clean and only store a set number of log files. Days to keep is set on the "Settings" tab
     ''' </summary>
     Module LogMaint
 
         ''http://stackoverflow.com/questions/9194749/trying-to-delete-files-older-than-x-days-vb-net
         Public Sub PerformLogMaintenance()
 
-            FrmMain.RtbLog.AppendText($"<{Separator}{vbCrLf}")
+            FrmMain.RtbLog.AppendText($"<{SEPARATOR}{vbCrLf}")
             Dim intdays = KSet.GetValue("Days to keep logs", 5)
             If intdays <= 0 Then
                 FrmMain.RtbLog.AppendText($"Logs set to keep all.{vbCrLf}")
-                Exit Sub
+                Return
             End If
 
             Dim fc As Short
@@ -46,7 +46,7 @@ Namespace Modules
                 ''trap error
             End Try
             FrmMain.RtbLog.AppendText($"Files over {intdays} days in age deleted.({fc} files deleted.){vbCrLf}")
-            FrmMain.RtbLog.AppendText($"{Separator}>{vbCrLf}")
+            FrmMain.RtbLog.AppendText($"{SEPARATOR}>{vbCrLf}")
             SaveLogs()
         End Sub
 
@@ -60,5 +60,5 @@ Namespace Modules
             End Try
         End Sub
 
-       End Module
+    End Module
 End Namespace

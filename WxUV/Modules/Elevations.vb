@@ -7,9 +7,8 @@ Namespace Modules
     Module Elevations
 
         ''' <summary>
-        '''     Google Maps Elevation API
-        '''     go to http://developers.google.com and create credentials for a Google Maps Elevation API Key.ue  You will need to
-        '''     enter this information on the Settings tab
+        ''' Google Maps Elevation API go to http://developers.google.com and create credentials for a Google Maps Elevation API Key.ue You will need to enter this information
+        ''' on the Settings tab
         ''' </summary>
         Public Sub GetElevation()
             DownloadElevation()
@@ -21,7 +20,7 @@ Namespace Modules
             If GoogleKey.Trim() = "" Then
                 ''if we don't have the Google Elevation Key set, exit this sub
                 FrmMain.RtbLog.AppendText($"Google Elevation API Key not set -> Elevation not set.")
-                Exit Sub
+                Return
             Else
                 Try
                     Dim request = CType(WebRequest.Create($"https://maps.googleapis.com/maps/api/elevation/json?locations={CLatitude},{CLongitude}&key={GoogleKey}"),
@@ -43,7 +42,7 @@ Namespace Modules
                 Catch ex As Exception
                     FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
                 Finally
-                    FrmMain.RtbLog.AppendText($"{Squiggley}{vbCrLf}")
+                    FrmMain.RtbLog.AppendText($"{SQUIGGLEY}{vbCrLf}")
                     SaveLogs()
                 End Try
             End If

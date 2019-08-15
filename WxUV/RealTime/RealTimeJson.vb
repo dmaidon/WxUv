@@ -4,7 +4,7 @@ Imports Newtonsoft.Json
 Namespace RealTime
 #Disable Warning IDE1006 ' Naming Styles
 
-    Partial Public Class UvRtCast
+    Partial Friend Class UvRtCast
         Public Property result As Result
     End Class
 
@@ -57,9 +57,9 @@ Namespace RealTime
 
 #Enable Warning IDE1006 ' Naming Styles
 
-    Partial Public Class UvRtCast
+    Partial Friend Class UvRtCast
 
-        Public Shared Function FromJson(json As String) As UvRtCast
+        Friend Shared Function FromJson(json As String) As UvRtCast
             ''https://stackoverflow.com/questions/31813055/how-to-handle-null-empty-values-in-jsonconvert-deserializeobject
             Dim settings = New JsonSerializerSettings With {
                     .NullValueHandling = NullValueHandling.Ignore,
@@ -79,7 +79,7 @@ Namespace RealTime
 
     End Module
 
-    Public Class Converter
+    Friend Class Converter
 
         Public Shared ReadOnly Settings As JsonSerializerSettings = New JsonSerializerSettings With {.MetadataPropertyHandling = MetadataPropertyHandling.Ignore, .DateParseHandling = DateParseHandling.None}
     End Class

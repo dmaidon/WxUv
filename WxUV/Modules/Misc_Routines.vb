@@ -7,8 +7,7 @@
         End Function
 
         ''' <summary>
-        ''' Time To Burn
-        ''' Used by the "Exposure" tab to calcultate exposure time before sunburning
+        ''' Time To Burn Used by the "Exposure" tab to calcultate exposure time before sunburning
         ''' </summary>
         ''' <param name="st"></param>
         ''' <param name="uv"></param>
@@ -16,26 +15,27 @@
         Public Function Time2Burn(st As Double, uv As Double) As Integer
             Select Case st      ''.SelectedIndex
                 Case 0
-                    Return (200 * 2.5) / (3 * uv)
+                    Return 200 * 2.5 / (3 * uv)
                 Case 1
-                    Return (200 * 3) / (3 * uv)
+                    Return 200 * 3 / (3 * uv)
                 Case 2
-                    Return (200 * 4) / (3 * uv)
+                    Return 200 * 4 / (3 * uv)
                 Case 3
-                    Return (200 * 5) / (3 * uv)
+                    Return 200 * 5 / (3 * uv)
                 Case 4
-                    Return (200 * 8) / (3 * uv)
+                    Return 200 * 8 / (3 * uv)
                 Case Else
-                    Return (200 * 15) / (3 * uv)
+                    Return 200 * 15 / (3 * uv)
             End Select
         End Function
 
         Public Function CalcUpTime() As TimeSpan
             'Dim uptimeTs As New TimeSpan()
-            Dim pc As New PerformanceCounter("System", "System Up Time")
-            pc.NextValue()
-            Dim uptimeTs = TimeSpan.FromSeconds(pc.NextValue())
-            Return uptimeTs
+            Using pc As New PerformanceCounter("System", "System Up Time")
+                pc.NextValue()
+                Dim uptimeTs = TimeSpan.FromSeconds(pc.NextValue())
+                Return uptimeTs
+            End Using
         End Function
 
         Public Function GetSystemUpTimeInfo() As String
@@ -49,11 +49,12 @@
             End Try
         End Function
 
-        Public Function GetSystemUpTime() As TimeSpan
+        Private Function GetSystemUpTime() As TimeSpan
             Try
-                Dim uptime = New PerformanceCounter("System", "System Up Time")
-                uptime.NextValue()
-                Return TimeSpan.FromSeconds(uptime.NextValue)
+                Using uptime As New PerformanceCounter("System", "System Up Time")
+                    uptime.NextValue()
+                    Return TimeSpan.FromSeconds(uptime.NextValue)
+                End Using
             Catch ex As Exception
                 'handle the exception your way
                 Return New TimeSpan(0, 0, 0, 0)
@@ -65,7 +66,7 @@
         ''' </summary>
         ''' <returns>Return Unix time stamp as long type</returns>
         Public Function Date2Unix(dt As Date) As Long
-            Dim unixTimeSpan = Dt.Subtract(New DateTime(1970, 1, 1, 0, 0, 0))
+            Dim unixTimeSpan = dt.Subtract(New DateTime(1970, 1, 1, 0, 0, 0))
             Return Fix(unixTimeSpan.TotalSeconds)
         End Function
 

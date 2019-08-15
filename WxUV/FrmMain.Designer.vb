@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FrmMain
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Friend Class FrmMain
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FrmMain
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
@@ -480,10 +480,10 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label32.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label32.Location = New System.Drawing.Point(0, 28)
-        Me.Label32.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label32.Location = New System.Drawing.Point(1, 29)
+        Me.Label32.Margin = New System.Windows.Forms.Padding(1)
         Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(35, 29)
+        Me.Label32.Size = New System.Drawing.Size(33, 27)
         Me.Label32.TabIndex = 12
         Me.Label32.Text = "1"
         Me.Label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -494,10 +494,10 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label38.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label38.Location = New System.Drawing.Point(35, 28)
-        Me.Label38.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label38.Location = New System.Drawing.Point(36, 29)
+        Me.Label38.Margin = New System.Windows.Forms.Padding(1)
         Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(35, 29)
+        Me.Label38.Size = New System.Drawing.Size(33, 27)
         Me.Label38.TabIndex = 13
         Me.Label38.Text = "2"
         Me.Label38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -508,10 +508,10 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label39.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label39.Location = New System.Drawing.Point(70, 28)
-        Me.Label39.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label39.Location = New System.Drawing.Point(71, 29)
+        Me.Label39.Margin = New System.Windows.Forms.Padding(1)
         Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(35, 29)
+        Me.Label39.Size = New System.Drawing.Size(33, 27)
         Me.Label39.TabIndex = 14
         Me.Label39.Text = "3"
         Me.Label39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -522,10 +522,10 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label40.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label40.Location = New System.Drawing.Point(105, 28)
-        Me.Label40.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label40.Location = New System.Drawing.Point(106, 29)
+        Me.Label40.Margin = New System.Windows.Forms.Padding(1)
         Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(35, 29)
+        Me.Label40.Size = New System.Drawing.Size(33, 27)
         Me.Label40.TabIndex = 15
         Me.Label40.Text = "4"
         Me.Label40.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -536,10 +536,10 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label41.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label41.Location = New System.Drawing.Point(140, 28)
-        Me.Label41.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label41.Location = New System.Drawing.Point(141, 29)
+        Me.Label41.Margin = New System.Windows.Forms.Padding(1)
         Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(35, 29)
+        Me.Label41.Size = New System.Drawing.Size(33, 27)
         Me.Label41.TabIndex = 16
         Me.Label41.Text = "5"
         Me.Label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -550,10 +550,10 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label42.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label42.Location = New System.Drawing.Point(175, 28)
-        Me.Label42.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label42.Location = New System.Drawing.Point(176, 29)
+        Me.Label42.Margin = New System.Windows.Forms.Padding(1)
         Me.Label42.Name = "Label42"
-        Me.Label42.Size = New System.Drawing.Size(35, 29)
+        Me.Label42.Size = New System.Drawing.Size(33, 27)
         Me.Label42.TabIndex = 17
         Me.Label42.Text = "6"
         Me.Label42.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -564,10 +564,10 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label43.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label43.Location = New System.Drawing.Point(210, 28)
-        Me.Label43.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label43.Location = New System.Drawing.Point(211, 29)
+        Me.Label43.Margin = New System.Windows.Forms.Padding(1)
         Me.Label43.Name = "Label43"
-        Me.Label43.Size = New System.Drawing.Size(35, 29)
+        Me.Label43.Size = New System.Drawing.Size(33, 27)
         Me.Label43.TabIndex = 18
         Me.Label43.Text = "7"
         Me.Label43.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -578,10 +578,10 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label44.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label44.Location = New System.Drawing.Point(245, 28)
-        Me.Label44.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label44.Location = New System.Drawing.Point(246, 29)
+        Me.Label44.Margin = New System.Windows.Forms.Padding(1)
         Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(35, 29)
+        Me.Label44.Size = New System.Drawing.Size(33, 27)
         Me.Label44.TabIndex = 19
         Me.Label44.Text = "8"
         Me.Label44.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -592,10 +592,10 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label45.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label45.Location = New System.Drawing.Point(280, 28)
-        Me.Label45.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label45.Location = New System.Drawing.Point(281, 29)
+        Me.Label45.Margin = New System.Windows.Forms.Padding(1)
         Me.Label45.Name = "Label45"
-        Me.Label45.Size = New System.Drawing.Size(35, 29)
+        Me.Label45.Size = New System.Drawing.Size(33, 27)
         Me.Label45.TabIndex = 20
         Me.Label45.Text = "9"
         Me.Label45.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -606,10 +606,10 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label46.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label46.Location = New System.Drawing.Point(315, 28)
-        Me.Label46.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label46.Location = New System.Drawing.Point(316, 29)
+        Me.Label46.Margin = New System.Windows.Forms.Padding(1)
         Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(35, 29)
+        Me.Label46.Size = New System.Drawing.Size(33, 27)
         Me.Label46.TabIndex = 21
         Me.Label46.Text = "10"
         Me.Label46.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -620,10 +620,10 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label47.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label47.Location = New System.Drawing.Point(350, 28)
-        Me.Label47.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label47.Location = New System.Drawing.Point(351, 29)
+        Me.Label47.Margin = New System.Windows.Forms.Padding(1)
         Me.Label47.Name = "Label47"
-        Me.Label47.Size = New System.Drawing.Size(35, 29)
+        Me.Label47.Size = New System.Drawing.Size(33, 27)
         Me.Label47.TabIndex = 22
         Me.Label47.Text = "11+"
         Me.Label47.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -2247,8 +2247,8 @@ Partial Class FrmMain
         Me.LblAbout.Name = "LblAbout"
         Me.LblAbout.Size = New System.Drawing.Size(204, 77)
         Me.LblAbout.TabIndex = 2
-        Me.LblAbout.Text = "Dennis N. Maidon" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "PAROLE Software" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Written in VB.Net (4.7.1)" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "www.parolesoftware." &
-    "com"
+        Me.LblAbout.Text = "Dennis N. Maidon" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "PAROLE Software" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Written in VB.Net (4.8)" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "www.parolesoftware.co" &
+    "m"
         Me.LblAbout.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PictureBox2
@@ -2261,6 +2261,7 @@ Partial Class FrmMain
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox2.TabIndex = 1
         Me.PictureBox2.TabStop = False
+        Me.PictureBox2.Tag = "1"
         '
         'PictureBox1
         '
@@ -2271,6 +2272,7 @@ Partial Class FrmMain
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
+        Me.PictureBox1.Tag = "0"
         Me.TTip.SetToolTip(Me.PictureBox1, "Data provided by: Open UV Index API")
         '
         'TmrRtUV

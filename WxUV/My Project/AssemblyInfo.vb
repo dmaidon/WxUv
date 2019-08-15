@@ -1,10 +1,8 @@
-﻿Imports System.Resources
-Imports System.Reflection
+﻿Imports System.Reflection
+Imports System.Resources
 Imports System.Runtime.InteropServices
 
-' General Information about an assembly is controlled through the following
-' set of attributes. Change these attribute values to modify the information
-' associated with an assembly.
+' General Information about an assembly is controlled through the following set of attributes. Change these attribute values to modify the information associated with an assembly.
 
 ' Review the values of the assembly attributes
 
@@ -22,15 +20,10 @@ Imports System.Runtime.InteropServices
 
 ' Version information for an assembly consists of the following four values:
 '
-'      Major Version
-'      Minor Version
-'      Build Number
-'      Revision
+' Major Version Minor Version Build Number Revision
 '
-' You can specify all the values or you can default the Build and Revision Numbers
-' by using the '*' as shown below:
-' <Assembly: AssemblyVersion("1.0.*")>
+' You can specify all the values or you can default the Build and Revision Numbers by using the '*' as shown below: <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("1.0.0.18191")>
-<Assembly: AssemblyFileVersion("1.0.0.18191")>
+<Assembly: AssemblyVersion("19.8.15.3")>
+<Assembly: AssemblyFileVersion("19.8.15.3")>
 <Assembly: NeutralResourcesLanguage("en-US")>

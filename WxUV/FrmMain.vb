@@ -5,7 +5,7 @@ Imports IWshRuntimeLibrary
 Imports Microsoft.Win32
 Imports WxUV.Modules
 
-Public Class FrmMain
+Friend Class FrmMain
 
     'Adds the applications AssemblyName to the Desktop's path and adds the .lnk extension used for shortcuts
     Private ReadOnly _desktopPathName As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), My.Application.Info.AssemblyName & $".lnk")
@@ -25,7 +25,7 @@ Public Class FrmMain
         ChkStartShort.Checked = IO.File.Exists(_startupPathName)
         'The checkboxes checked states have been set so set Loading to false to allow the CreateShortcut sub to be called now
         _loading = False
-        Cpy = $"©{DateTime.Now.Year}, {Application.CompanyName}"
+        Cpy = $"©{Date.Now.Year}, {Application.CompanyName}"
         CreateFolders()
 
         ''set the header for the .log file
@@ -34,12 +34,12 @@ Public Class FrmMain
         KInfo.SetValue("TimesRun", timesRun, RegistryValueKind.QWord)
         KInfo.SetValue("Last Run", Now.ToString, RegistryValueKind.String)
         KInfo.SetValue("FirstRun", False, RegistryValueKind.String)
-        LogFile = $"{Path.Combine(Application.StartupPath, LogDir)}\uv_{Format(Now, "MMddyyyy_").ToString}{timesRun}.log"
+        LogFile = $"{Path.Combine(Application.StartupPath, LOG_DIR)}\uv_{Format(Now, "MMddyyyy_").ToString}{timesRun}.log"
         LMsg = ""
         LMsg = $"Log file started: {Now}{vbCrLf}"
-        LMsg = LMsg & $"Program: {Application.ProductName} v{Application.ProductVersion}{vbCrLf}"
-        LMsg = LMsg & $"Times run: {timesRun}{vbCrLf}"
-        LMsg = LMsg & $"Update frequency: {Updatetime} minutes.{vbCrLf}{Separator}{vbCrLf}"
+        LMsg &= $"Program: {Application.ProductName} v{Application.ProductVersion}{vbCrLf}"
+        LMsg &= $"Times run: {timesRun}{vbCrLf}"
+        LMsg &= $"Update frequency: {Updatetime} minutes.{vbCrLf}{SEPARATOR}{vbCrLf}"
         RtbLog.AppendText(LMsg)
 
         ''cleanup the logfile folder and delete the old files.
@@ -64,7 +64,7 @@ Public Class FrmMain
         End If
         Altitude = ($"{KInfo.GetValue("Altitude", 0)}")
 
-        RtbLog.AppendText($"{Squiggley}{vbCrLf}")
+        RtbLog.AppendText($"{SQUIGGLEY}{vbCrLf}")
         SaveLogs()
 
         GetUvForecast()
@@ -133,8 +133,8 @@ Public Class FrmMain
     End Sub
 
     Private Sub CreateFolders()
-        TempPath = Path.Combine(Application.StartupPath, TempDir)
-        LogPath = Path.Combine(Application.StartupPath, LogDir)
+        TempPath = Path.Combine(Application.StartupPath, TEMP_DIR)
+        LogPath = Path.Combine(Application.StartupPath, LOG_DIR)
         Try
             If Not Directory.Exists(TempPath) Then
                 Directory.CreateDirectory(TempPath)
@@ -179,7 +179,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
         '                  </msg2>.Value
         'TTip.SetToolTip(TsslUrl, $"{msg}{vbCrLf}{msg2}")
         RtbLog.AppendText($"{msg}{vbCrLf}")
-        RtbLog.AppendText($"{Separator}{vbCrLf}")
+        RtbLog.AppendText($"{SEPARATOR}{vbCrLf}")
         SaveLogs()
     End Sub
 
@@ -253,11 +253,10 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
         End If
     End Sub
 
-    ''' <summary>Creates or removes a shortcut for this application at the specified pathname.</summary>
-    ''' <param name="shortcutPathName">
-    '''     The path where the shortcut is to be created or removed from including the (.lnk)
-    '''     extension.
-    ''' </param>
+    ''' <summary>
+    ''' Creates or removes a shortcut for this application at the specified pathname.
+    ''' </summary>
+    ''' <param name="shortcutPathName">The path where the shortcut is to be created or removed from including the (.lnk) extension.</param>
     ''' <param name="create">True to create a shortcut or False to remove the shortcut.</param>
     Private Sub CreateShortcut(shortcutPathName As String, create As Boolean)
         If create Then
@@ -298,20 +297,13 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
         GetUvProtection()
     End Sub
 
-    Private Sub NumFrom_Enter(sender As Object, e As EventArgs) Handles NumFrom.Enter
-        NumFrom.Select(0, NumFrom.Text.Length)
-    End Sub
-
-    Private Sub NumTo_Enter(sender As Object, e As EventArgs) Handles NumTo.Enter
-        NumTo.Select(0, NumTo.Text.Length)
+    Private Shared Sub NumEnter(sender As Object, e As EventArgs) Handles NumFrom.Enter, NumTo.Enter, NumElevation.Enter, NumRTInterval.Enter, NumLogDays.Enter
+        Dim ct = DirectCast(sender, NumericUpDown)
+        ct.Select(0, ct.Text.Length)
     End Sub
 
     Private Sub NumTo_ValueChanged(sender As Object, e As EventArgs) Handles NumTo.ValueChanged
-        If NumTo.Value > 0 Then
-            BtnProtection.Enabled = True
-        Else
-            BtnProtection.Enabled = False
-        End If
+        BtnProtection.Enabled = NumTo.Value > 0
     End Sub
 
 #End Region
@@ -326,19 +318,16 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
 
 #Region "About"
 
-    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click, PictureBox2.Click
         Try
-            Process.Start("http://parolesoftware.com/")
-        Catch ex As Exception
-            RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
-        Finally
-            ''
-        End Try
-    End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        Try
-            Process.Start("https://www.openuv.io")
+            With DirectCast(sender, PictureBox)
+                Select Case CInt(.Tag)
+                    Case 0
+                        Process.Start($"https://www.openuv.io")
+                    Case 1
+                        Process.Start($"http://parolesoftware.com/")
+                End Select
+            End With
         Catch ex As Exception
             RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
         Finally
@@ -407,9 +396,9 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
         ' If the no button was pressed ...
         If result = DialogResult.No Then
             ' cancel reset
-            Exit Sub
+            Return
         Else
-            RtbLog.AppendText($"{Squiggley}{vbCrLf}")
+            RtbLog.AppendText($"{SQUIGGLEY}{vbCrLf}")
             Try
                 Dim ue = Path.Combine(TempPath, GElev)
                 If IO.File.Exists(ue) Then
@@ -422,7 +411,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
                 ''
             End Try
             KInfo.SetValue("Altitude Set", 0)
-            RtbLog.AppendText($"~~~~~ Altitude reset{vbCrLf}{Squiggley}{vbCrLf}")
+            RtbLog.AppendText($"~~~~~ Altitude reset{vbCrLf}{SQUIGGLEY}{vbCrLf}")
             RtbDebug.AppendText($"~~~~~ Altitude reset{vbCrLf}{vbCrLf}")
             DownloadElevation()
         End If
@@ -436,25 +425,12 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
         KSet.SetValue("Longitude", TxtLongitude.Text, RegistryValueKind.String)
     End Sub
 
-    Private Sub NumRTInterval_Enter(sender As Object, e As EventArgs) Handles NumRTInterval.Enter
-        NumRTInterval.Select(0, NumRTInterval.Text.Length)
-    End Sub
-
     Private Sub NumRTInterval_ValueChanged(sender As Object, e As EventArgs) Handles NumRTInterval.ValueChanged
         KInfo.SetValue("RealTime UV Interval", NumRTInterval.Value, RegistryValueKind.DWord)
     End Sub
 
     Private Sub NumElevation_ValueChanged(sender As Object, e As EventArgs) Handles NumElevation.ValueChanged
         KInfo.SetValue("Altitude", $"{NumElevation.Value:N0}", RegistryValueKind.DWord)
-    End Sub
-
-    Private Sub NumElevation_Enter(sender As Object, e As EventArgs) Handles NumElevation.Enter
-        NumElevation.Select(0, NumElevation.Text.Length)
-    End Sub
-
-    Private Sub NumLogDays_Enter(sender As Object, e As EventArgs) Handles NumLogDays.Enter
-        ''set the number of days to maintain the log files in the LOG folder.
-        NumLogDays.Select(0, NumLogDays.Text.Length)
     End Sub
 
     Private Sub NumLogDays_ValueChanged(sender As Object, e As EventArgs) Handles NumLogDays.ValueChanged

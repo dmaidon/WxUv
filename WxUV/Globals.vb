@@ -17,30 +17,30 @@ Module Globals
     ''Google Elevation API Key
     Public GoogleKey As String = ""
 
-    Public CLatitude As Double = KSet.GetValue("Latitude", "37.787644")
-    Public CLongitude As Double = KSet.GetValue("Longitude", "-79.44189")
+    Public ReadOnly CLatitude As Double = KSet.GetValue("Latitude", "37.787644")
+    Public ReadOnly CLongitude As Double = KSet.GetValue("Longitude", "-79.44189")
 
-    Public Const TempDir As String = "$tmp"
+    Public Const TEMP_DIR As String = "$tmp"
     Public TempPath As String
 
-    Public Const LogDir As String = "Logs"
+    Public Const LOG_DIR As String = "Logs"
     Public LogPath As String
     Public LogFile As String
 
-    Public UvArr(17) As PictureBox
-    Public LblArr(17) As Label
-    Public LblStArr(5) As Label
+    Public ReadOnly UvArr(17) As PictureBox
+    Public ReadOnly LblArr(17) As Label
+    Public ReadOnly LblStArr(5) As Label
 
     ''Google
-    Public GElev = $"elevation.json"
+    Public ReadOnly GElev = $"elevation.json"
 
     Public Altitude As Double = 0.0
     Public GNfo As Object
 
     ''log items
 
-    Public Separator As String = "-----------------------------"
-    Public Squiggley As String = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    Public Const SEPARATOR As String = "-----------------------------"
+    Public Const SQUIGGLEY As String = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
     ''main items
     Public TimerMultiplier As Long = 60000
@@ -57,12 +57,12 @@ Module Globals
     Public SsNfo As Object
 
     ''UV Forecast
-    Public UvFil As String = $"uv-fc_{Now.ToString("Mdyy")}.json"
+    Public ReadOnly UvFil As String = $"uv-fc_{Now.ToString("Mdyy")}.json"
 
     Public UvNfo As Object
 
     ''Real-time
-    Public RtFil As String = $"uv-rt_{Now.ToString("Mdyy")}.json"
+    Public ReadOnly RtFil As String = $"uv-rt_{Now.ToString("Mdyy")}.json"
 
     Public RtNfo As Object
 
@@ -70,7 +70,7 @@ Module Globals
     Public OzLevel As String
 
     ''Protection
-    Public ProtFil As String = $"uv-pt_{Now.ToString("Mdyy")}.json"
+    Public ReadOnly ProtFil As String = $"uv-pt_{Now.ToString("Mdyy")}.json"
 
     Public ProtNfo As Object
     Public FrmNdx As Double = 0
@@ -79,9 +79,9 @@ Module Globals
     ''Auth variables
     Public AuthPath As String = ""
 
-    Public Const AuthDir As String = "Auth"
+    Public Const AUTH_DIR As String = "Auth"
     Public AuthFile As String
-    Public Const TwitterAuthfile As String = "Twitter.auth"
+    Public Const TWITTER_AUTHFILE As String = "Twitter.auth"
 
     '' Twitter App Keys
     Public ConsumerKey As String = ""

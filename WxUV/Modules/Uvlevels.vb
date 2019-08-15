@@ -7,7 +7,7 @@
             Select Case lev
                 Case 0 To 2.5
                     uvLev.Add("Low")
-                    uvLev.Add("Low")
+                    [uvLev].Add("Low")
                     uvLev.Add("#558b2f")
                     uvLev.Add("Green")
                     Dim msg = <msg>
@@ -34,7 +34,7 @@ A UV Index reading of 3 to 5 means moderate risk of harm from unprotected sun ex
                     uvLev.Add(msg)
                 Case Is <= 7.5
                     uvLev.Add("High")
-                    uvLev.Add("High")
+                    [uvLev].Add("High")
                     uvLev.Add("#ef6c00")
                     uvLev.Add("Orange")
                     Dim msg = <msg>

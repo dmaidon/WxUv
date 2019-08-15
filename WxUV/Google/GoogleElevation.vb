@@ -38,7 +38,7 @@ Namespace Google
 
     Partial Public Class Goog
 
-        Public Shared Function FromJson(json As String) As Goog
+        Friend Shared Function FromJson(json As String) As Goog
             ''https://stackoverflow.com/questions/31813055/how-to-handle-null-empty-values-in-jsonconvert-deserializeobject
             Dim settings = New JsonSerializerSettings With {
                     .NullValueHandling = NullValueHandling.Ignore,
@@ -58,7 +58,7 @@ Namespace Google
 
     End Module
 
-    Public Class Converter
+    Friend Class Converter
 
         Public Shared ReadOnly Settings As JsonSerializerSettings = New JsonSerializerSettings With {.MetadataPropertyHandling = MetadataPropertyHandling.Ignore, .DateParseHandling = DateParseHandling.None}
     End Class

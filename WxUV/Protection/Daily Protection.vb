@@ -28,7 +28,7 @@ Namespace Protection
 
     Partial Public Class Dpt
 
-        Public Shared Function FromJson(json As String) As Dpt
+        Friend Shared Function FromJson(json As String) As Dpt
             ''https://stackoverflow.com/questions/31813055/how-to-handle-null-empty-values-in-jsonconvert-deserializeobject
             Dim settings = New JsonSerializerSettings With {
                     .NullValueHandling = NullValueHandling.Ignore,
@@ -48,7 +48,7 @@ Namespace Protection
 
     End Module
 
-    Public Class Converter
+    Friend Class Converter
 
         Public Shared ReadOnly Settings As JsonSerializerSettings = New JsonSerializerSettings With {.MetadataPropertyHandling = MetadataPropertyHandling.Ignore, .DateParseHandling = DateParseHandling.None}
     End Class

@@ -26,7 +26,8 @@ Namespace Modules
             ApiKey = Kuv.GetValue("Key", "")
             If ApiKey.Trim() = "" Then
                 Keyset = False
-                MsgBox($"OpenUV API key not entered.{vbCrLf}Please enter key on 'Settings' tab.")
+                'MsgBox($"OpenUV API key not entered.{vbCrLf}Please enter key on 'Settings' tab.")
+                FrmMain.TC.SelectedTab = FrmMain.TpSettings
             Else
                 Keyset = True
             End If
@@ -98,14 +99,10 @@ Namespace Modules
                 FrmMain.RtbLog.AppendText($"Now: {Now.ToLongTimeString()}     Sunrise: {sunrise}     Sunset: {sunset}{vbCrLf}")
                 'If Now.ToLongTimeString() >= $"{sunrise}" And Now.ToLongTimeString() <= $"{sunset}" Then
                 'MsgBox(My.Computer.Clock.LocalTime.ToShortTimeString & vbCrLf & sunrise.ToLocalTime.ToShortTimeString())
-                If My.Computer.Clock.LocalTime.ToShortTimeString >= dttSunrise And My.Computer.Clock.LocalTime.ToShortTimeString <= dttSunset Then
-                    Daylight = True
-                Else
-                    Daylight = False
-                End If
+                Daylight = My.Computer.Clock.LocalTime.ToShortTimeString >= dttSunrise AndAlso My.Computer.Clock.LocalTime.ToShortTimeString <= dttSunset
                 'MsgBox(Daylight)
                 FrmMain.RtbLog.AppendText($"Sunrise: {sunrise}     Daylight = {Daylight}{vbCrLf}")
-                FrmMain.RtbLog.AppendText(Separator & vbCrLf)
+                FrmMain.RtbLog.AppendText(SEPARATOR & vbCrLf)
                 DisplayInfo()
 
                 response.Close()
@@ -118,7 +115,7 @@ Namespace Modules
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
             Finally
-                FrmMain.RtbLog.AppendText($"{Squiggley}{vbCrLf}")
+                FrmMain.RtbLog.AppendText($"{SQUIGGLEY}{vbCrLf}")
                 SaveLogs()
             End Try
 

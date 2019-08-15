@@ -36,13 +36,13 @@ Namespace Forecast
 
     Partial Public Class UvFcast
 
-        Public Shared Function FromJson(json As String) As UvFcast
+        Friend Shared Function FromJson(json As String) As UvFcast
             ''https://stackoverflow.com/questions/31813055/how-to-handle-null-empty-values-in-jsonconvert-deserializeobject
             Dim settings = New JsonSerializerSettings With {
                     .NullValueHandling = NullValueHandling.Ignore,
                     .MissingMemberHandling = MissingMemberHandling.Ignore
                     }
-            Return JsonConvert.DeserializeObject(Of uvfcast)(json, settings)
+            Return JsonConvert.DeserializeObject(Of UvFcast)(json, settings)
         End Function
 
     End Class
@@ -56,7 +56,7 @@ Namespace Forecast
 
     End Module
 
-    Public Class Converter
+    Friend Class Converter
 
         Public Shared ReadOnly _
             Settings As JsonSerializerSettings = New JsonSerializerSettings _

@@ -15,7 +15,8 @@ Namespace Modules
             OzLevel = KInfo.GetValue("Ozone", 0)
             ApiKey = Kuv.GetValue("Key", "")
             If Not Keyset Then
-                Exit Sub
+                FrmMain.TC.SelectedTab = FrmMain.TpSettings
+                Return
             End If
             FrmMain.RtbDebug.AppendText($"Protection Debug{vbCrLf}Lat: {CLatitude}   Long: {CLongitude}{vbCrLf}Altitude: {Altitude}{vbCrLf}Ozone: {OzLevel}{vbCrLf}From: {fromm}   To: {too}{vbCrLf}{vbCrLf}")
             Try
@@ -37,7 +38,7 @@ Namespace Modules
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
             Finally
-                FrmMain.RtbLog.AppendText($"{Squiggley}{vbCrLf}")
+                FrmMain.RtbLog.AppendText($"{SQUIGGLEY}{vbCrLf}")
                 SaveLogs()
             End Try
             DisplayProtectionInfo()
