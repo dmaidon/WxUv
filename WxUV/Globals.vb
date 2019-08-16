@@ -8,9 +8,10 @@ Module Globals
     Public ReadOnly KSet As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Setup")
     Public ReadOnly KMet As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Metrics")
     Public ReadOnly KInfo As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Information")
-    Public ReadOnly KTwit As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Tokens\Consumer\Twitter\Keys")
-    Public ReadOnly Kuv As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Tokens\Consumer\OpenUV\Api")
-    Public ReadOnly Kg As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Tokens\Consumer\Google\Api")
+    Public ReadOnly KTok As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Tokens\Security\Keys")
+    'Public ReadOnly Kuv As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Tokens\Consumer\OpenUV\Api")
+    'Public ReadOnly Kg As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Tokens\Consumer\Google\Api")
+    'Public ReadOnly Ke As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Tokens\Consumer\Elevation-API\Api")
 
     ''OpenUV API Key
     Public ApiKey As String = ""
@@ -18,7 +19,7 @@ Module Globals
     Public Keyset As Boolean = False
 
     ''Google Elevation API Key
-    Public GoogleKey As String = ""
+    'Public GoogleKey As String = ""
 
     Public ReadOnly CLatitude As Double = KSet.GetValue(My.Resources.reg_lat, "37.787644")
     Public ReadOnly CLongitude As Double = KSet.GetValue(My.Resources.reg_lng, "-79.44189")
@@ -33,12 +34,12 @@ Module Globals
     Public ReadOnly UvArr(17) As PictureBox
     Public ReadOnly LblArr(17) As Label
     Public ReadOnly LblStArr(5) As Label
+    Public ReadOnly EOpt(1) As RadioButton
 
     ''Google
     Public ReadOnly GElev = $"elevation.json"
 
     Public Altitude As Double = 0.0
-    Public GNfo As Object
 
     ''log items
 

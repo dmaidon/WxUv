@@ -13,12 +13,12 @@ Namespace Modules
 
         Private Sub DownloadUvProtection(fromm As Double, too As Double)
             OzLevel = KInfo.GetValue(My.Resources.oz, 0)
-            ApiKey = Kuv.GetValue(My.Resources.uv_key, "")
+            ApiKey = KTok.GetValue(My.Resources.key_uv, "")
             If Not Keyset Then
                 FrmMain.TC.SelectedTab = FrmMain.TpSettings
                 Return
             End If
-            FrmMain.RtbDebug.AppendText($"Protection Debug{vbCrLf}Lat: {CLatitude}   Long: {CLongitude}{vbCrLf}Altitude: {Altitude}{vbCrLf}Ozone: {OzLevel}{vbCrLf}From: {fromm}   To: {too}{vbCrLf}{vbCrLf}")
+            FrmMain.RtbLog.AppendText($"Protection Debug{vbCrLf}Lat: {CLatitude}   Long: {CLongitude}{vbCrLf}Altitude: {Altitude}{vbCrLf}Ozone: {OzLevel}{vbCrLf}From: {fromm}   To: {too}{vbCrLf}{vbCrLf}")
             Try
                 Dim request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/protection?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&ozone={OzLevel}&from={fromm}&to={too}"), HttpWebRequest)
                 With request
@@ -31,12 +31,11 @@ Namespace Modules
                 End With
 
                 Using response = CType(request.GetResponse(), HttpWebResponse)
-                    FrmMain.RtbDebug.AppendText(response.StatusCode & vbCrLf)
-                    FrmMain.RtbDebug.AppendText(response.StatusDescription & vbCrLf & vbCrLf)
+                    FrmMain.RtbLog.AppendText($"{response.StatusCode}{vbCrLf}{response.StatusDescription}{vbCrLf}{vbCrLf}")
                     Dim dStr = response.GetResponseStream()
                     Using reader As New StreamReader(dStr)
                         Dim resp = reader.ReadToEnd()
-                        FrmMain.RtbDebug.AppendText(resp & vbCrLf & vbCrLf)
+                        FrmMain.RtbLog.AppendText(resp & vbCrLf & vbCrLf)
                         File.WriteAllText(_upf, resp)
                         ProtNfo = Dpt.FromJson(resp)
                     End Using

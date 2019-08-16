@@ -199,11 +199,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Key: Google Elevation.
+        '''  Looks up a localized string similar to Google Elevation returns a more accurate elevation than the Elevation-API but, it is a paid service..
         '''</summary>
-        Friend ReadOnly Property goog_key() As String
+        Friend ReadOnly Property elev_help() As String
             Get
-                Return ResourceManager.GetString("goog_key", resourceCulture)
+                Return ResourceManager.GetString("elev_help", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Selected Elevation Provider.
+        '''</summary>
+        Friend ReadOnly Property elev_toggle() As String
+            Get
+                Return ResourceManager.GetString("elev_toggle", resourceCulture)
             End Get
         End Property
         
@@ -222,6 +231,42 @@ Namespace My.Resources
         Friend ReadOnly Property hide_log() As String
             Get
                 Return ResourceManager.GetString("hide_log", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Key: Elevation-API.
+        '''</summary>
+        Friend ReadOnly Property key_elev() As String
+            Get
+                Return ResourceManager.GetString("key_elev", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Key: Google Elevation.
+        '''</summary>
+        Friend ReadOnly Property key_goog() As String
+            Get
+                Return ResourceManager.GetString("key_goog", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Key: Twitter.
+        '''</summary>
+        Friend ReadOnly Property key_twit() As String
+            Get
+                Return ResourceManager.GetString("key_twit", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Key: OpenUV.
+        '''</summary>
+        Friend ReadOnly Property key_uv() As String
+            Get
+                Return ResourceManager.GetString("key_uv", resourceCulture)
             End Get
         End Property
         
@@ -296,15 +341,6 @@ Namespace My.Resources
         Friend ReadOnly Property uv_int() As String
             Get
                 Return ResourceManager.GetString("uv_int", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Key: UV.
-        '''</summary>
-        Friend ReadOnly Property uv_key() As String
-            Get
-                Return ResourceManager.GetString("uv_key", resourceCulture)
             End Get
         End Property
     End Module

@@ -65,7 +65,7 @@ Namespace Modules
                     ''uncomment the line below and comment the 3 lines above to remove the altitude and azimuth from the hourly tool tips.
                     'FrmMain.TTip.SetToolTip(UvArr(j), aa.Item(4))
 
-                    FrmMain.RtbDebug.AppendText(
+                    FrmMain.RtbLog.AppendText(
                         $"{ab} @ {tm}:{vbCrLf}     Level name: {aa.Item(0)}{vbCrLf}     Level short name: {aa.Item(1)}{vbCrLf}     Color id: {aa.Item(2)}{vbCrLf}     Color name: { _
                                                    aa.Item(3)}{vbCrLf}{vbCrLf}")
                     Application.DoEvents()
@@ -105,7 +105,7 @@ Namespace Modules
 
         Private Sub DownloadUvForecast()
             OzLevel = KInfo.GetValue(My.Resources.oz, 0)
-            ApiKey = Kuv.GetValue(My.Resources.uv_key, "")
+            ApiKey = KTok.GetValue(My.Resources.key_uv, "")
             If ApiKey.Trim() = "" Then
                 Keyset = False
                 'MsgBox($"OpenUV API key not entered.{vbCrLf}Please enter key on 'Settings' tab.")
@@ -126,12 +126,11 @@ Namespace Modules
                 End With
 
                 Using response = CType(request.GetResponse(), HttpWebResponse)
-                    FrmMain.RtbDebug.AppendText(response.StatusCode & vbCrLf)
-                    FrmMain.RtbDebug.AppendText(response.StatusDescription & vbCrLf & vbCrLf)
+                    FrmMain.RtbLog.AppendText($"{response.StatusCode}{vbCrLf}{response.StatusDescription}{vbCrLf}{vbCrLf}")
                     Dim dStr = response.GetResponseStream()
                     Using reader As New StreamReader(dStr)
                         Dim resp = reader.ReadToEnd()
-                        FrmMain.RtbDebug.AppendText(resp & vbCrLf & vbCrLf)
+                        FrmMain.RtbLog.AppendText(resp & vbCrLf & vbCrLf)
                         File.WriteAllText(_uf, resp)
                         UvNfo = UvFcast.FromJson(resp)
                     End Using
@@ -147,7 +146,7 @@ Namespace Modules
         End Sub
 
         Private Sub ParseJson(fn As String)
-            FrmMain.RtbDebug.AppendText($"Reading from cached file. {vbCrLf}")
+            FrmMain.RtbLog.AppendText($"Reading from cached file. {vbCrLf}")
 
             Try
                 Dim reader As New StreamReader(fn)

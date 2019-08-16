@@ -163,7 +163,7 @@
   <data name="alt" xml:space="preserve">
     <value>Altitude</value>
   </data>
-  <data name="goog_key" xml:space="preserve">
+  <data name="key_goog" xml:space="preserve">
     <value>Key: Google Elevation</value>
   </data>
   <data name="hide_debug" xml:space="preserve">
@@ -178,8 +178,8 @@
   <data name="reg_lng" xml:space="preserve">
     <value>Longitude</value>
   </data>
-  <data name="uv_key" xml:space="preserve">
-    <value>Key: UV</value>
+  <data name="key_uv" xml:space="preserve">
+    <value>Key: OpenUV</value>
   </data>
   <data name="alt_set" xml:space="preserve">
     <value>Altitude Set</value>
@@ -195,5 +195,17 @@
   </data>
   <data name="uv_int" xml:space="preserve">
     <value>Interval: UV RealTime</value>
+  </data>
+  <data name="elev_help" xml:space="preserve">
+    <value>Google Elevation returns a more accurate elevation than the Elevation-API but, it is a paid service.</value>
+  </data>
+  <data name="elev_toggle" xml:space="preserve">
+    <value>Selected Elevation Provider</value>
+  </data>
+  <data name="key_elev" xml:space="preserve">
+    <value>Key: Elevation-API</value>
+  </data>
+  <data name="key_twit" xml:space="preserve">
+    <value>Key: Twitter</value>
   </data>
 </root>

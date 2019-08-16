@@ -28,7 +28,7 @@
     <ProductName>WxUV</ProductName>
     <PublisherName>PAROLE Software</PublisherName>
     <ApplicationRevision>105</ApplicationRevision>
-    <ApplicationVersion>19.8.15.35</ApplicationVersion>
+    <ApplicationVersion>19.8.16.9</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <ShouldCreateLogs>True</ShouldCreateLogs>
@@ -152,6 +152,7 @@
     </Compile>
     <Compile Include="Globals.vb" />
     <Compile Include="Google\GoogleElevation.vb" />
+    <Compile Include="Modules\Arrays.vb" />
     <Compile Include="Modules\Elevations.vb" />
     <Compile Include="Modules\LogMaint.vb" />
     <Compile Include="Modules\Misc_Routines.vb" />

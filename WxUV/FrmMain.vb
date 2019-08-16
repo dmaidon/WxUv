@@ -84,53 +84,6 @@ Friend Class FrmMain
         SaveLogs()
     End Sub
 
-    Private Sub InitializeArrays()
-        UvArr(0) = PbUv1
-        UvArr(1) = PbUv2
-        UvArr(2) = PbUv3
-        UvArr(3) = PbUv4
-        UvArr(4) = PbUv5
-        UvArr(5) = PbUv6
-        UvArr(6) = PbUv7
-        UvArr(7) = PbUv8
-        UvArr(8) = PbUv9
-        UvArr(9) = PbUv10
-        UvArr(10) = PbUv11
-        UvArr(11) = PbUv12
-        UvArr(12) = PbUv13
-        UvArr(13) = PbUv14
-        UvArr(14) = PbUv15
-        UvArr(15) = PbUv16
-        UvArr(16) = PbUv17
-        UvArr(17) = PbUv18
-
-        LblArr(0) = Label1
-        LblArr(1) = Label2
-        LblArr(2) = Label3
-        LblArr(3) = Label4
-        LblArr(4) = Label5
-        LblArr(5) = Label6
-        LblArr(6) = Label7
-        LblArr(7) = Label8
-        LblArr(8) = Label9
-        LblArr(9) = Label10
-        LblArr(10) = Label11
-        LblArr(11) = Label12
-        LblArr(12) = Label13
-        LblArr(13) = Label14
-        LblArr(14) = Label15
-        LblArr(15) = Label16
-        LblArr(16) = Label17
-        LblArr(17) = Label18
-
-        LblStArr(0) = LblSt1
-        LblStArr(1) = LblSt2
-        LblStArr(2) = LblSt3
-        LblStArr(3) = LblSt4
-        LblStArr(4) = LblSt5
-        LblStArr(5) = LblSt6
-    End Sub
-
     Private Sub CreateFolders()
         TempPath = Path.Combine(Application.StartupPath, TEMP_DIR)
         LogPath = Path.Combine(Application.StartupPath, LOG_DIR)
@@ -172,13 +125,7 @@ Total memory before: <%= tmb.ToString("#,### bytes") %>
 Total memory after: <%= tma.ToString("#,### bytes") %>
 Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
                   </msg>.Value
-        '        Dim msg2 = <msg2>
-        'To disable this function, go to the
-        '"WxReport/WxNow" tab in WxSettings.
-        '                  </msg2>.Value
-        'TTip.SetToolTip(TsslUrl, $"{msg}{vbCrLf}{msg2}")
-        RtbLog.AppendText($"{msg}{vbCrLf}")
-        RtbLog.AppendText($"{SEPARATOR}{vbCrLf}")
+        RtbLog.AppendText($"{msg}{vbCrLf}{SEPARATOR}{vbCrLf}")
         SaveLogs()
     End Sub
 
@@ -214,18 +161,6 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
     Private Shared Sub TmrRtUV_Elapsed(sender As Object, e As ElapsedEventArgs) Handles TmrRtUV.Elapsed
         GetUvRealTime()
         GetUvForecast()
-    End Sub
-
-#End Region
-
-#Region "TpDebug"
-
-    Private Shared Sub BtnForecast_Click(sender As Object, e As EventArgs) Handles BtnForecast.Click
-        GetUvForecast()
-    End Sub
-
-    Private Shared Sub BtnRealTime_Click_1(sender As Object, e As EventArgs) Handles BtnRealTime.Click
-        GetUvRealTime()
     End Sub
 
 #End Region
@@ -350,20 +285,20 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
 
     Private Sub TxtUvKey_TextChanged(sender As Object, e As EventArgs) Handles TxtUvKey.TextChanged
         ''My.Computer.Registry.CurrentUser.DeleteSubKey("Software\TestApp")
-        Kuv.SetValue(My.Resources.uv_key, TxtUvKey.Text, RegistryValueKind.String)
+        KTok.SetValue(My.Resources.key_uv, TxtUvKey.Text, RegistryValueKind.String)
     End Sub
 
     Private Sub TxtGoogleKey_TextChanged(sender As Object, e As EventArgs) Handles TxtGoogleKey.TextChanged
-        Kg.SetValue(My.Resources.goog_key, TxtGoogleKey.Text, RegistryValueKind.String)
+        KTok.SetValue(My.Resources.key_goog, TxtGoogleKey.Text, RegistryValueKind.String)
     End Sub
 
-    Private Sub ChkHideDebuf_CheckedChanged(sender As Object, e As EventArgs) Handles ChkHideDebug.CheckedChanged
-        KSet.SetValue("Hide Debug Tab", ChkHideDebug.Checked, RegistryValueKind.DWord)
-        If ChkHideDebug.Checked Then
-            TC.TabPages.Remove(TpDebug)
-        Else
-            TC.TabPages.Insert(5, TpDebug)
-        End If
+    Private Sub TxtElevationApiKey_TextChanged(sender As Object, e As EventArgs) Handles TxtElevationApiKey.TextChanged
+        KTok.SetValue(My.Resources.key_elev, TxtElevationApiKey.Text, RegistryValueKind.String)
+    End Sub
+
+    Private Shared Sub RbElevCheckedChanged(sender As Object, e As EventArgs) Handles RbElev0.CheckedChanged, RbElev1.CheckedChanged
+        Dim ni = DirectCast(sender, RadioButton)
+        KSet.SetValue(My.Resources.elev_toggle, CInt(ni.Tag), RegistryValueKind.DWord)
     End Sub
 
     Private Sub ChkHideLog_CheckedChanged(sender As Object, e As EventArgs) Handles ChkHideLog.CheckedChanged
@@ -378,20 +313,21 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
     Private Sub TpSettings_Enter(sender As Object, e As EventArgs) Handles TpSettings.Enter
         TxtLatitude.Text = KSet.GetValue(My.Resources.reg_lat, "37.787644")
         TxtLongitude.Text = KSet.GetValue(My.Resources.reg_lng, "-79.44189")
-        TxtUvKey.Text = Kuv.GetValue(My.Resources.uv_key, "")
-        TxtGoogleKey.Text = Kg.GetValue(My.Resources.goog_key, "")
-        ChkHideDebug.Checked = KSet.GetValue(My.Resources.hide_debug, 0)
+        TxtUvKey.Text = KTok.GetValue(My.Resources.key_uv, "")
+        TxtGoogleKey.Text = KTok.GetValue(My.Resources.key_goog, "")
+        TxtElevationApiKey.Text = KTok.GetValue(My.Resources.key_elev, "")
         ChkHideLog.Checked = KSet.GetValue(My.Resources.hide_log, 0)
         NumElevation.Value = KInfo.GetValue(My.Resources.alt, 0)
         NumRTInterval.Value = KInfo.GetValue(My.Resources.uv_int, 0)
         NumLogDays.Value = KSet.GetValue(My.Resources.log_days, 3)
+        LblElevHelp.Text = My.Resources.elev_help
+        EOpt(KSet.GetValue(My.Resources.elev_toggle, 1)).Checked = True
     End Sub
 
     Private Sub BntResetAlt_Click(sender As Object, e As EventArgs) Handles BntResetAlt.Click
         Const msg = "Are you sure that you would like to reset the Altitude?"
         Const caption = "Reset Altitude"
         Dim result = MessageBox.Show(msg, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
         ' If the no button was pressed ...
         If result = DialogResult.No Then
             ' cancel reset
@@ -411,8 +347,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
             End Try
             KInfo.SetValue("Altitude Set", 0)
             RtbLog.AppendText($"~~~~~ Altitude reset{vbCrLf}{SQUIGGLEY}{vbCrLf}")
-            RtbDebug.AppendText($"~~~~~ Altitude reset{vbCrLf}{vbCrLf}")
-            DownloadElevation()
+            GetElevation()
         End If
     End Sub
 

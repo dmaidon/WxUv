@@ -161,7 +161,6 @@ Partial Friend Class FrmMain
         Me.NumRTInterval = New System.Windows.Forms.NumericUpDown()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.ChkHideLog = New System.Windows.Forms.CheckBox()
-        Me.ChkHideDebug = New System.Windows.Forms.CheckBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.TxtUvKey = New System.Windows.Forms.TextBox()
         Me.Label20 = New System.Windows.Forms.Label()
@@ -178,14 +177,13 @@ Partial Friend Class FrmMain
         Me.ChkStartShort = New System.Windows.Forms.CheckBox()
         Me.ChkDeskShort = New System.Windows.Forms.CheckBox()
         Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.RbElev1 = New System.Windows.Forms.RadioButton()
+        Me.RbElev0 = New System.Windows.Forms.RadioButton()
+        Me.LblElevHelp = New System.Windows.Forms.Label()
         Me.TxtElevationApiKey = New System.Windows.Forms.TextBox()
         Me.Label49 = New System.Windows.Forms.Label()
         Me.TxtGoogleKey = New System.Windows.Forms.TextBox()
         Me.Label37 = New System.Windows.Forms.Label()
-        Me.TpDebug = New System.Windows.Forms.TabPage()
-        Me.BtnRealTime = New System.Windows.Forms.Button()
-        Me.RtbDebug = New System.Windows.Forms.RichTextBox()
-        Me.BtnForecast = New System.Windows.Forms.Button()
         Me.TpLog = New System.Windows.Forms.TabPage()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.RtbLog = New System.Windows.Forms.RichTextBox()
@@ -254,7 +252,6 @@ Partial Friend Class FrmMain
         Me.GroupBox14.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.Panel7.SuspendLayout()
-        Me.TpDebug.SuspendLayout()
         Me.TpLog.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.TpAbout.SuspendLayout()
@@ -273,7 +270,6 @@ Partial Friend Class FrmMain
         Me.TC.Controls.Add(Me.TpExposure)
         Me.TC.Controls.Add(Me.TpProtect)
         Me.TC.Controls.Add(Me.TpSettings)
-        Me.TC.Controls.Add(Me.TpDebug)
         Me.TC.Controls.Add(Me.TpLog)
         Me.TC.Controls.Add(Me.TpAbout)
         Me.TC.Dock = System.Windows.Forms.DockStyle.Top
@@ -1870,12 +1866,12 @@ Partial Friend Class FrmMain
         Me.TpSettings.Controls.Add(Me.Label48)
         Me.TpSettings.Controls.Add(Me.Panel1)
         Me.TpSettings.Controls.Add(Me.ChkHideLog)
-        Me.TpSettings.Controls.Add(Me.ChkHideDebug)
         Me.TpSettings.Controls.Add(Me.Panel3)
         Me.TpSettings.Controls.Add(Me.GroupBox6)
         Me.TpSettings.Controls.Add(Me.GroupBox14)
         Me.TpSettings.Controls.Add(Me.GroupBox2)
         Me.TpSettings.Controls.Add(Me.Panel7)
+        Me.TpSettings.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TpSettings.Location = New System.Drawing.Point(4, 22)
         Me.TpSettings.Name = "TpSettings"
         Me.TpSettings.Size = New System.Drawing.Size(434, 405)
@@ -1887,7 +1883,7 @@ Partial Friend Class FrmMain
         Me.NumLogDays.Location = New System.Drawing.Point(118, 87)
         Me.NumLogDays.Maximum = New Decimal(New Integer() {360, 0, 0, 0})
         Me.NumLogDays.Name = "NumLogDays"
-        Me.NumLogDays.Size = New System.Drawing.Size(49, 20)
+        Me.NumLogDays.Size = New System.Drawing.Size(49, 18)
         Me.NumLogDays.TabIndex = 0
         '
         'Label48
@@ -1895,7 +1891,7 @@ Partial Friend Class FrmMain
         Me.Label48.AutoSize = True
         Me.Label48.Location = New System.Drawing.Point(7, 91)
         Me.Label48.Name = "Label48"
-        Me.Label48.Size = New System.Drawing.Size(111, 13)
+        Me.Label48.Size = New System.Drawing.Size(110, 13)
         Me.Label48.TabIndex = 18
         Me.Label48.Text = "Days to keep log files:"
         '
@@ -1905,7 +1901,7 @@ Partial Friend Class FrmMain
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.NumRTInterval)
         Me.Panel1.Controls.Add(Me.Label19)
-        Me.Panel1.Location = New System.Drawing.Point(256, 137)
+        Me.Panel1.Location = New System.Drawing.Point(256, 118)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(168, 50)
         Me.Panel1.TabIndex = 17
@@ -1916,7 +1912,7 @@ Partial Friend Class FrmMain
         Me.NumRTInterval.Location = New System.Drawing.Point(56, 22)
         Me.NumRTInterval.Maximum = New Decimal(New Integer() {360, 0, 0, 0})
         Me.NumRTInterval.Name = "NumRTInterval"
-        Me.NumRTInterval.Size = New System.Drawing.Size(55, 20)
+        Me.NumRTInterval.Size = New System.Drawing.Size(55, 18)
         Me.NumRTInterval.TabIndex = 0
         Me.TTip.SetToolTip(Me.NumRTInterval, "" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10))
         '
@@ -1925,29 +1921,19 @@ Partial Friend Class FrmMain
         Me.Label19.AutoSize = True
         Me.Label19.Location = New System.Drawing.Point(19, 6)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(128, 13)
+        Me.Label19.Size = New System.Drawing.Size(124, 13)
         Me.Label19.TabIndex = 12
         Me.Label19.Text = "RealTime Update Interval"
         '
         'ChkHideLog
         '
         Me.ChkHideLog.AutoSize = True
-        Me.ChkHideLog.Location = New System.Drawing.Point(7, 367)
+        Me.ChkHideLog.Location = New System.Drawing.Point(7, 377)
         Me.ChkHideLog.Name = "ChkHideLog"
-        Me.ChkHideLog.Size = New System.Drawing.Size(87, 17)
+        Me.ChkHideLog.Size = New System.Drawing.Size(86, 17)
         Me.ChkHideLog.TabIndex = 2
         Me.ChkHideLog.Text = "Hide Log tab"
         Me.ChkHideLog.UseVisualStyleBackColor = True
-        '
-        'ChkHideDebug
-        '
-        Me.ChkHideDebug.AutoSize = True
-        Me.ChkHideDebug.Location = New System.Drawing.Point(7, 344)
-        Me.ChkHideDebug.Name = "ChkHideDebug"
-        Me.ChkHideDebug.Size = New System.Drawing.Size(101, 17)
-        Me.ChkHideDebug.TabIndex = 1
-        Me.ChkHideDebug.Text = "Hide Debug tab"
-        Me.ChkHideDebug.UseVisualStyleBackColor = True
         '
         'Panel3
         '
@@ -1955,16 +1941,17 @@ Partial Friend Class FrmMain
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel3.Controls.Add(Me.TxtUvKey)
         Me.Panel3.Controls.Add(Me.Label20)
-        Me.Panel3.Location = New System.Drawing.Point(7, 137)
+        Me.Panel3.Location = New System.Drawing.Point(7, 118)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(242, 50)
         Me.Panel3.TabIndex = 12
         '
         'TxtUvKey
         '
+        Me.TxtUvKey.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TxtUvKey.Location = New System.Drawing.Point(2, 23)
         Me.TxtUvKey.Name = "TxtUvKey"
-        Me.TxtUvKey.Size = New System.Drawing.Size(236, 20)
+        Me.TxtUvKey.Size = New System.Drawing.Size(236, 18)
         Me.TxtUvKey.TabIndex = 0
         '
         'Label20
@@ -1972,7 +1959,7 @@ Partial Friend Class FrmMain
         Me.Label20.AutoSize = True
         Me.Label20.Location = New System.Drawing.Point(1, 6)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(90, 13)
+        Me.Label20.Size = New System.Drawing.Size(89, 13)
         Me.Label20.TabIndex = 12
         Me.Label20.Text = "OpenUV Api Key:"
         '
@@ -1995,7 +1982,7 @@ Partial Friend Class FrmMain
         Me.NumElevation.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
         Me.NumElevation.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
         Me.NumElevation.Name = "NumElevation"
-        Me.NumElevation.Size = New System.Drawing.Size(49, 20)
+        Me.NumElevation.Size = New System.Drawing.Size(49, 18)
         Me.NumElevation.TabIndex = 0
         '
         'LblAltitude
@@ -2037,7 +2024,7 @@ Partial Friend Class FrmMain
         Me.TxtLongitude.Location = New System.Drawing.Point(70, 37)
         Me.TxtLongitude.MaxLength = 25
         Me.TxtLongitude.Name = "TxtLongitude"
-        Me.TxtLongitude.Size = New System.Drawing.Size(67, 20)
+        Me.TxtLongitude.Size = New System.Drawing.Size(67, 18)
         Me.TxtLongitude.TabIndex = 1
         '
         'TxtLatitude
@@ -2045,7 +2032,7 @@ Partial Friend Class FrmMain
         Me.TxtLatitude.Location = New System.Drawing.Point(70, 16)
         Me.TxtLatitude.MaxLength = 25
         Me.TxtLatitude.Name = "TxtLatitude"
-        Me.TxtLatitude.Size = New System.Drawing.Size(67, 20)
+        Me.TxtLatitude.Size = New System.Drawing.Size(67, 18)
         Me.TxtLatitude.TabIndex = 0
         '
         'Label35
@@ -2112,20 +2099,54 @@ Partial Friend Class FrmMain
         '
         Me.Panel7.BackColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel7.Controls.Add(Me.RbElev1)
+        Me.Panel7.Controls.Add(Me.RbElev0)
+        Me.Panel7.Controls.Add(Me.LblElevHelp)
         Me.Panel7.Controls.Add(Me.TxtElevationApiKey)
         Me.Panel7.Controls.Add(Me.Label49)
         Me.Panel7.Controls.Add(Me.TxtGoogleKey)
         Me.Panel7.Controls.Add(Me.Label37)
-        Me.Panel7.Location = New System.Drawing.Point(7, 193)
+        Me.Panel7.Location = New System.Drawing.Point(7, 173)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(242, 93)
+        Me.Panel7.Size = New System.Drawing.Size(242, 145)
         Me.Panel7.TabIndex = 16
+        '
+        'RbElev1
+        '
+        Me.RbElev1.AutoSize = True
+        Me.RbElev1.Location = New System.Drawing.Point(223, 69)
+        Me.RbElev1.Name = "RbElev1"
+        Me.RbElev1.Size = New System.Drawing.Size(14, 13)
+        Me.RbElev1.TabIndex = 18
+        Me.RbElev1.TabStop = True
+        Me.RbElev1.Tag = "1"
+        Me.RbElev1.UseVisualStyleBackColor = True
+        '
+        'RbElev0
+        '
+        Me.RbElev0.AutoSize = True
+        Me.RbElev0.Location = New System.Drawing.Point(223, 27)
+        Me.RbElev0.Name = "RbElev0"
+        Me.RbElev0.Size = New System.Drawing.Size(14, 13)
+        Me.RbElev0.TabIndex = 17
+        Me.RbElev0.TabStop = True
+        Me.RbElev0.Tag = "0"
+        Me.RbElev0.UseVisualStyleBackColor = True
+        '
+        'LblElevHelp
+        '
+        Me.LblElevHelp.Location = New System.Drawing.Point(3, 90)
+        Me.LblElevHelp.Name = "LblElevHelp"
+        Me.LblElevHelp.Size = New System.Drawing.Size(235, 48)
+        Me.LblElevHelp.TabIndex = 16
+        Me.LblElevHelp.Text = "-"
         '
         'TxtElevationApiKey
         '
+        Me.TxtElevationApiKey.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TxtElevationApiKey.Location = New System.Drawing.Point(2, 65)
         Me.TxtElevationApiKey.Name = "TxtElevationApiKey"
-        Me.TxtElevationApiKey.Size = New System.Drawing.Size(236, 20)
+        Me.TxtElevationApiKey.Size = New System.Drawing.Size(216, 18)
         Me.TxtElevationApiKey.TabIndex = 15
         '
         'Label49
@@ -2139,9 +2160,10 @@ Partial Friend Class FrmMain
         '
         'TxtGoogleKey
         '
+        Me.TxtGoogleKey.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TxtGoogleKey.Location = New System.Drawing.Point(2, 23)
         Me.TxtGoogleKey.Name = "TxtGoogleKey"
-        Me.TxtGoogleKey.Size = New System.Drawing.Size(236, 20)
+        Me.TxtGoogleKey.Size = New System.Drawing.Size(216, 18)
         Me.TxtGoogleKey.TabIndex = 0
         '
         'Label37
@@ -2152,47 +2174,6 @@ Partial Friend Class FrmMain
         Me.Label37.Size = New System.Drawing.Size(83, 13)
         Me.Label37.TabIndex = 12
         Me.Label37.Text = "Google Api Key:"
-        '
-        'TpDebug
-        '
-        Me.TpDebug.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.TpDebug.Controls.Add(Me.BtnRealTime)
-        Me.TpDebug.Controls.Add(Me.RtbDebug)
-        Me.TpDebug.Controls.Add(Me.BtnForecast)
-        Me.TpDebug.Location = New System.Drawing.Point(4, 22)
-        Me.TpDebug.Name = "TpDebug"
-        Me.TpDebug.Size = New System.Drawing.Size(434, 405)
-        Me.TpDebug.TabIndex = 3
-        Me.TpDebug.Text = "Debug"
-        Me.TpDebug.UseVisualStyleBackColor = True
-        '
-        'BtnRealTime
-        '
-        Me.BtnRealTime.Location = New System.Drawing.Point(276, 372)
-        Me.BtnRealTime.Name = "BtnRealTime"
-        Me.BtnRealTime.Size = New System.Drawing.Size(75, 23)
-        Me.BtnRealTime.TabIndex = 1
-        Me.BtnRealTime.Text = "Real Time"
-        Me.BtnRealTime.UseVisualStyleBackColor = True
-        '
-        'RtbDebug
-        '
-        Me.RtbDebug.Dock = System.Windows.Forms.DockStyle.Top
-        Me.RtbDebug.Location = New System.Drawing.Point(0, 0)
-        Me.RtbDebug.Name = "RtbDebug"
-        Me.RtbDebug.ShowSelectionMargin = True
-        Me.RtbDebug.Size = New System.Drawing.Size(430, 366)
-        Me.RtbDebug.TabIndex = 4
-        Me.RtbDebug.Text = ""
-        '
-        'BtnForecast
-        '
-        Me.BtnForecast.Location = New System.Drawing.Point(80, 372)
-        Me.BtnForecast.Name = "BtnForecast"
-        Me.BtnForecast.Size = New System.Drawing.Size(75, 23)
-        Me.BtnForecast.TabIndex = 0
-        Me.BtnForecast.Text = "Forecast"
-        Me.BtnForecast.UseVisualStyleBackColor = True
         '
         'TpLog
         '
@@ -2333,7 +2314,7 @@ Partial Friend Class FrmMain
         Me.TsslCpy.Font = New System.Drawing.Font("Segoe UI", 7.5!)
         Me.TsslCpy.ForeColor = System.Drawing.Color.Maroon
         Me.TsslCpy.Name = "TsslCpy"
-        Me.TsslCpy.Size = New System.Drawing.Size(367, 17)
+        Me.TsslCpy.Size = New System.Drawing.Size(398, 17)
         Me.TsslCpy.Spring = True
         Me.TsslCpy.Text = "c"
         '
@@ -2447,7 +2428,6 @@ Partial Friend Class FrmMain
         Me.GroupBox2.ResumeLayout(False)
         Me.Panel7.ResumeLayout(False)
         Me.Panel7.PerformLayout()
-        Me.TpDebug.ResumeLayout(False)
         Me.TpLog.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.TpAbout.ResumeLayout(False)
@@ -2466,10 +2446,6 @@ Partial Friend Class FrmMain
     Friend WithEvents TC As TabControl
     Friend WithEvents TpDisplay As TabPage
     Friend WithEvents TpSettings As TabPage
-    Friend WithEvents TpDebug As TabPage
-    Friend WithEvents RtbDebug As RichTextBox
-    Friend WithEvents BtnRealTime As Button
-    Friend WithEvents BtnForecast As Button
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents ChkStartShort As CheckBox
     Friend WithEvents ChkDeskShort As CheckBox
@@ -2573,7 +2549,6 @@ Partial Friend Class FrmMain
     Friend WithEvents LblProtTo As Label
     Friend WithEvents LblProtFrom As Label
     Friend WithEvents LblProtLo As Label
-    Friend WithEvents ChkHideDebug As CheckBox
     Friend WithEvents ChkHideLog As CheckBox
     Friend WithEvents GroupBox11 As GroupBox
     Friend WithEvents LblSunset As Label
@@ -2646,4 +2621,7 @@ Partial Friend Class FrmMain
     Friend WithEvents Label48 As Label
     Friend WithEvents TxtElevationApiKey As TextBox
     Friend WithEvents Label49 As Label
+    Friend WithEvents LblElevHelp As Label
+    Friend WithEvents RbElev1 As RadioButton
+    Friend WithEvents RbElev0 As RadioButton
 End Class

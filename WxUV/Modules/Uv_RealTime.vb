@@ -23,7 +23,7 @@ Namespace Modules
             ''date "&dt=" defaults to current time
             'OzLevel = KInfo.GetValue("Ozone", 0)
             Dim dt = $"{Now:O}"
-            ApiKey = Kuv.GetValue(My.Resources.uv_key, "")
+            ApiKey = KTok.GetValue(My.Resources.key_uv, "")
             If ApiKey.Trim() = "" Then
                 Keyset = False
                 'MsgBox($"OpenUV API key not entered.{vbCrLf}Please enter key on 'Settings' tab.")
@@ -33,7 +33,6 @@ Namespace Modules
                 Keyset = True
             End If
             ''2018-01-24T10:50:52.283Z
-            FrmMain.RtbDebug.AppendText($"Time: {Now:G}     UTC: {Now.ToUniversalTime():O}{vbCrLf}")
             FrmMain.RtbLog.AppendText($"Time: {Now:G}     UTC: {Now.ToUniversalTime():O}{vbCrLf}")
             Try
                 Dim request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/uv?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&dt={dt}"), HttpWebRequest)
@@ -47,12 +46,11 @@ Namespace Modules
                 End With
 
                 Using response = CType(request.GetResponse(), HttpWebResponse)
-                    FrmMain.RtbDebug.AppendText(response.StatusCode & vbCrLf)
-                    FrmMain.RtbDebug.AppendText(response.StatusDescription & vbCrLf & vbCrLf)
+                    FrmMain.RtbLog.AppendText($"{response.StatusCode}{vbCrLf}{response.StatusDescription}{vbCrLf}{vbCrLf}")
                     Dim dStr = response.GetResponseStream()
                     Using reader As New StreamReader(dStr)
                         Dim resp = reader.ReadToEnd()
-                        FrmMain.RtbDebug.AppendText(resp & vbCrLf & vbCrLf)
+                        FrmMain.RtbLog.AppendText($"{resp}{vbCrLf}{vbCrLf}")
                         File.WriteAllText(_urt, resp)
                         RtNfo = UvRtCast.FromJson(resp)
                     End Using
@@ -107,11 +105,10 @@ Namespace Modules
 
                     FrmMain.RtbLog.AppendText($"Now: {Now.ToLongTimeString()}     Sunrise: {sunrise}     Sunset: {sunset}{vbCrLf}")
                     Daylight = My.Computer.Clock.LocalTime.ToShortTimeString >= dttSunrise AndAlso My.Computer.Clock.LocalTime.ToShortTimeString <= dttSunset
-                    FrmMain.RtbLog.AppendText($"Sunrise: {sunrise}     Daylight = {Daylight}{vbCrLf}")
-                    FrmMain.RtbLog.AppendText(SEPARATOR & vbCrLf)
+                    FrmMain.RtbLog.AppendText($"Sunrise: {sunrise}     Daylight = {Daylight}{vbCrLf}{SEPARATOR}{vbCrLf}")
                     DisplayInfo()
                     FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Real-time UV Forecast -> [{_urt}]{vbCrLf}")
-                    FrmMain.RtbDebug.AppendText _
+                    FrmMain.RtbLog.AppendText _
                     ($"Time: {(RtNfo.Result.UvTime).ToLocalTime}{vbCrLf}UV Level: {RtNfo.Result.Uv}{vbCrLf}UV Maximum Time: {RtNfo.Result.UvMaxTime}{vbCrLf _
                         }UV Maximum: {RtNfo.Result.UvMax}{vbCrLf}Ozone: {RtNfo.Result.Ozone}{vbCrLf}Ozone Time: {(RtNfo.Result.OzoneTime).ToLocalTime _
                         }{vbCrLf}{vbCrLf}")
@@ -119,9 +116,10 @@ Namespace Modules
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
             Finally
-                FrmMain.RtbLog.AppendText($"{SQUIGGLEY}{vbCrLf}")
-                SaveLogs()
+                ''
             End Try
+            FrmMain.RtbLog.AppendText($"{SQUIGGLEY}{vbCrLf}")
+            SaveLogs()
         End Sub
 
         Private Function DisplayDayLen(a As TimeSpan) As String
@@ -156,7 +154,7 @@ Namespace Modules
         End Sub
 
         Private Sub ParseRtJson(fn As String)
-            FrmMain.RtbDebug.AppendText($"Reading from cached file. {vbCrLf}")
+            FrmMain.RtbLog.AppendText($"Reading from cached file. {vbCrLf}")
 
             Try
                 Dim reader As New StreamReader(fn)
