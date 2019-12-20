@@ -19,6 +19,7 @@ Friend Class FrmMain
 
     ''OpenUV
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        UpgradeMySettings()
         'Sets the Desktop checkbox checked state to true if the desktop shortcut exists
         ChkDeskShort.Checked = IO.File.Exists(_desktopPathName)
         'Sets the Startup Folder checkbox checked state to true if the Startup folder shortcut exists
@@ -33,21 +34,21 @@ Friend Class FrmMain
         KInfo.SetValue(My.Resources.timesrun, timesRun + 1, RegistryValueKind.QWord)
         KInfo.SetValue("Last Run", Now.ToString, RegistryValueKind.String)
         KInfo.SetValue("FirstRun", False, RegistryValueKind.String)
-        LogFile = $"{Path.Combine(Application.StartupPath, LOG_DIR)}\uv_{Format(Now, "MMddyyyy_").ToString}{timesRun + 1}.log"
+        LogFile = $"{Path.Combine(Application.StartupPath, Log_Dir)}\uv_{Format(Now, "MMddyyyy_").ToString}{timesRun + 1}.log"
         LMsg = ""
         LMsg = $"Log file started: {Now}{vbCrLf}"
         LMsg &= $"Program: {Application.ProductName} v{Application.ProductVersion}{vbCrLf}"
         LMsg &= $"Times run: {timesRun + 1}{vbCrLf}"
-        LMsg &= $"Update frequency: {Updatetime} minutes.{vbCrLf}{SEPARATOR}{vbCrLf}"
+        LMsg &= $"Update frequency: {Updatetime} minutes.{vbCrLf}{Separator}{vbCrLf}"
         RtbLog.AppendText(LMsg)
 
         ''cleanup the logfile folder and delete the old files.
         PerformLogMaintenance()
         GetUvRealTime()
-        InitializeArrays()
+        'InitializeArrays()
         With Me
-            .Top = CInt(KMet.GetValue("Top", 100))
-            .Left = CInt(KMet.GetValue("Left", 100))
+            '.Top = CInt(KMet.GetValue("Top", 100))
+            '.Left = CInt(KMet.GetValue("Left", 100))
             .Text = $"{Application.ProductName}"
             .TsslVer.Text = $"{Application.ProductVersion}"
             .TsslCpy.Text = $"{Cpy}"
@@ -63,7 +64,7 @@ Friend Class FrmMain
         End If
         Altitude = ($"{KInfo.GetValue(My.Resources.alt, 0)}")
 
-        RtbLog.AppendText($"{SQUIGGLEY}{vbCrLf}")
+        RtbLog.AppendText($"{Squiggley}{vbCrLf}")
         SaveLogs()
 
         GetUvForecast()
@@ -76,17 +77,30 @@ Friend Class FrmMain
     End Sub
 
     Private Sub FrmMain_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        KMet.SetValue("Top", Top, RegistryValueKind.DWord)
-        KMet.SetValue("Left", Left, RegistryValueKind.DWord)
+        'KMet.SetValue("Top", Top, RegistryValueKind.DWord)
+        'KMet.SetValue("Left", Left, RegistryValueKind.DWord)
+        My.Settings.Save()
         RtbLog.AppendText($"Log closed @ {Now.ToLongTimeString()}")
         TIcon.Dispose()
         CollectMemoryGarbage()
         SaveLogs()
     End Sub
 
+    ''' <summary>
+    '''     Manually update application settings In Settings create MustUpgrade/Boolean/User/True
+    ''' </summary>
+    Private Shared Sub UpgradeMySettings()
+        'https://stackoverflow.com/questions/1702260/losing-vb-net-my-settings-with-each-new-clickonce-deployment-release
+        If My.Settings.MustUpgrade Then
+            My.Settings.Upgrade()
+            My.Settings.MustUpgrade = False
+            My.Settings.Save()
+        End If
+    End Sub
+
     Private Sub CreateFolders()
-        TempPath = Path.Combine(Application.StartupPath, TEMP_DIR)
-        LogPath = Path.Combine(Application.StartupPath, LOG_DIR)
+        TempPath = Path.Combine(Application.StartupPath, Temp_Dir)
+        LogPath = Path.Combine(Application.StartupPath, Log_Dir)
         Try
             If Not Directory.Exists(TempPath) Then
                 Directory.CreateDirectory(TempPath)
@@ -125,7 +139,7 @@ Total memory before: <%= tmb.ToString("#,### bytes") %>
 Total memory after: <%= tma.ToString("#,### bytes") %>
 Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
                   </msg>.Value
-        RtbLog.AppendText($"{msg}{vbCrLf}{SEPARATOR}{vbCrLf}")
+        RtbLog.AppendText($"{msg}{vbCrLf}{Separator}{vbCrLf}")
         SaveLogs()
     End Sub
 
@@ -142,8 +156,9 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
 
     Private Sub SetTimers()
         Try
-            If KInfo.GetValue(My.Resources.uv_int, 0) > 0 Then
-                TmrRtUV.Interval = KInfo.GetValue(My.Resources.uv_int, 0) * TIMER_MULTIPLIER
+            Dim aa As Integer = KInfo.GetValue(My.Resources.uv_int, 0)
+            If aa > 0 Then
+                TmrRtUV.Interval = TimeSpan.FromMinutes(aa).TotalMilliseconds ' * Timer_Multiplier
                 TmrRtUV.Enabled = True
                 TmrRtUV.Start()
             Else
@@ -188,9 +203,12 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
     End Sub
 
     ''' <summary>
-    ''' Creates or removes a shortcut for this application at the specified pathname.
+    '''     Creates or removes a shortcut for this application at the specified pathname.
     ''' </summary>
-    ''' <param name="shortcutPathName">The path where the shortcut is to be created or removed from including the (.lnk) extension.</param>
+    ''' <param name="shortcutPathName">
+    '''     The path where the shortcut is to be created or removed from including the (.lnk)
+    '''     extension.
+    ''' </param>
     ''' <param name="create">True to create a shortcut or False to remove the shortcut.</param>
     Private Sub CreateShortcut(shortcutPathName As String, create As Boolean)
         If create Then
@@ -333,7 +351,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
             ' cancel reset
             Return
         Else
-            RtbLog.AppendText($"{SQUIGGLEY}{vbCrLf}")
+            RtbLog.AppendText($"{Squiggley}{vbCrLf}")
             Try
                 Dim ue = Path.Combine(TempPath, GElev)
                 If IO.File.Exists(ue) Then
@@ -346,7 +364,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
                 ''
             End Try
             KInfo.SetValue("Altitude Set", 0)
-            RtbLog.AppendText($"~~~~~ Altitude reset{vbCrLf}{SQUIGGLEY}{vbCrLf}")
+            RtbLog.AppendText($"~~~~~ Altitude reset{vbCrLf}{Squiggley}{vbCrLf}")
             GetElevation()
         End If
     End Sub

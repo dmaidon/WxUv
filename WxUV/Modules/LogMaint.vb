@@ -10,7 +10,7 @@ Namespace Modules
         ''http://stackoverflow.com/questions/9194749/trying-to-delete-files-older-than-x-days-vb-net
         Public Sub PerformLogMaintenance()
 
-            FrmMain.RtbLog.AppendText($"<{SEPARATOR}{vbCrLf}")
+            FrmMain.RtbLog.AppendText($"<{Separator}{vbCrLf}")
             Dim intdays = KSet.GetValue(My.Resources.log_days, 5)
             If intdays <= 0 Then
                 FrmMain.RtbLog.AppendText($"Logs set to keep all.{vbCrLf}")
@@ -46,7 +46,7 @@ Namespace Modules
                 ''trap error
             End Try
             FrmMain.RtbLog.AppendText($"Files over {intdays} days in age deleted.({fc} files deleted.){vbCrLf}")
-            FrmMain.RtbLog.AppendText($"{SEPARATOR}>{vbCrLf}")
+            FrmMain.RtbLog.AppendText($"{Separator}>{vbCrLf}")
             SaveLogs()
         End Sub
 

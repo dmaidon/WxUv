@@ -1,13 +1,14 @@
 ﻿Imports Microsoft.Win32
 Imports WxUV.Forecast
-Imports WxUV.RealTime
 Imports WxUV.Protection
+Imports WxUV.RealTime
 
 Module Globals
-
     Public ReadOnly KSet As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Setup")
-    Public ReadOnly KMet As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Metrics")
+
+    'Public ReadOnly KMet As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Metrics")
     Public ReadOnly KInfo As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Information")
+
     Public ReadOnly KTok As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Tokens\Security\Keys")
     'Public ReadOnly Kuv As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Tokens\Consumer\OpenUV\Api")
     'Public ReadOnly Kg As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Tokens\Consumer\Google\Api")
@@ -24,17 +25,25 @@ Module Globals
     Public ReadOnly CLatitude As Double = KSet.GetValue(My.Resources.reg_lat, "37.787644")
     Public ReadOnly CLongitude As Double = KSet.GetValue(My.Resources.reg_lng, "-79.44189")
 
-    Public Const TEMP_DIR As String = "$tmp"
+    Public Const Temp_Dir As String = "$tmp"
     Public TempPath As String
 
-    Public Const LOG_DIR As String = "Logs"
+    Public Const Log_Dir As String = "Logs"
     Public LogPath As String
     Public LogFile As String
 
-    Public ReadOnly UvArr(17) As PictureBox
-    Public ReadOnly LblArr(17) As Label
-    Public ReadOnly LblStArr(5) As Label
-    Public ReadOnly EOpt(1) As RadioButton
+    Public ReadOnly _
+        UvArr As PictureBox() =
+            {FrmMain.PbUv1, FrmMain.PbUv2, FrmMain.PbUv3, FrmMain.PbUv4, FrmMain.PbUv5, FrmMain.PbUv6, FrmMain.PbUv7, FrmMain.PbUv8, FrmMain.PbUv9, FrmMain.PbUv10,
+                FrmMain.PbUv11, FrmMain.PbUv12, FrmMain.PbUv13, FrmMain.PbUv14, FrmMain.PbUv15, FrmMain.PbUv16, FrmMain.PbUv17, FrmMain.PbUv18}
+
+    Public ReadOnly _
+        LblArr As Label() =
+            {FrmMain.Label1, FrmMain.Label2, FrmMain.Label3, FrmMain.Label4, FrmMain.Label5, FrmMain.Label6, FrmMain.Label7, FrmMain.Label8, FrmMain.Label9, FrmMain.Label10,
+                FrmMain.Label11, FrmMain.Label12, FrmMain.Label13, FrmMain.Label14, FrmMain.Label15, FrmMain.Label16, FrmMain.Label17, FrmMain.Label18}
+
+    Public ReadOnly LblStArr As Label() = {FrmMain.LblSt1, FrmMain.LblSt2, FrmMain.LblSt3, FrmMain.LblSt4, FrmMain.LblSt5, FrmMain.LblSt6}
+    Public ReadOnly EOpt As RadioButton() = {FrmMain.RbElev0, FrmMain.RbElev1}
 
     ''Google
     Public ReadOnly GElev = $"elevation.json"
@@ -43,15 +52,15 @@ Module Globals
 
     ''log items
 
-    Public Const SEPARATOR As String = "-----------------------------"
-    Public Const SQUIGGLEY As String = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    Public Const Separator As String = "-----------------------------"
+    Public Const Squiggley As String = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
     ''main items
-    Public Const TIMER_MULTIPLIER As Long = 60000
+    ' Public Const Timer_Multiplier As Long = 60000
 
     Public Cpy As String
     Public LMsg As String
-    Public Updatetime As Integer = 0
+    Public ReadOnly Updatetime As Integer = 0
 
     'Astro
     Public Daylight As Boolean = False
@@ -83,14 +92,13 @@ Module Globals
     ''Auth variables
     Public AuthPath As String = ""
 
-    Public Const AUTH_DIR As String = "Auth"
+    Public Const Auth_Dir As String = "Auth"
     Public AuthFile As String
-    Public Const TWITTER_AUTHFILE As String = "Twitter.auth"
+    Public Const Twitter_Authfile As String = "Twitter.auth"
 
     '' Twitter App Keys
     Public ConsumerKey As String = ""
 
     Public ConsumerKeySecret As String = ""
-    Public Const USE_AGENT As String = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3794.0 Safari/537.36 Edg/76.0.162.0"
-
+    Public Const Use_Agent As String = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3794.0 Safari/537.36 Edg/76.0.162.0"
 End Module

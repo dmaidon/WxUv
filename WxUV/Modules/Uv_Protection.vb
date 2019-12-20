@@ -11,7 +11,7 @@ Namespace Modules
             DownloadUvProtection(FrmMain.NumFrom.Value, FrmMain.NumTo.Value)
         End Sub
 
-        Private Sub DownloadUvProtection(fromm As Double, too As Double)
+        Private Async Sub DownloadUvProtection(fromm As Double, too As Double)
             OzLevel = KInfo.GetValue(My.Resources.oz, 0)
             ApiKey = KTok.GetValue(My.Resources.key_uv, "")
             If Not Keyset Then
@@ -27,14 +27,14 @@ Namespace Modules
                     .Accept = "application/json"
                     .Timeout = 120000
                     .Headers.Add("Accept-Encoding", "gzip, deflate")
-                    .UserAgent = USE_AGENT
+                    .UserAgent = Use_Agent
                 End With
 
                 Using response = CType(request.GetResponse(), HttpWebResponse)
                     FrmMain.RtbLog.AppendText($"{response.StatusCode}{vbCrLf}{response.StatusDescription}{vbCrLf}{vbCrLf}")
                     Dim dStr = response.GetResponseStream()
                     Using reader As New StreamReader(dStr)
-                        Dim resp = reader.ReadToEnd()
+                        Dim resp = Await reader.ReadToEndAsync()
                         FrmMain.RtbLog.AppendText(resp & vbCrLf & vbCrLf)
                         File.WriteAllText(_upf, resp)
                         ProtNfo = Dpt.FromJson(resp)
@@ -44,7 +44,7 @@ Namespace Modules
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
             Finally
-                FrmMain.RtbLog.AppendText($"{SQUIGGLEY}{vbCrLf}")
+                FrmMain.RtbLog.AppendText($"{Squiggley}{vbCrLf}")
                 SaveLogs()
             End Try
             DisplayProtectionInfo()

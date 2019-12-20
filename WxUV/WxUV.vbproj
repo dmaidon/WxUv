@@ -4,6 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Features>IOperation</Features>
     <ProjectGuid>{589BCB61-686F-4CE1-AAF9-989D7C33A4A1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <StartupObject>WxUV.My.MyApplication</StartupObject>
@@ -28,7 +29,7 @@
     <ProductName>WxUV</ProductName>
     <PublisherName>PAROLE Software</PublisherName>
     <ApplicationRevision>105</ApplicationRevision>
-    <ApplicationVersion>19.8.16.9</ApplicationVersion>
+    <ApplicationVersion>19.12.20.1</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <ShouldCreateLogs>True</ShouldCreateLogs>
@@ -152,7 +153,6 @@
     </Compile>
     <Compile Include="Globals.vb" />
     <Compile Include="Google\GoogleElevation.vb" />
-    <Compile Include="Modules\Arrays.vb" />
     <Compile Include="Modules\Elevations.vb" />
     <Compile Include="Modules\LogMaint.vb" />
     <Compile Include="Modules\Misc_Routines.vb" />
@@ -269,6 +269,9 @@
     <Content Include="Images\SkinType.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Images\wxuv_scale.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Screenshots\Daily.png" />
     <Content Include="Screenshots\Exposure.png" />
     <Content Include="Screenshots\Protection.png" />

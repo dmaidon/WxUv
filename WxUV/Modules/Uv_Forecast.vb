@@ -16,7 +16,6 @@ Namespace Modules
                 DownloadUvForecast()
             End If
             DisplayUvForecast()
-
         End Sub
 
         Private Sub DisplayUvForecast()
@@ -65,9 +64,11 @@ Namespace Modules
                     ''uncomment the line below and comment the 3 lines above to remove the altitude and azimuth from the hourly tool tips.
                     'FrmMain.TTip.SetToolTip(UvArr(j), aa.Item(4))
 
-                    FrmMain.RtbLog.AppendText(
-                        $"{ab} @ {tm}:{vbCrLf}     Level name: {aa.Item(0)}{vbCrLf}     Level short name: {aa.Item(1)}{vbCrLf}     Color id: {aa.Item(2)}{vbCrLf}     Color name: { _
-                                                   aa.Item(3)}{vbCrLf}{vbCrLf}")
+                    FrmMain.RtbLog.AppendText _
+                        (
+                            $"{ab} @ {tm}:{vbCrLf}     Level name: {aa.Item(0)}{vbCrLf}     Level short name: {aa.Item(1)}{vbCrLf}     Color id: {aa.Item(2)}{vbCrLf _
+                                }     Color name: { _
+                                aa.Item(3)}{vbCrLf}{vbCrLf}")
                     Application.DoEvents()
                 Next j
 
@@ -98,12 +99,12 @@ Namespace Modules
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
             Finally
-                FrmMain.RtbLog.AppendText($"{SEPARATOR}{vbCrLf}")
+                FrmMain.RtbLog.AppendText($"{Separator}{vbCrLf}")
                 SaveLogs()
             End Try
         End Sub
 
-        Private Sub DownloadUvForecast()
+        Private Async Sub DownloadUvForecast()
             OzLevel = KInfo.GetValue(My.Resources.oz, 0)
             ApiKey = KTok.GetValue(My.Resources.key_uv, "")
             If ApiKey.Trim() = "" Then
@@ -115,21 +116,22 @@ Namespace Modules
                 Keyset = True
             End If
             Try
-                Dim request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/forecast?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&ozone={OzLevel}"), HttpWebRequest)
+                Dim request = CType _
+                    (WebRequest.Create($"https://api.openuv.io/api/v1/forecast?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&ozone={OzLevel}"), HttpWebRequest)
                 With request
                     .Headers.Add($"x-access-token: {ApiKey}")
                     .AutomaticDecompression = DecompressionMethods.GZip Or DecompressionMethods.Deflate
                     .Accept = "application/json"
                     .Timeout = 120000
                     .Headers.Add("Accept-Encoding", "gzip, deflate")
-                    .UserAgent = USE_AGENT
+                    .UserAgent = Use_Agent
                 End With
 
                 Using response = CType(request.GetResponse(), HttpWebResponse)
                     FrmMain.RtbLog.AppendText($"{response.StatusCode}{vbCrLf}{response.StatusDescription}{vbCrLf}{vbCrLf}")
                     Dim dStr = response.GetResponseStream()
                     Using reader As New StreamReader(dStr)
-                        Dim resp = reader.ReadToEnd()
+                        Dim resp = Await reader.ReadToEndAsync()
                         FrmMain.RtbLog.AppendText(resp & vbCrLf & vbCrLf)
                         File.WriteAllText(_uf, resp)
                         UvNfo = UvFcast.FromJson(resp)
@@ -139,25 +141,22 @@ Namespace Modules
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
             Finally
-                FrmMain.RtbLog.AppendText($"{SEPARATOR}{vbCrLf}")
+                FrmMain.RtbLog.AppendText($"{Separator}{vbCrLf}")
                 SaveLogs()
             End Try
-
         End Sub
 
-        Private Sub ParseJson(fn As String)
-            FrmMain.RtbLog.AppendText($"Reading from cached file. {vbCrLf}")
-
+        Private Async Sub ParseJson(fn As String)
             Try
                 Dim reader As New StreamReader(fn)
-                Dim resp = reader.ReadToEnd()
+                Dim resp = Await reader.ReadToEndAsync()
                 UvNfo = UvFcast.FromJson(resp)
                 reader.Close()
                 FrmMain.RtbLog.AppendText($"-{Now:t}- Parsed UV Forecast -> [{fn}]{vbCrLf}")
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
             Finally
-                FrmMain.RtbLog.AppendText($"{SEPARATOR}{vbCrLf}")
+                FrmMain.RtbLog.AppendText($"{Separator}{vbCrLf}")
             End Try
             SaveLogs()
         End Sub

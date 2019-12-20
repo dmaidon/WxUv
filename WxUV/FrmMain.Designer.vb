@@ -27,30 +27,6 @@ Partial Friend Class FrmMain
         Me.TC = New System.Windows.Forms.TabControl()
         Me.TpDisplay = New System.Windows.Forms.TabPage()
         Me.PnlDisplay = New System.Windows.Forms.Panel()
-        Me.TlpScale = New System.Windows.Forms.TableLayoutPanel()
-        Me.Panel8 = New System.Windows.Forms.Panel()
-        Me.Panel9 = New System.Windows.Forms.Panel()
-        Me.Panel10 = New System.Windows.Forms.Panel()
-        Me.Panel11 = New System.Windows.Forms.Panel()
-        Me.Panel12 = New System.Windows.Forms.Panel()
-        Me.Panel13 = New System.Windows.Forms.Panel()
-        Me.Panel14 = New System.Windows.Forms.Panel()
-        Me.Panel15 = New System.Windows.Forms.Panel()
-        Me.Panel16 = New System.Windows.Forms.Panel()
-        Me.Panel17 = New System.Windows.Forms.Panel()
-        Me.Panel18 = New System.Windows.Forms.Panel()
-        Me.Label31 = New System.Windows.Forms.Label()
-        Me.Label32 = New System.Windows.Forms.Label()
-        Me.Label38 = New System.Windows.Forms.Label()
-        Me.Label39 = New System.Windows.Forms.Label()
-        Me.Label40 = New System.Windows.Forms.Label()
-        Me.Label41 = New System.Windows.Forms.Label()
-        Me.Label42 = New System.Windows.Forms.Label()
-        Me.Label43 = New System.Windows.Forms.Label()
-        Me.Label44 = New System.Windows.Forms.Label()
-        Me.Label45 = New System.Windows.Forms.Label()
-        Me.Label46 = New System.Windows.Forms.Label()
-        Me.Label47 = New System.Windows.Forms.Label()
         Me.BtnUpdateRT = New System.Windows.Forms.Button()
         Me.LblCurOzone = New System.Windows.Forms.Label()
         Me.GbEt = New System.Windows.Forms.GroupBox()
@@ -63,8 +39,6 @@ Partial Friend Class FrmMain
         Me.LblDate = New System.Windows.Forms.Label()
         Me.GroupBox11 = New System.Windows.Forms.GroupBox()
         Me.LblDayLen = New System.Windows.Forms.Label()
-        Me.LblSolarNoon = New System.Windows.Forms.Label()
-        Me.LblSunset = New System.Windows.Forms.Label()
         Me.LblSunrise = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.PbUv1 = New System.Windows.Forms.PictureBox()
@@ -127,20 +101,6 @@ Partial Friend Class FrmMain
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.LblSunPos = New System.Windows.Forms.Label()
         Me.Label36 = New System.Windows.Forms.Label()
-        Me.LblSiGoldenEnd = New System.Windows.Forms.Label()
-        Me.LblsiGoldenStart = New System.Windows.Forms.Label()
-        Me.LblSiNightDark = New System.Windows.Forms.Label()
-        Me.LblSiNightStart = New System.Windows.Forms.Label()
-        Me.LblSiNightEnd = New System.Windows.Forms.Label()
-        Me.LblSiNautDusk = New System.Windows.Forms.Label()
-        Me.LblSiDusk = New System.Windows.Forms.Label()
-        Me.LblSiDawn = New System.Windows.Forms.Label()
-        Me.LblSiNautDawn = New System.Windows.Forms.Label()
-        Me.LblSiSunsetStart = New System.Windows.Forms.Label()
-        Me.LblSiSunriseEnd = New System.Windows.Forms.Label()
-        Me.LblSiSolarNoon = New System.Windows.Forms.Label()
-        Me.LblSiSunset = New System.Windows.Forms.Label()
-        Me.LblSiSunrise = New System.Windows.Forms.Label()
         Me.Label33 = New System.Windows.Forms.Label()
         Me.GroupBox10 = New System.Windows.Forms.GroupBox()
         Me.LblProtHi = New System.Windows.Forms.Label()
@@ -205,10 +165,12 @@ Partial Friend Class FrmMain
         Me.TsmiLocate = New System.Windows.Forms.ToolStripMenuItem()
         Me.TxmiClose = New System.Windows.Forms.ToolStripMenuItem()
         Me.TTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.PbScale = New System.Windows.Forms.PictureBox()
+        Me.LblSi1 = New System.Windows.Forms.Label()
+        Me.LblSi2 = New System.Windows.Forms.Label()
         Me.TC.SuspendLayout()
         Me.TpDisplay.SuspendLayout()
         Me.PnlDisplay.SuspendLayout()
-        Me.TlpScale.SuspendLayout()
         Me.GbEt.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -262,6 +224,7 @@ Partial Friend Class FrmMain
         CType(Me.TmrClock, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Status.SuspendLayout()
         Me.Tmenu.SuspendLayout()
+        CType(Me.PbScale, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TC
@@ -295,7 +258,7 @@ Partial Friend Class FrmMain
         '
         Me.PnlDisplay.BackColor = System.Drawing.Color.WhiteSmoke
         Me.PnlDisplay.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PnlDisplay.Controls.Add(Me.TlpScale)
+        Me.PnlDisplay.Controls.Add(Me.PbScale)
         Me.PnlDisplay.Controls.Add(Me.BtnUpdateRT)
         Me.PnlDisplay.Controls.Add(Me.LblCurOzone)
         Me.PnlDisplay.Controls.Add(Me.GbEt)
@@ -309,322 +272,6 @@ Partial Friend Class FrmMain
         Me.PnlDisplay.Name = "PnlDisplay"
         Me.PnlDisplay.Size = New System.Drawing.Size(424, 395)
         Me.PnlDisplay.TabIndex = 1
-        '
-        'TlpScale
-        '
-        Me.TlpScale.ColumnCount = 12
-        Me.TlpScale.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332!))
-        Me.TlpScale.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332!))
-        Me.TlpScale.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332!))
-        Me.TlpScale.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332!))
-        Me.TlpScale.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332!))
-        Me.TlpScale.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332!))
-        Me.TlpScale.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332!))
-        Me.TlpScale.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332!))
-        Me.TlpScale.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332!))
-        Me.TlpScale.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332!))
-        Me.TlpScale.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332!))
-        Me.TlpScale.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332!))
-        Me.TlpScale.Controls.Add(Me.Panel8, 0, 0)
-        Me.TlpScale.Controls.Add(Me.Panel9, 1, 0)
-        Me.TlpScale.Controls.Add(Me.Panel10, 2, 0)
-        Me.TlpScale.Controls.Add(Me.Panel11, 3, 0)
-        Me.TlpScale.Controls.Add(Me.Panel12, 4, 0)
-        Me.TlpScale.Controls.Add(Me.Panel13, 5, 0)
-        Me.TlpScale.Controls.Add(Me.Panel14, 6, 0)
-        Me.TlpScale.Controls.Add(Me.Panel15, 7, 0)
-        Me.TlpScale.Controls.Add(Me.Panel16, 8, 0)
-        Me.TlpScale.Controls.Add(Me.Panel17, 9, 0)
-        Me.TlpScale.Controls.Add(Me.Panel18, 10, 0)
-        Me.TlpScale.Controls.Add(Me.Label31, 11, 0)
-        Me.TlpScale.Controls.Add(Me.Label32, 0, 1)
-        Me.TlpScale.Controls.Add(Me.Label38, 1, 1)
-        Me.TlpScale.Controls.Add(Me.Label39, 2, 1)
-        Me.TlpScale.Controls.Add(Me.Label40, 3, 1)
-        Me.TlpScale.Controls.Add(Me.Label41, 4, 1)
-        Me.TlpScale.Controls.Add(Me.Label42, 5, 1)
-        Me.TlpScale.Controls.Add(Me.Label43, 6, 1)
-        Me.TlpScale.Controls.Add(Me.Label44, 7, 1)
-        Me.TlpScale.Controls.Add(Me.Label45, 8, 1)
-        Me.TlpScale.Controls.Add(Me.Label46, 9, 1)
-        Me.TlpScale.Controls.Add(Me.Label47, 10, 1)
-        Me.TlpScale.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TlpScale.Location = New System.Drawing.Point(0, 334)
-        Me.TlpScale.Name = "TlpScale"
-        Me.TlpScale.RowCount = 2
-        Me.TlpScale.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TlpScale.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TlpScale.Size = New System.Drawing.Size(420, 57)
-        Me.TlpScale.TabIndex = 10
-        '
-        'Panel8
-        '
-        Me.Panel8.BackColor = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer), CType(CType(47, Byte), Integer))
-        Me.Panel8.Location = New System.Drawing.Point(2, 2)
-        Me.Panel8.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(31, 24)
-        Me.Panel8.TabIndex = 0
-        '
-        'Panel9
-        '
-        Me.Panel9.BackColor = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer), CType(CType(47, Byte), Integer))
-        Me.Panel9.Location = New System.Drawing.Point(37, 2)
-        Me.Panel9.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(31, 24)
-        Me.Panel9.TabIndex = 1
-        '
-        'Panel10
-        '
-        Me.Panel10.BackColor = System.Drawing.Color.FromArgb(CType(CType(247, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Panel10.Location = New System.Drawing.Point(72, 2)
-        Me.Panel10.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(31, 24)
-        Me.Panel10.TabIndex = 2
-        '
-        'Panel11
-        '
-        Me.Panel11.BackColor = System.Drawing.Color.FromArgb(CType(CType(247, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Panel11.Location = New System.Drawing.Point(107, 2)
-        Me.Panel11.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(31, 24)
-        Me.Panel11.TabIndex = 3
-        '
-        'Panel12
-        '
-        Me.Panel12.BackColor = System.Drawing.Color.FromArgb(CType(CType(247, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Panel12.Location = New System.Drawing.Point(142, 2)
-        Me.Panel12.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(31, 24)
-        Me.Panel12.TabIndex = 4
-        '
-        'Panel13
-        '
-        Me.Panel13.BackColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(108, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Panel13.Location = New System.Drawing.Point(177, 2)
-        Me.Panel13.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(31, 24)
-        Me.Panel13.TabIndex = 5
-        '
-        'Panel14
-        '
-        Me.Panel14.BackColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(108, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Panel14.Location = New System.Drawing.Point(212, 2)
-        Me.Panel14.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel14.Name = "Panel14"
-        Me.Panel14.Size = New System.Drawing.Size(31, 24)
-        Me.Panel14.TabIndex = 6
-        '
-        'Panel15
-        '
-        Me.Panel15.BackColor = System.Drawing.Color.FromArgb(CType(CType(183, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(28, Byte), Integer))
-        Me.Panel15.Location = New System.Drawing.Point(247, 2)
-        Me.Panel15.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(30, 24)
-        Me.Panel15.TabIndex = 7
-        '
-        'Panel16
-        '
-        Me.Panel16.BackColor = System.Drawing.Color.FromArgb(CType(CType(183, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(28, Byte), Integer))
-        Me.Panel16.Location = New System.Drawing.Point(282, 2)
-        Me.Panel16.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel16.Name = "Panel16"
-        Me.Panel16.Size = New System.Drawing.Size(30, 24)
-        Me.Panel16.TabIndex = 8
-        '
-        'Panel17
-        '
-        Me.Panel17.BackColor = System.Drawing.Color.FromArgb(CType(CType(183, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(28, Byte), Integer))
-        Me.Panel17.Location = New System.Drawing.Point(317, 2)
-        Me.Panel17.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel17.Name = "Panel17"
-        Me.Panel17.Size = New System.Drawing.Size(30, 24)
-        Me.Panel17.TabIndex = 9
-        '
-        'Panel18
-        '
-        Me.Panel18.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(27, Byte), Integer), CType(CType(154, Byte), Integer))
-        Me.Panel18.Location = New System.Drawing.Point(352, 2)
-        Me.Panel18.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel18.Name = "Panel18"
-        Me.Panel18.Size = New System.Drawing.Size(30, 24)
-        Me.Panel18.TabIndex = 10
-        '
-        'Label31
-        '
-        Me.Label31.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label31.BackColor = System.Drawing.Color.DarkBlue
-        Me.Label31.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label31.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label31.Location = New System.Drawing.Point(388, 0)
-        Me.Label31.Name = "Label31"
-        Me.TlpScale.SetRowSpan(Me.Label31, 2)
-        Me.Label31.Size = New System.Drawing.Size(29, 57)
-        Me.Label31.TabIndex = 11
-        Me.Label31.Text = "UV" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Index"
-        Me.Label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label32
-        '
-        Me.Label32.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label32.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label32.Location = New System.Drawing.Point(1, 29)
-        Me.Label32.Margin = New System.Windows.Forms.Padding(1)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(33, 27)
-        Me.Label32.TabIndex = 12
-        Me.Label32.Text = "1"
-        Me.Label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label38
-        '
-        Me.Label38.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label38.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label38.Location = New System.Drawing.Point(36, 29)
-        Me.Label38.Margin = New System.Windows.Forms.Padding(1)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(33, 27)
-        Me.Label38.TabIndex = 13
-        Me.Label38.Text = "2"
-        Me.Label38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label39
-        '
-        Me.Label39.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label39.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label39.Location = New System.Drawing.Point(71, 29)
-        Me.Label39.Margin = New System.Windows.Forms.Padding(1)
-        Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(33, 27)
-        Me.Label39.TabIndex = 14
-        Me.Label39.Text = "3"
-        Me.Label39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label40
-        '
-        Me.Label40.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label40.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label40.Location = New System.Drawing.Point(106, 29)
-        Me.Label40.Margin = New System.Windows.Forms.Padding(1)
-        Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(33, 27)
-        Me.Label40.TabIndex = 15
-        Me.Label40.Text = "4"
-        Me.Label40.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label41
-        '
-        Me.Label41.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label41.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label41.Location = New System.Drawing.Point(141, 29)
-        Me.Label41.Margin = New System.Windows.Forms.Padding(1)
-        Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(33, 27)
-        Me.Label41.TabIndex = 16
-        Me.Label41.Text = "5"
-        Me.Label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label42
-        '
-        Me.Label42.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label42.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label42.Location = New System.Drawing.Point(176, 29)
-        Me.Label42.Margin = New System.Windows.Forms.Padding(1)
-        Me.Label42.Name = "Label42"
-        Me.Label42.Size = New System.Drawing.Size(33, 27)
-        Me.Label42.TabIndex = 17
-        Me.Label42.Text = "6"
-        Me.Label42.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label43
-        '
-        Me.Label43.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label43.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label43.Location = New System.Drawing.Point(211, 29)
-        Me.Label43.Margin = New System.Windows.Forms.Padding(1)
-        Me.Label43.Name = "Label43"
-        Me.Label43.Size = New System.Drawing.Size(33, 27)
-        Me.Label43.TabIndex = 18
-        Me.Label43.Text = "7"
-        Me.Label43.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label44
-        '
-        Me.Label44.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label44.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label44.Location = New System.Drawing.Point(246, 29)
-        Me.Label44.Margin = New System.Windows.Forms.Padding(1)
-        Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(33, 27)
-        Me.Label44.TabIndex = 19
-        Me.Label44.Text = "8"
-        Me.Label44.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label45
-        '
-        Me.Label45.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label45.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label45.Location = New System.Drawing.Point(281, 29)
-        Me.Label45.Margin = New System.Windows.Forms.Padding(1)
-        Me.Label45.Name = "Label45"
-        Me.Label45.Size = New System.Drawing.Size(33, 27)
-        Me.Label45.TabIndex = 20
-        Me.Label45.Text = "9"
-        Me.Label45.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label46
-        '
-        Me.Label46.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label46.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label46.Location = New System.Drawing.Point(316, 29)
-        Me.Label46.Margin = New System.Windows.Forms.Padding(1)
-        Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(33, 27)
-        Me.Label46.TabIndex = 21
-        Me.Label46.Text = "10"
-        Me.Label46.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label47
-        '
-        Me.Label47.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label47.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label47.Location = New System.Drawing.Point(351, 29)
-        Me.Label47.Margin = New System.Windows.Forms.Padding(1)
-        Me.Label47.Name = "Label47"
-        Me.Label47.Size = New System.Drawing.Size(33, 27)
-        Me.Label47.TabIndex = 22
-        Me.Label47.Text = "11+"
-        Me.Label47.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'BtnUpdateRT
         '
@@ -738,12 +385,10 @@ Partial Friend Class FrmMain
         '
         Me.GroupBox11.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.GroupBox11.Controls.Add(Me.LblDayLen)
-        Me.GroupBox11.Controls.Add(Me.LblSolarNoon)
-        Me.GroupBox11.Controls.Add(Me.LblSunset)
         Me.GroupBox11.Controls.Add(Me.LblSunrise)
         Me.GroupBox11.Location = New System.Drawing.Point(107, 3)
         Me.GroupBox11.Name = "GroupBox11"
-        Me.GroupBox11.Size = New System.Drawing.Size(147, 106)
+        Me.GroupBox11.Size = New System.Drawing.Size(147, 95)
         Me.GroupBox11.TabIndex = 5
         Me.GroupBox11.TabStop = False
         Me.GroupBox11.Text = "Sun Information"
@@ -751,37 +396,18 @@ Partial Friend Class FrmMain
         'LblDayLen
         '
         Me.LblDayLen.AutoSize = True
-        Me.LblDayLen.Location = New System.Drawing.Point(5, 83)
+        Me.LblDayLen.Location = New System.Drawing.Point(5, 73)
         Me.LblDayLen.Name = "LblDayLen"
         Me.LblDayLen.Size = New System.Drawing.Size(21, 13)
         Me.LblDayLen.TabIndex = 3
         Me.LblDayLen.Text = "lod"
         Me.TTip.SetToolTip(Me.LblDayLen, "Length of day" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(daylight hours)")
         '
-        'LblSolarNoon
-        '
-        Me.LblSolarNoon.AutoSize = True
-        Me.LblSolarNoon.Location = New System.Drawing.Point(5, 62)
-        Me.LblSolarNoon.Name = "LblSolarNoon"
-        Me.LblSolarNoon.Size = New System.Drawing.Size(18, 13)
-        Me.LblSolarNoon.TabIndex = 2
-        Me.LblSolarNoon.Text = "sn"
-        '
-        'LblSunset
-        '
-        Me.LblSunset.AutoSize = True
-        Me.LblSunset.Location = New System.Drawing.Point(5, 41)
-        Me.LblSunset.Name = "LblSunset"
-        Me.LblSunset.Size = New System.Drawing.Size(17, 13)
-        Me.LblSunset.TabIndex = 1
-        Me.LblSunset.Text = "ss"
-        '
         'LblSunrise
         '
-        Me.LblSunrise.AutoSize = True
         Me.LblSunrise.Location = New System.Drawing.Point(5, 20)
         Me.LblSunrise.Name = "LblSunrise"
-        Me.LblSunrise.Size = New System.Drawing.Size(15, 13)
+        Me.LblSunrise.Size = New System.Drawing.Size(136, 47)
         Me.LblSunrise.TabIndex = 0
         Me.LblSunrise.Text = "sr"
         '
@@ -1538,22 +1164,10 @@ Partial Friend Class FrmMain
         'Panel6
         '
         Me.Panel6.BackColor = System.Drawing.Color.Gray
+        Me.Panel6.Controls.Add(Me.LblSi2)
+        Me.Panel6.Controls.Add(Me.LblSi1)
         Me.Panel6.Controls.Add(Me.LblSunPos)
         Me.Panel6.Controls.Add(Me.Label36)
-        Me.Panel6.Controls.Add(Me.LblSiGoldenEnd)
-        Me.Panel6.Controls.Add(Me.LblsiGoldenStart)
-        Me.Panel6.Controls.Add(Me.LblSiNightDark)
-        Me.Panel6.Controls.Add(Me.LblSiNightStart)
-        Me.Panel6.Controls.Add(Me.LblSiNightEnd)
-        Me.Panel6.Controls.Add(Me.LblSiNautDusk)
-        Me.Panel6.Controls.Add(Me.LblSiDusk)
-        Me.Panel6.Controls.Add(Me.LblSiDawn)
-        Me.Panel6.Controls.Add(Me.LblSiNautDawn)
-        Me.Panel6.Controls.Add(Me.LblSiSunsetStart)
-        Me.Panel6.Controls.Add(Me.LblSiSunriseEnd)
-        Me.Panel6.Controls.Add(Me.LblSiSolarNoon)
-        Me.Panel6.Controls.Add(Me.LblSiSunset)
-        Me.Panel6.Controls.Add(Me.LblSiSunrise)
         Me.Panel6.Controls.Add(Me.Label33)
         Me.Panel6.Location = New System.Drawing.Point(7, 212)
         Me.Panel6.Name = "Panel6"
@@ -1582,146 +1196,6 @@ Partial Friend Class FrmMain
         Me.Label36.Size = New System.Drawing.Size(82, 13)
         Me.Label36.TabIndex = 15
         Me.Label36.Text = "Sun Position:"
-        '
-        'LblSiGoldenEnd
-        '
-        Me.LblSiGoldenEnd.AutoSize = True
-        Me.LblSiGoldenEnd.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblSiGoldenEnd.Location = New System.Drawing.Point(212, 131)
-        Me.LblSiGoldenEnd.Name = "LblSiGoldenEnd"
-        Me.LblSiGoldenEnd.Size = New System.Drawing.Size(18, 13)
-        Me.LblSiGoldenEnd.TabIndex = 14
-        Me.LblSiGoldenEnd.Text = "sn"
-        '
-        'LblsiGoldenStart
-        '
-        Me.LblsiGoldenStart.AutoSize = True
-        Me.LblsiGoldenStart.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblsiGoldenStart.Location = New System.Drawing.Point(212, 115)
-        Me.LblsiGoldenStart.Name = "LblsiGoldenStart"
-        Me.LblsiGoldenStart.Size = New System.Drawing.Size(18, 13)
-        Me.LblsiGoldenStart.TabIndex = 13
-        Me.LblsiGoldenStart.Text = "sn"
-        '
-        'LblSiNightDark
-        '
-        Me.LblSiNightDark.AutoSize = True
-        Me.LblSiNightDark.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblSiNightDark.Location = New System.Drawing.Point(212, 99)
-        Me.LblSiNightDark.Name = "LblSiNightDark"
-        Me.LblSiNightDark.Size = New System.Drawing.Size(18, 13)
-        Me.LblSiNightDark.TabIndex = 12
-        Me.LblSiNightDark.Text = "sn"
-        '
-        'LblSiNightStart
-        '
-        Me.LblSiNightStart.AutoSize = True
-        Me.LblSiNightStart.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblSiNightStart.Location = New System.Drawing.Point(212, 67)
-        Me.LblSiNightStart.Name = "LblSiNightStart"
-        Me.LblSiNightStart.Size = New System.Drawing.Size(18, 13)
-        Me.LblSiNightStart.TabIndex = 11
-        Me.LblSiNightStart.Text = "sn"
-        '
-        'LblSiNightEnd
-        '
-        Me.LblSiNightEnd.AutoSize = True
-        Me.LblSiNightEnd.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblSiNightEnd.Location = New System.Drawing.Point(212, 83)
-        Me.LblSiNightEnd.Name = "LblSiNightEnd"
-        Me.LblSiNightEnd.Size = New System.Drawing.Size(18, 13)
-        Me.LblSiNightEnd.TabIndex = 10
-        Me.LblSiNightEnd.Text = "sn"
-        '
-        'LblSiNautDusk
-        '
-        Me.LblSiNautDusk.AutoSize = True
-        Me.LblSiNautDusk.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblSiNautDusk.Location = New System.Drawing.Point(212, 51)
-        Me.LblSiNautDusk.Name = "LblSiNautDusk"
-        Me.LblSiNautDusk.Size = New System.Drawing.Size(18, 13)
-        Me.LblSiNautDusk.TabIndex = 9
-        Me.LblSiNautDusk.Text = "sn"
-        '
-        'LblSiDusk
-        '
-        Me.LblSiDusk.AutoSize = True
-        Me.LblSiDusk.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblSiDusk.Location = New System.Drawing.Point(9, 131)
-        Me.LblSiDusk.Name = "LblSiDusk"
-        Me.LblSiDusk.Size = New System.Drawing.Size(18, 13)
-        Me.LblSiDusk.TabIndex = 8
-        Me.LblSiDusk.Text = "sn"
-        '
-        'LblSiDawn
-        '
-        Me.LblSiDawn.AutoSize = True
-        Me.LblSiDawn.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblSiDawn.Location = New System.Drawing.Point(9, 115)
-        Me.LblSiDawn.Name = "LblSiDawn"
-        Me.LblSiDawn.Size = New System.Drawing.Size(18, 13)
-        Me.LblSiDawn.TabIndex = 7
-        Me.LblSiDawn.Text = "sn"
-        '
-        'LblSiNautDawn
-        '
-        Me.LblSiNautDawn.AutoSize = True
-        Me.LblSiNautDawn.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblSiNautDawn.Location = New System.Drawing.Point(212, 35)
-        Me.LblSiNautDawn.Name = "LblSiNautDawn"
-        Me.LblSiNautDawn.Size = New System.Drawing.Size(18, 13)
-        Me.LblSiNautDawn.TabIndex = 6
-        Me.LblSiNautDawn.Text = "sn"
-        '
-        'LblSiSunsetStart
-        '
-        Me.LblSiSunsetStart.AutoSize = True
-        Me.LblSiSunsetStart.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblSiSunsetStart.Location = New System.Drawing.Point(9, 99)
-        Me.LblSiSunsetStart.Name = "LblSiSunsetStart"
-        Me.LblSiSunsetStart.Size = New System.Drawing.Size(22, 13)
-        Me.LblSiSunsetStart.TabIndex = 5
-        Me.LblSiSunsetStart.Text = "sss"
-        '
-        'LblSiSunriseEnd
-        '
-        Me.LblSiSunriseEnd.AutoSize = True
-        Me.LblSiSunriseEnd.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblSiSunriseEnd.Location = New System.Drawing.Point(9, 83)
-        Me.LblSiSunriseEnd.Name = "LblSiSunriseEnd"
-        Me.LblSiSunriseEnd.Size = New System.Drawing.Size(21, 13)
-        Me.LblSiSunriseEnd.TabIndex = 4
-        Me.LblSiSunriseEnd.Text = "sre"
-        '
-        'LblSiSolarNoon
-        '
-        Me.LblSiSolarNoon.AutoSize = True
-        Me.LblSiSolarNoon.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblSiSolarNoon.Location = New System.Drawing.Point(9, 67)
-        Me.LblSiSolarNoon.Name = "LblSiSolarNoon"
-        Me.LblSiSolarNoon.Size = New System.Drawing.Size(18, 13)
-        Me.LblSiSolarNoon.TabIndex = 3
-        Me.LblSiSolarNoon.Text = "sn"
-        '
-        'LblSiSunset
-        '
-        Me.LblSiSunset.AutoSize = True
-        Me.LblSiSunset.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblSiSunset.Location = New System.Drawing.Point(9, 51)
-        Me.LblSiSunset.Name = "LblSiSunset"
-        Me.LblSiSunset.Size = New System.Drawing.Size(17, 13)
-        Me.LblSiSunset.TabIndex = 2
-        Me.LblSiSunset.Text = "ss"
-        '
-        'LblSiSunrise
-        '
-        Me.LblSiSunrise.AutoSize = True
-        Me.LblSiSunrise.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblSiSunrise.Location = New System.Drawing.Point(9, 35)
-        Me.LblSiSunrise.Name = "LblSiSunrise"
-        Me.LblSiSunrise.Size = New System.Drawing.Size(15, 13)
-        Me.LblSiSunrise.TabIndex = 1
-        Me.LblSiSunrise.Text = "sr"
         '
         'Label33
         '
@@ -2355,6 +1829,33 @@ Partial Friend Class FrmMain
         Me.TTip.IsBalloon = True
         Me.TTip.ToolTipTitle = "Information"
         '
+        'PbScale
+        '
+        Me.PbScale.Image = Global.WxUV.My.Resources.Resources.wxuv_scale
+        Me.PbScale.Location = New System.Drawing.Point(0, 340)
+        Me.PbScale.Name = "PbScale"
+        Me.PbScale.Size = New System.Drawing.Size(420, 53)
+        Me.PbScale.TabIndex = 10
+        Me.PbScale.TabStop = False
+        '
+        'LblSi1
+        '
+        Me.LblSi1.ForeColor = System.Drawing.SystemColors.HighlightText
+        Me.LblSi1.Location = New System.Drawing.Point(10, 35)
+        Me.LblSi1.Name = "LblSi1"
+        Me.LblSi1.Size = New System.Drawing.Size(189, 109)
+        Me.LblSi1.TabIndex = 17
+        Me.LblSi1.Text = "Si1"
+        '
+        'LblSi2
+        '
+        Me.LblSi2.ForeColor = System.Drawing.SystemColors.HighlightText
+        Me.LblSi2.Location = New System.Drawing.Point(218, 35)
+        Me.LblSi2.Name = "LblSi2"
+        Me.LblSi2.Size = New System.Drawing.Size(189, 109)
+        Me.LblSi2.TabIndex = 18
+        Me.LblSi2.Text = "Si2"
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2362,8 +1863,10 @@ Partial Friend Class FrmMain
         Me.ClientSize = New System.Drawing.Size(442, 456)
         Me.Controls.Add(Me.Status)
         Me.Controls.Add(Me.TC)
+        Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.WxUV.My.MySettings.Default, "MainFormLocation", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Location = Global.WxUV.My.MySettings.Default.MainFormLocation
         Me.MaximizeBox = False
         Me.Name = "FrmMain"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
@@ -2371,7 +1874,6 @@ Partial Friend Class FrmMain
         Me.TC.ResumeLayout(False)
         Me.TpDisplay.ResumeLayout(False)
         Me.PnlDisplay.ResumeLayout(False)
-        Me.TlpScale.ResumeLayout(False)
         Me.GbEt.ResumeLayout(False)
         Me.GbEt.PerformLayout()
         Me.GroupBox11.ResumeLayout(False)
@@ -2439,6 +1941,7 @@ Partial Friend Class FrmMain
         Me.Status.ResumeLayout(False)
         Me.Status.PerformLayout()
         Me.Tmenu.ResumeLayout(False)
+        CType(Me.PbScale, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2551,10 +2054,8 @@ Partial Friend Class FrmMain
     Friend WithEvents LblProtLo As Label
     Friend WithEvents ChkHideLog As CheckBox
     Friend WithEvents GroupBox11 As GroupBox
-    Friend WithEvents LblSunset As Label
     Friend WithEvents LblSunrise As Label
     Friend WithEvents LblDayLen As Label
-    Friend WithEvents LblSolarNoon As Label
     Friend WithEvents LblDate As Label
     Friend WithEvents LblAbout As Label
     Friend WithEvents GroupBox12 As GroupBox
@@ -2567,21 +2068,7 @@ Partial Friend Class FrmMain
     Friend WithEvents LblSt6 As Label
     Friend WithEvents LblSt5 As Label
     Friend WithEvents Panel6 As Panel
-    Friend WithEvents LblSiSunset As Label
-    Friend WithEvents LblSiSunrise As Label
     Friend WithEvents Label33 As Label
-    Friend WithEvents LblSiSolarNoon As Label
-    Friend WithEvents LblSiNautDawn As Label
-    Friend WithEvents LblSiSunsetStart As Label
-    Friend WithEvents LblSiSunriseEnd As Label
-    Friend WithEvents LblSiDusk As Label
-    Friend WithEvents LblSiDawn As Label
-    Friend WithEvents LblSiGoldenEnd As Label
-    Friend WithEvents LblsiGoldenStart As Label
-    Friend WithEvents LblSiNightDark As Label
-    Friend WithEvents LblSiNightStart As Label
-    Friend WithEvents LblSiNightEnd As Label
-    Friend WithEvents LblSiNautDusk As Label
     Friend WithEvents LblCurOzone As Label
     Friend WithEvents LblSunPos As Label
     Friend WithEvents Label36 As Label
@@ -2592,30 +2079,6 @@ Partial Friend Class FrmMain
     Friend WithEvents NumRTInterval As NumericUpDown
     Friend WithEvents Label19 As Label
     Friend WithEvents BtnUpdateRT As Button
-    Friend WithEvents TlpScale As TableLayoutPanel
-    Friend WithEvents Panel8 As Panel
-    Friend WithEvents Panel9 As Panel
-    Friend WithEvents Panel10 As Panel
-    Friend WithEvents Panel11 As Panel
-    Friend WithEvents Panel12 As Panel
-    Friend WithEvents Panel13 As Panel
-    Friend WithEvents Panel14 As Panel
-    Friend WithEvents Panel15 As Panel
-    Friend WithEvents Panel16 As Panel
-    Friend WithEvents Panel17 As Panel
-    Friend WithEvents Panel18 As Panel
-    Friend WithEvents Label31 As Label
-    Friend WithEvents Label32 As Label
-    Friend WithEvents Label38 As Label
-    Friend WithEvents Label39 As Label
-    Friend WithEvents Label40 As Label
-    Friend WithEvents Label41 As Label
-    Friend WithEvents Label42 As Label
-    Friend WithEvents Label43 As Label
-    Friend WithEvents Label44 As Label
-    Friend WithEvents Label45 As Label
-    Friend WithEvents Label46 As Label
-    Friend WithEvents Label47 As Label
     Friend WithEvents NumElevation As NumericUpDown
     Friend WithEvents NumLogDays As NumericUpDown
     Friend WithEvents Label48 As Label
@@ -2624,4 +2087,7 @@ Partial Friend Class FrmMain
     Friend WithEvents LblElevHelp As Label
     Friend WithEvents RbElev1 As RadioButton
     Friend WithEvents RbElev0 As RadioButton
+    Friend WithEvents PbScale As PictureBox
+    Friend WithEvents LblSi1 As Label
+    Friend WithEvents LblSi2 As Label
 End Class

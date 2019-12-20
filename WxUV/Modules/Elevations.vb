@@ -25,7 +25,7 @@ Namespace Modules
 
         End Sub
 
-        Private Sub DownloadGoogleElevation()
+        Private Async Sub DownloadGoogleElevation()
             Dim googleKey = KTok.GetValue(My.Resources.key_goog, "")
             Dim ue = Path.Combine(TempPath, GElev)
             If googleKey.Trim() = $"" Then
@@ -42,13 +42,13 @@ Namespace Modules
                         .Accept = "application/json"
                         .Timeout = 120000
                         .Headers.Add("Accept-Encoding", "gzip, deflate")
-                        .UserAgent = USE_AGENT
+                        .UserAgent = Use_Agent
                     End With
                     Using response = CType(request.GetResponse(), HttpWebResponse)
                         FrmMain.RtbLog.AppendText($"{response.StatusCode}{vbCrLf}{response.StatusDescription}{vbCrLf}{vbCrLf}")
                         Dim dStr = response.GetResponseStream()
                         Using reader As New StreamReader(dStr)
-                            Dim resp = reader.ReadToEnd()
+                            Dim resp = Await reader.ReadToEndAsync()
                             FrmMain.RtbLog.AppendText(resp & vbCrLf & vbCrLf)
                             File.WriteAllText(ue, resp)
                             _gNfo = Goog.FromJson(resp)
@@ -60,14 +60,14 @@ Namespace Modules
                 Catch ex As Exception
                     FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
                 Finally
-                    FrmMain.RtbLog.AppendText($"{SQUIGGLEY}{vbCrLf}")
+                    FrmMain.RtbLog.AppendText($"{Squiggley}{vbCrLf}")
                     SaveLogs()
                 End Try
             End If
 
         End Sub
 
-        Private Sub DownloadElevationApi()
+        Private Async Sub DownloadElevationApi()
             Dim eKey = KTok.GetValue(My.Resources.key_elev, "")
             Dim ue = Path.Combine(TempPath, GElev)
             If eKey.Trim() = $"" Then
@@ -84,13 +84,13 @@ Namespace Modules
                         .Accept = "application/json"
                         .Timeout = 120000
                         .Headers.Add("Accept-Encoding", "gzip, deflate")
-                        .UserAgent = USE_AGENT
+                        .UserAgent = Use_Agent
                     End With
                     Using response = CType(request.GetResponse(), HttpWebResponse)
                         FrmMain.RtbLog.AppendText($"{response.StatusCode}{vbCrLf}{response.StatusDescription}{vbCrLf}{vbCrLf}")
                         Dim dStr = response.GetResponseStream()
                         Using reader As New StreamReader(dStr)
-                            Dim resp = reader.ReadToEnd()
+                            Dim resp = Await reader.ReadToEndAsync()
                             FrmMain.RtbLog.AppendText(resp & vbCrLf & vbCrLf)
                             File.WriteAllText(ue, resp)
                             _eNfo = ElevationData.FromJson(resp)
@@ -102,7 +102,7 @@ Namespace Modules
                 Catch ex As Exception
                     FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
                 Finally
-                    FrmMain.RtbLog.AppendText($"{SQUIGGLEY}{vbCrLf}")
+                    FrmMain.RtbLog.AppendText($"{Squiggley}{vbCrLf}")
                     SaveLogs()
                 End Try
             End If
