@@ -199,6 +199,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Daylight Savings Time calculated.
+        '''</summary>
+        Friend ReadOnly Property dst_calc() As String
+            Get
+                Return ResourceManager.GetString("dst_calc", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Google Elevation returns a more accurate elevation than the Elevation-API but, it is a paid service..
         '''</summary>
         Friend ReadOnly Property elev_help() As String

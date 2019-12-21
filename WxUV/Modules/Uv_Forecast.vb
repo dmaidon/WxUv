@@ -20,15 +20,12 @@ Namespace Modules
         Private Sub DisplayUvForecast()
             Try
                 Dim aa As List(Of String)
-                Dim rr As String
-                If File.Exists(_uf) Then
-                    rr = File.ReadAllText(_uf)
-                Else
+                If Not File.Exists(_uf) Then
                     Return
                 End If
-                Dim jj = CountString(rr, "uv_time")
+
                 FrmMain.LblDate.Text = $"{UvNfo.Result(0).UvTime.ToLocalTime:D}"
-                For j = 0 To jj - 1
+                For j = 0 To UvNfo.Result.Length - 1
                     Dim ab = UvNfo.Result(j).Uv
                     Dim tm = (UvNfo.Result(j).UvTime).ToLocalTime
                     aa = GetUvLevel(ab)
@@ -95,7 +92,7 @@ Namespace Modules
                     LblStArr(j).Text = $"Skin Type {j + 1}: {et:N0}{mu}"
                 Next
             Catch ex As Exception
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Finally
                 FrmMain.RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
                 SaveLogs()
@@ -114,7 +111,7 @@ Namespace Modules
             End If
             Try
                 Dim request = CType _
-                    (WebRequest.Create($"https://api.openuv.io/api/v1/forecast?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&ozone={OzLevel}"), HttpWebRequest)
+                    (WebRequest.Create(New Uri($"https://api.openuv.io/api/v1/forecast?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&ozone={OzLevel}")), HttpWebRequest)
                 With request
                     .Headers.Add($"x-access-token: {ApiKey}")
                     .AutomaticDecompression = DecompressionMethods.GZip Or DecompressionMethods.Deflate
@@ -124,11 +121,11 @@ Namespace Modules
                     .UserAgent = UseAgent
                 End With
 
-                Using response = CType(Await request.GetResponseAsync(), HttpWebResponse)
+                Using response = CType(Await request.GetResponseAsync().ConfigureAwait(True), HttpWebResponse)
                     FrmMain.RtbLog.AppendText($"{response.StatusCode}{vbLf}{response.StatusDescription}{vbLf}{vbLf}")
                     Dim dStr = response.GetResponseStream()
                     Using reader As New StreamReader(dStr)
-                        Dim resp = Await reader.ReadToEndAsync()
+                        Dim resp = Await reader.ReadToEndAsync().ConfigureAwait(True)
                         FrmMain.RtbLog.AppendText(resp & vbLf & vbLf)
                         File.WriteAllText(_uf, resp)
                         UvNfo = UvFcast.FromJson(resp)
@@ -137,7 +134,7 @@ Namespace Modules
                 End Using
                 FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded UV Forecast -> [{_uf}]{vbLf}")
             Catch ex As Exception
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Finally
                 FrmMain.RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
                 SaveLogs()
@@ -147,15 +144,15 @@ Namespace Modules
         Private Async Sub ParseJson(fn As String)
             Try
                 Using reader As New StreamReader(fn)
-                    Dim resp = Await reader.ReadToEndAsync()
+                    Dim resp = Await reader.ReadToEndAsync().ConfigureAwait(True)
                     UvNfo = UvFcast.FromJson(resp)
                     DisplayUvForecast()
                 End Using
                 FrmMain.RtbLog.AppendText($"-{Now:t}- Parsed UV Forecast -> [{fn}]{vbLf}")
             Catch ex As ArgumentOutOfRangeException
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Catch ex As Exception
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Finally
                 FrmMain.RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
             End Try

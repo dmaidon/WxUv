@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Globalization
+Imports System.IO
 Imports System.Net
 Imports System.Text
 Imports Microsoft.Win32
@@ -33,7 +34,7 @@ Namespace Modules
             ''2018-01-24T10:50:52.283Z
             FrmMain.RtbLog.AppendText($"Time: {Now:G}     UTC: {Now.ToUniversalTime():O}{vbLf}")
             Try
-                Dim request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/uv?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&dt={dt}"), HttpWebRequest)
+                Dim request = CType(WebRequest.Create(New Uri($"https://api.openuv.io/api/v1/uv?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&dt={dt}")), HttpWebRequest)
                 With request
                     .Headers.Add($"x-access-token: {ApiKey}")
                     .AutomaticDecompression = DecompressionMethods.GZip Or DecompressionMethods.Deflate
@@ -43,11 +44,11 @@ Namespace Modules
                     .UserAgent = UseAgent
                 End With
 
-                Using response = CType(Await request.GetResponseAsync(), HttpWebResponse)
+                Using response = CType(Await request.GetResponseAsync().ConfigureAwait(True), HttpWebResponse)
                     FrmMain.RtbLog.AppendText($"{response.StatusCode}{vbLf}{response.StatusDescription}{vbLf}{vbLf}")
                     Dim dStr = response.GetResponseStream()
                     Using reader As New StreamReader(dStr)
-                        Dim resp = Await reader.ReadToEndAsync()
+                        Dim resp = Await reader.ReadToEndAsync().ConfigureAwait(True)
                         FrmMain.RtbLog.AppendText($"{resp}{vbLf}{vbLf}")
                         File.WriteAllText(_urt, resp)
                         RtNfo = UvRtCast.FromJson(resp)
@@ -66,12 +67,11 @@ Namespace Modules
                         If Now.IsDaylightSavingTime() Then
                             sunrise = sunrise.Add(Subduration)
                             sunset = sunset.Add(Subduration)
-                            FrmMain.RtbLog.AppendText($"Daylight Savings Time calculated.{vbLf}")
+                            FrmMain.RtbLog.AppendText($"{My.Resources.dst_calc}.{vbLf}")
                         End If
                         FrmMain.RtbLog.AppendText($"Now: {Now.ToLongTimeString()}     Sunrise: {sunrise}     Sunset: {sunset}{vbLf}")
                         Daylight = My.Computer.Clock.LocalTime.ToShortTimeString >= dttSunrise AndAlso My.Computer.Clock.LocalTime.ToShortTimeString <= dttSunset
                         FrmMain.RtbLog.AppendText($"Sunrise: {sunrise}     Daylight = {Daylight}{vbLf}{My.Resources.separator}{vbLf}")
-                        'DisplayInfo()
                         FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Real-time UV Forecast -> [{_urt}]{vbLf}")
                         FrmMain.RtbLog.AppendText _
                             ($"Time: {(RtNfo.Result.UvTime).ToLocalTime}{vbLf}UV Level: {RtNfo.Result.Uv}{vbLf}UV Maximum Time: {RtNfo.Result.UvMaxTime}{vbLf _
@@ -80,9 +80,9 @@ Namespace Modules
                     End Using
                 End Using
             Catch ex As NotSupportedException
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Catch ex As Exception
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Finally
                 ''
             End Try
@@ -153,7 +153,8 @@ Namespace Modules
                 .LblSi2.Text = sb.ToString
                 sb.Clear()
 
-                .LblSunPos.Text = $"Azimuth: {RtNfo.Result.SunInfo.SunPosition.Azimuth.ToString()}     Altitude: {RtNfo.Result.SunInfo.SunPosition.Altitude.ToString()}"
+                .LblSunPos.Text = $"Azimuth: {RtNfo.Result.SunInfo.SunPosition.Azimuth.ToString(CultureInfo.CurrentCulture)}     Altitude: { _
+                    RtNfo.Result.SunInfo.SunPosition.Altitude.ToString(CultureInfo.CurrentCulture)}"
                 Dim a = Date2Unix(RtNfo.Result.SunInfo.SunTimes.Sunrise)
                 Dim b = Date2Unix(RtNfo.Result.SunInfo.SunTimes.Sunset)
                 FrmMain.LblDayLen.Text = DisplayDayLen(TimeSpan.FromSeconds(b - a))
@@ -163,19 +164,20 @@ Namespace Modules
         Private Async Sub ParseRtJson(fn As String)
             Try
                 Using reader As New StreamReader(fn)
-                    Dim resp = Await reader.ReadToEndAsync()
+                    Dim resp = Await reader.ReadToEndAsync().ConfigureAwait(True)
                     RtNfo = UvRtCast.FromJson(resp)
                     DisplayUvInfo()
                     DisplayInfo()
                 End Using
                 FrmMain.RtbLog.AppendText($"-{Now:t}- Parsed UV Forecast -> [{fn}]{vbLf}")
             Catch ex As Exception
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Finally
                 ''
             End Try
             FrmMain.RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
             SaveLogs()
         End Sub
+
     End Module
 End Namespace

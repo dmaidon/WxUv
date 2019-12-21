@@ -43,11 +43,11 @@ Namespace Modules
                         .Headers.Add("Accept-Encoding", "gzip, deflate")
                         .UserAgent = UseAgent
                     End With
-                    Using response = CType(Await request.GetResponseAsync(), HttpWebResponse)
+                    Using response = CType(Await request.GetResponseAsync().ConfigureAwait(True), HttpWebResponse)
                         FrmMain.RtbLog.AppendText($"{response.StatusCode}{vbLf}{response.StatusDescription}{vbLf}{vbLf}")
                         Dim dStr = response.GetResponseStream()
                         Using reader As New StreamReader(dStr)
-                            Dim resp = Await reader.ReadToEndAsync()
+                            Dim resp = Await reader.ReadToEndAsync().ConfigureAwait(True)
                             FrmMain.RtbLog.AppendText(resp & vbLf & vbLf)
                             File.WriteAllText(ue, resp)
                             _gNfo = Goog.FromJson(resp)
@@ -57,7 +57,7 @@ Namespace Modules
                     FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Google Elevation file -> [{ue}]{vbLf}")
                     FrmMain.RtbLog.AppendText($"Elevation: {_gNfo.Results(0).Elevation:N6}{vbLf}{vbLf}")
                 Catch ex As Exception
-                    FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+                    FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
                 Finally
                     FrmMain.RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
                     SaveLogs()
@@ -83,11 +83,11 @@ Namespace Modules
                         .Headers.Add("Accept-Encoding", "gzip, deflate")
                         .UserAgent = UseAgent
                     End With
-                    Using response = CType(Await request.GetResponseAsync(), HttpWebResponse)
+                    Using response = CType(Await request.GetResponseAsync().ConfigureAwait(True), HttpWebResponse)
                         FrmMain.RtbLog.AppendText($"{response.StatusCode}{vbLf}{response.StatusDescription}{vbLf}{vbLf}")
                         Dim dStr = response.GetResponseStream()
                         Using reader As New StreamReader(dStr)
-                            Dim resp = Await reader.ReadToEndAsync()
+                            Dim resp = Await reader.ReadToEndAsync().ConfigureAwait(True)
                             FrmMain.RtbLog.AppendText(resp & vbLf & vbLf)
                             File.WriteAllText(ue, resp)
                             _eNfo = ElevationData.FromJson(resp)
@@ -97,7 +97,7 @@ Namespace Modules
                     FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Elevation-API file -> [{ue}]{vbLf}")
                     FrmMain.RtbLog.AppendText($"Elevation: {_eNfo.Elevations(0).ElevationElevation:N6}{vbLf}{vbLf}")
                 Catch ex As Exception
-                    FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+                    FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
                 Finally
                     FrmMain.RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
                     SaveLogs()

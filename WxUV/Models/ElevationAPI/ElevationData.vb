@@ -1,4 +1,5 @@
 ﻿Imports System.Globalization
+Imports System.Runtime.CompilerServices
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Converters
 
@@ -11,47 +12,36 @@ Imports Newtonsoft.Json.Converters
 '    var elevationData = ElevationData.FromJson(jsonString);
 
 Namespace Models.ElevationAPI
-
-
     Partial Public Class ElevationData
-        <JsonProperty("elevations")>
-        Public Property Elevations() As Elevation()
-
-        <JsonProperty("resolution")>
-        Public Property Resolution() As String
+        <JsonProperty("elevations")> Public Property Elevations As Elevation()
+        <JsonProperty("resolution")> Public Property Resolution As String
     End Class
 
     Partial Public Class Elevation
-        <JsonProperty("lat")>
-        Public Property Lat() As Double
+        <JsonProperty("lat")> Public Property Lat As Double
 
-        <JsonProperty("lon")>
-        Public Property Lon() As Double
+        <JsonProperty("lon")> Public Property Lon As Double
 
-        <JsonProperty("elevation")>
-        Public Property ElevationElevation() As Long
+        <JsonProperty("elevation")> Public Property ElevationElevation As Long
     End Class
 
     Partial Public Class ElevationData
-        Public Shared Function FromJson(json As String) As ElevationData
+        Friend Shared Function FromJson(json As String) As ElevationData
             Return JsonConvert.DeserializeObject(Of ElevationData)(json, Settings)
         End Function
     End Class
 
     Public Module Serialize
-        <Runtime.CompilerServices.Extension>
-        Public Function ToJson(self As ElevationData) As String
+        <Extension> Public Function ToJson(self As ElevationData) As String
             Return JsonConvert.SerializeObject(self, Settings)
         End Function
     End Module
 
     Friend Module Converter
         Public ReadOnly Settings As JsonSerializerSettings = New JsonSerializerSettings With {
-        .MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-        .DateParseHandling = DateParseHandling.None,
-        .Converters = {
-                          New IsoDateTimeConverter With {.DateTimeStyles = DateTimeStyles.AssumeUniversal}
-                      }
-        }
+            .MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
+            .DateParseHandling = DateParseHandling.None,
+            .Converters = {New IsoDateTimeConverter With {.DateTimeStyles = DateTimeStyles.AssumeUniversal}}
+            }
     End Module
 End Namespace

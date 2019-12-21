@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports System.Globalization
 Imports System.IO
 Imports System.Timers
 Imports IWshRuntimeLibrary
@@ -6,6 +7,7 @@ Imports Microsoft.Win32
 Imports WxUV.Modules
 
 Friend Class FrmMain
+
     'Adds the applications AssemblyName to the Desktop's path and adds the .lnk extension used for shortcuts
     Private ReadOnly _desktopPathName As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), My.Application.Info.AssemblyName & $".lnk")
 
@@ -33,9 +35,9 @@ Friend Class FrmMain
         My.Settings.TimesRun = timesrun
         My.Settings.Save()
 
-        KInfo.SetValue("Last Run", Now.ToString, RegistryValueKind.String)
+        KInfo.SetValue("Last Run", Now.ToString(CultureInfo.CurrentCulture), RegistryValueKind.String)
         KInfo.SetValue("FirstRun", False, RegistryValueKind.String)
-        LogFile = $"{Path.Combine(Application.StartupPath, LogDir)}\uv_{Format(Now, "MMddyyyy_").ToString}{timesrun + 1}.log"
+        LogFile = $"{Path.Combine(Application.StartupPath, LogDir)}\uv_{Format(Now, "MMddyyyy_").ToString(CultureInfo.CurrentCulture)}{timesrun + 1}.log"
         LMsg = ""
         LMsg = $"Log file started: {Now}{vbLf}"
         LMsg &= $"Program: {Application.ProductName} v{Application.ProductVersion}{vbLf}"
@@ -54,7 +56,7 @@ Friend Class FrmMain
             .Text = $"{Application.ProductName}"
             .TsslVer.Text = $"{Application.ProductVersion}"
             .TsslCpy.Text = $"{Cpy}"
-            .TsslTimesRun.Text = String.Format(TsslTimesRun.Tag, timesrun)
+            .TsslTimesRun.Text = String.Format(CultureInfo.CurrentCulture, TsslTimesRun.Tag, timesrun)
             .LblAbout.Text = My.Resources.written_by
             .SetTimers()
             .Show()
@@ -111,7 +113,7 @@ Friend Class FrmMain
                     RtbLog.AppendText($"{fName(j)} --> exists.{vbLf}")
                 End If
             Catch ex As Exception
-                RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+                RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: {ex.StackTrace}{vbLf}")
             Finally
                 'a
             End Try
@@ -163,7 +165,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
             End If
             RtbLog.AppendText($"Set RealTime UV Timer. {vbLf}")
         Catch ex As Exception
-            RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+            RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
         Finally
             SaveLogs()
         End Try
@@ -218,7 +220,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
                 myShortcut.Arguments = "" 'The arguments used when executing the exe
                 myShortcut.Save() 'Creates the shortcut
             Catch ex As Exception
-                RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+                RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Finally
                 ''
             End Try
@@ -226,7 +228,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
             Try
                 If IO.File.Exists(shortcutPathName) Then IO.File.Delete(shortcutPathName)
             Catch ex As Exception
-                RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+                RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Finally
                 ''
             End Try
@@ -277,7 +279,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
                 End Select
             End With
         Catch ex As Exception
-            RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+            RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
         Finally
             ''
         End Try
@@ -355,7 +357,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
                     RtbLog.AppendText($"Delete -> {ue}{vbLf}")
                 End If
             Catch ex As Exception
-                RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+                RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Finally
                 ''
             End Try
@@ -386,4 +388,5 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
     End Sub
 
 #End Region
+
 End Class

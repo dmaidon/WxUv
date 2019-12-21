@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Globalization
+Imports System.IO
 Imports Microsoft.Win32
 Imports WxUV.Models.Forecast
 Imports WxUV.Models.Protection
@@ -48,12 +49,12 @@ Module Globals
     Public Subduration As TimeSpan = New TimeSpan(60)
 
     ''UV Forecast
-    Public ReadOnly UvFil As String = $"uv-fc_{Now.ToString("Mdyy")}.json"
+    Public ReadOnly UvFil As String = $"uv-fc_{Now.ToString("Mdyy", CultureInfo.CurrentCulture)}.json"
 
     Public UvNfo As UvFcast
 
     ''Real-time
-    Public ReadOnly RtFil As String = $"uv-rt_{Now.ToString("Mdyy")}.json"
+    Public ReadOnly RtFil As String = $"uv-rt_{Now.ToString("Mdyy", CultureInfo.CurrentCulture)}.json"
 
     Public RtNfo As UvRtCast
 
@@ -61,7 +62,7 @@ Module Globals
     Public OzLevel As String
 
     ''Protection
-    Public ReadOnly ProtFil As String = $"uv-pt_{Now.ToString("Mdyy")}.json"
+    Public ReadOnly ProtFil As String = $"uv-pt_{Now.ToString("Mdyy", CultureInfo.CurrentCulture)}.json"
 
     Public ProtNfo As Dpt
 
