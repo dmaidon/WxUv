@@ -27,6 +27,7 @@ Partial Friend Class FrmMain
         Me.TC = New System.Windows.Forms.TabControl()
         Me.TpDisplay = New System.Windows.Forms.TabPage()
         Me.PnlDisplay = New System.Windows.Forms.Panel()
+        Me.PbScale = New System.Windows.Forms.PictureBox()
         Me.BtnUpdateRT = New System.Windows.Forms.Button()
         Me.LblCurOzone = New System.Windows.Forms.Label()
         Me.GbEt = New System.Windows.Forms.GroupBox()
@@ -99,6 +100,8 @@ Partial Friend Class FrmMain
         Me.TpProtect = New System.Windows.Forms.TabPage()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.LblSi2 = New System.Windows.Forms.Label()
+        Me.LblSi1 = New System.Windows.Forms.Label()
         Me.LblSunPos = New System.Windows.Forms.Label()
         Me.Label36 = New System.Windows.Forms.Label()
         Me.Label33 = New System.Windows.Forms.Label()
@@ -165,12 +168,10 @@ Partial Friend Class FrmMain
         Me.TsmiLocate = New System.Windows.Forms.ToolStripMenuItem()
         Me.TxmiClose = New System.Windows.Forms.ToolStripMenuItem()
         Me.TTip = New System.Windows.Forms.ToolTip(Me.components)
-        Me.PbScale = New System.Windows.Forms.PictureBox()
-        Me.LblSi1 = New System.Windows.Forms.Label()
-        Me.LblSi2 = New System.Windows.Forms.Label()
         Me.TC.SuspendLayout()
         Me.TpDisplay.SuspendLayout()
         Me.PnlDisplay.SuspendLayout()
+        CType(Me.PbScale, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GbEt.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -224,7 +225,6 @@ Partial Friend Class FrmMain
         CType(Me.TmrClock, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Status.SuspendLayout()
         Me.Tmenu.SuspendLayout()
-        CType(Me.PbScale, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TC
@@ -272,6 +272,15 @@ Partial Friend Class FrmMain
         Me.PnlDisplay.Name = "PnlDisplay"
         Me.PnlDisplay.Size = New System.Drawing.Size(424, 395)
         Me.PnlDisplay.TabIndex = 1
+        '
+        'PbScale
+        '
+        Me.PbScale.Image = Global.WxUV.My.Resources.Resources.wxuv_scale
+        Me.PbScale.Location = New System.Drawing.Point(0, 340)
+        Me.PbScale.Name = "PbScale"
+        Me.PbScale.Size = New System.Drawing.Size(420, 53)
+        Me.PbScale.TabIndex = 10
+        Me.PbScale.TabStop = False
         '
         'BtnUpdateRT
         '
@@ -1175,6 +1184,24 @@ Partial Friend Class FrmMain
         Me.Panel6.TabIndex = 7
         Me.TTip.SetToolTip(Me.Panel6, resources.GetString("Panel6.ToolTip"))
         '
+        'LblSi2
+        '
+        Me.LblSi2.ForeColor = System.Drawing.SystemColors.HighlightText
+        Me.LblSi2.Location = New System.Drawing.Point(218, 35)
+        Me.LblSi2.Name = "LblSi2"
+        Me.LblSi2.Size = New System.Drawing.Size(189, 109)
+        Me.LblSi2.TabIndex = 18
+        Me.LblSi2.Text = "Si2"
+        '
+        'LblSi1
+        '
+        Me.LblSi1.ForeColor = System.Drawing.SystemColors.HighlightText
+        Me.LblSi1.Location = New System.Drawing.Point(10, 35)
+        Me.LblSi1.Name = "LblSi1"
+        Me.LblSi1.Size = New System.Drawing.Size(189, 109)
+        Me.LblSi1.TabIndex = 17
+        Me.LblSi1.Text = "Si1"
+        '
         'LblSunPos
         '
         Me.LblSunPos.AutoSize = True
@@ -1829,33 +1856,6 @@ Partial Friend Class FrmMain
         Me.TTip.IsBalloon = True
         Me.TTip.ToolTipTitle = "Information"
         '
-        'PbScale
-        '
-        Me.PbScale.Image = Global.WxUV.My.Resources.Resources.wxuv_scale
-        Me.PbScale.Location = New System.Drawing.Point(0, 340)
-        Me.PbScale.Name = "PbScale"
-        Me.PbScale.Size = New System.Drawing.Size(420, 53)
-        Me.PbScale.TabIndex = 10
-        Me.PbScale.TabStop = False
-        '
-        'LblSi1
-        '
-        Me.LblSi1.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblSi1.Location = New System.Drawing.Point(10, 35)
-        Me.LblSi1.Name = "LblSi1"
-        Me.LblSi1.Size = New System.Drawing.Size(189, 109)
-        Me.LblSi1.TabIndex = 17
-        Me.LblSi1.Text = "Si1"
-        '
-        'LblSi2
-        '
-        Me.LblSi2.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.LblSi2.Location = New System.Drawing.Point(218, 35)
-        Me.LblSi2.Name = "LblSi2"
-        Me.LblSi2.Size = New System.Drawing.Size(189, 109)
-        Me.LblSi2.TabIndex = 18
-        Me.LblSi2.Text = "Si2"
-        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1874,6 +1874,7 @@ Partial Friend Class FrmMain
         Me.TC.ResumeLayout(False)
         Me.TpDisplay.ResumeLayout(False)
         Me.PnlDisplay.ResumeLayout(False)
+        CType(Me.PbScale, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GbEt.ResumeLayout(False)
         Me.GbEt.PerformLayout()
         Me.GroupBox11.ResumeLayout(False)
@@ -1941,7 +1942,6 @@ Partial Friend Class FrmMain
         Me.Status.ResumeLayout(False)
         Me.Status.PerformLayout()
         Me.Tmenu.ResumeLayout(False)
-        CType(Me.PbScale, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

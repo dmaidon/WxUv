@@ -1,19 +1,21 @@
-﻿Namespace Modules
-    Module MiscRoutines
+﻿Imports System.Text.RegularExpressions
+Imports Microsoft.Win32
 
+Namespace Modules
+    Friend Module MiscRoutines
         ''count the number of times a string occurs within a string.  used bu UVForecast to determine max array of counter
         Public Function CountString(inputString As String, searchStr As String) As Integer
-            Return Text.RegularExpressions.Regex.Split(inputString, searchStr).Length - 1
+            Return Regex.Split(inputString, searchStr).Length - 1
         End Function
 
         ''' <summary>
-        ''' Time To Burn Used by the "Exposure" tab to calcultate exposure time before sunburning
+        '''     Time To Burn Used by the "Exposure" tab to calcultate exposure time before sunburning
         ''' </summary>
         ''' <param name="st"></param>
         ''' <param name="uv"></param>
         ''' <returns></returns>
         Public Function Time2Burn(st As Double, uv As Double) As Integer
-            Select Case st      ''.SelectedIndex
+            Select Case st ''.SelectedIndex
                 Case 0
                     Return 200 * 2.5 / (3 * uv)
                 Case 1
@@ -62,7 +64,7 @@
         End Function
 
         ''' <summary>
-        ''' Methods to convert DateTime to Unix time stamp
+        '''     Methods to convert DateTime to Unix time stamp
         ''' </summary>
         ''' <returns>Return Unix time stamp as long type</returns>
         Public Function Date2Unix(dt As Date) As Long
@@ -70,5 +72,20 @@
             Return Fix(unixTimeSpan.TotalSeconds)
         End Function
 
+        ''' <summary>
+        '''     https://stackoverflow.com/questions/33594401/how-can-i-detect-if-microsoft-edge-is-installed
+        ''' </summary>
+        ''' <returns></returns>
+        Public Function GetEdgeVer() As String
+            Dim reg = Registry.ClassesRoot.OpenSubKey("Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Packages")
+            If reg IsNot Nothing Then
+                For Each rxEdgeVersion In From subkey In reg.GetSubKeyNames() Where subkey.StartsWith("Microsoft.MicrosoftEdge") Let rxEdgeVersion1 = CType(Nothing, Match)
+                    Select rxEdgeVersion1 = Regex.Match(subkey, "(Microsoft.MicrosoftEdge.Canary_)(?<version>\d+\.\d+\.\d+\.\d+)(_neutral__8wekyb3d8bbwe)")
+                    Where rxEdgeVersion1.Success
+                    Return rxEdgeVersion.Groups("version").Value
+                Next
+            End If
+            Return "80.0.361.5"
+        End Function
     End Module
 End Namespace

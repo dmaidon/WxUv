@@ -6,7 +6,6 @@ Imports Microsoft.Win32
 Imports WxUV.Modules
 
 Friend Class FrmMain
-
     'Adds the applications AssemblyName to the Desktop's path and adds the .lnk extension used for shortcuts
     Private ReadOnly _desktopPathName As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), My.Application.Info.AssemblyName & $".lnk")
 
@@ -30,16 +29,18 @@ Friend Class FrmMain
         CreateFolders()
 
         ''set the header for the .log file
-        Dim timesRun = CLng((KInfo.GetValue(My.Resources.timesrun, 0)))
-        KInfo.SetValue(My.Resources.timesrun, timesRun + 1, RegistryValueKind.QWord)
+        Dim timesrun = My.Settings.TimesRun + 1
+        My.Settings.TimesRun = timesrun
+        My.Settings.Save()
+
         KInfo.SetValue("Last Run", Now.ToString, RegistryValueKind.String)
         KInfo.SetValue("FirstRun", False, RegistryValueKind.String)
-        LogFile = $"{Path.Combine(Application.StartupPath, Log_Dir)}\uv_{Format(Now, "MMddyyyy_").ToString}{timesRun + 1}.log"
+        LogFile = $"{Path.Combine(Application.StartupPath, LogDir)}\uv_{Format(Now, "MMddyyyy_").ToString}{timesrun + 1}.log"
         LMsg = ""
-        LMsg = $"Log file started: {Now}{vbCrLf}"
-        LMsg &= $"Program: {Application.ProductName} v{Application.ProductVersion}{vbCrLf}"
-        LMsg &= $"Times run: {timesRun + 1}{vbCrLf}"
-        LMsg &= $"Update frequency: {Updatetime} minutes.{vbCrLf}{Separator}{vbCrLf}"
+        LMsg = $"Log file started: {Now}{vbLf}"
+        LMsg &= $"Program: {Application.ProductName} v{Application.ProductVersion}{vbLf}"
+        LMsg &= $"Times run: {timesrun + 1}{vbLf}"
+        LMsg &= $"Update frequency: {Updatetime} minutes.{vbLf}{My.Resources.separator}{vbLf}"
         RtbLog.AppendText(LMsg)
 
         ''cleanup the logfile folder and delete the old files.
@@ -52,7 +53,7 @@ Friend Class FrmMain
             .Text = $"{Application.ProductName}"
             .TsslVer.Text = $"{Application.ProductVersion}"
             .TsslCpy.Text = $"{Cpy}"
-            .TsslTimesRun.Text = String.Format(TsslTimesRun.Tag, timesRun)
+            .TsslTimesRun.Text = String.Format(TsslTimesRun.Tag, timesrun)
             .SetTimers()
             .Show()
         End With
@@ -60,11 +61,11 @@ Friend Class FrmMain
         If KInfo.GetValue(My.Resources.alt_set, 0) = 0 Then
             GetElevation()
         Else
-            RtbLog.AppendText($"Altitude set from Registry: {KInfo.GetValue(My.Resources.alt, 0)} meters{vbCrLf}")
+            RtbLog.AppendText($"Altitude set from Registry: {KInfo.GetValue(My.Resources.alt, 0)} meters{vbLf}")
         End If
         Altitude = ($"{KInfo.GetValue(My.Resources.alt, 0)}")
 
-        RtbLog.AppendText($"{Squiggley}{vbCrLf}")
+        RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
         SaveLogs()
 
         GetUvForecast()
@@ -74,6 +75,7 @@ Friend Class FrmMain
         End If
 
         CollectMemoryGarbage()
+        'MsgBox(GetEdgeVer)
     End Sub
 
     Private Sub FrmMain_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
@@ -99,27 +101,21 @@ Friend Class FrmMain
     End Sub
 
     Private Sub CreateFolders()
-        TempPath = Path.Combine(Application.StartupPath, Temp_Dir)
-        LogPath = Path.Combine(Application.StartupPath, Log_Dir)
-        Try
-            If Not Directory.Exists(TempPath) Then
-                Directory.CreateDirectory(TempPath)
-            End If
-        Catch ex As Exception
-            RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
-        Finally
-            ''
-        End Try
-
-        Try
-            If Not Directory.Exists(LogPath) Then
-                Directory.CreateDirectory(LogPath)
-            End If
-        Catch ex As Exception
-            RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
-        Finally
-            ''
-        End Try
+        Dim fName As New List(Of String)({LogDir, TempDir})
+        For j = 0 To fName.Count - 1
+            Try
+                If Not Directory.Exists(fName(j)) Then
+                    Directory.CreateDirectory(fName(j))
+                    RtbLog.AppendText($"{fName(j)} ==> created.{vbLf}")
+                Else
+                    RtbLog.AppendText($"{fName(j)} --> exists.{vbLf}")
+                End If
+            Catch ex As Exception
+                RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
+            Finally
+                'a
+            End Try
+        Next
     End Sub
 
     Private Sub CollectMemoryGarbage()
@@ -139,7 +135,7 @@ Total memory before: <%= tmb.ToString("#,### bytes") %>
 Total memory after: <%= tma.ToString("#,### bytes") %>
 Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
                   </msg>.Value
-        RtbLog.AppendText($"{msg}{vbCrLf}{Separator}{vbCrLf}")
+        RtbLog.AppendText($"{msg}{vbLf}{My.Resources.separator}{vbLf}")
         SaveLogs()
     End Sub
 
@@ -165,9 +161,9 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
                 TmrRtUV.Stop()
                 TmrRtUV.Enabled = False
             End If
-            RtbLog.AppendText($"Set RealTime UV Timer. {vbCrLf}")
+            RtbLog.AppendText($"Set RealTime UV Timer. {vbLf}")
         Catch ex As Exception
-            RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
+            RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
         Finally
             SaveLogs()
         End Try
@@ -222,7 +218,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
                 myShortcut.Arguments = "" 'The arguments used when executing the exe
                 myShortcut.Save() 'Creates the shortcut
             Catch ex As Exception
-                RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
+                RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
             Finally
                 ''
             End Try
@@ -230,7 +226,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
             Try
                 If IO.File.Exists(shortcutPathName) Then IO.File.Delete(shortcutPathName)
             Catch ex As Exception
-                RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
+                RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
             Finally
                 ''
             End Try
@@ -281,7 +277,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
                 End Select
             End With
         Catch ex As Exception
-            RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
+            RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
         Finally
             ''
         End Try
@@ -351,20 +347,20 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
             ' cancel reset
             Return
         Else
-            RtbLog.AppendText($"{Squiggley}{vbCrLf}")
+            RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
             Try
-                Dim ue = Path.Combine(TempPath, GElev)
+                Dim ue = Path.Combine(TempDir, GElev)
                 If IO.File.Exists(ue) Then
                     IO.File.Delete(ue)
-                    RtbLog.AppendText($"Delete -> {ue}{vbCrLf}")
+                    RtbLog.AppendText($"Delete -> {ue}{vbLf}")
                 End If
             Catch ex As Exception
-                RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
+                RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
             Finally
                 ''
             End Try
             KInfo.SetValue("Altitude Set", 0)
-            RtbLog.AppendText($"~~~~~ Altitude reset{vbCrLf}{Squiggley}{vbCrLf}")
+            RtbLog.AppendText($"~~~~~ Altitude reset{vbLf}{My.Resources.separator}{vbLf}")
             GetElevation()
         End If
     End Sub
@@ -390,5 +386,4 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
     End Sub
 
 #End Region
-
 End Class

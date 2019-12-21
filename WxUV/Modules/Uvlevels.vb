@@ -1,6 +1,5 @@
 ﻿Namespace Modules
-    Module Uvlevels
-
+    Friend Module Uvlevels
         Public Function GetUvLevel(lev As Double) As List(Of String)
             Dim uvLev As New List(Of String)
             ' Dim bc As Color = Color.Green
@@ -77,6 +76,5 @@ A UV Index reading of 11 or more means extreme risk of harm from unprotected sun
             End Select
             Return uvLev
         End Function
-
     End Module
 End Namespace

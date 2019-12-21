@@ -327,11 +327,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Times Run.
+        '''  Looks up a localized string similar to -----------------------------------------------------.
         '''</summary>
-        Friend ReadOnly Property timesrun() As String
+        Friend ReadOnly Property separator() As String
             Get
-                Return ResourceManager.GetString("timesrun", resourceCulture)
+                Return ResourceManager.GetString("separator", resourceCulture)
             End Get
         End Property
         

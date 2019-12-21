@@ -3,11 +3,11 @@ Imports System.Net
 Imports WxUV.Protection
 
 Namespace Modules
-    Module UvProtection
+    Friend Module UvProtection
         Private _upf As String
 
         Friend Sub GetUvProtection()
-            _upf = Path.Combine(TempPath, ProtFil)
+            _upf = Path.Combine(TempDir, ProtFil)
             DownloadUvProtection(FrmMain.NumFrom.Value, FrmMain.NumTo.Value)
         End Sub
 
@@ -18,9 +18,13 @@ Namespace Modules
                 FrmMain.TC.SelectedTab = FrmMain.TpSettings
                 Return
             End If
-            FrmMain.RtbLog.AppendText($"Protection Debug{vbCrLf}Lat: {CLatitude}   Long: {CLongitude}{vbCrLf}Altitude: {Altitude}{vbCrLf}Ozone: {OzLevel}{vbCrLf}From: {fromm}   To: {too}{vbCrLf}{vbCrLf}")
+            FrmMain.RtbLog.AppendText _
+                ($"Protection Debug{vbLf}Lat: {CLatitude}   Long: {CLongitude}{vbLf}Altitude: {Altitude}{vbLf}Ozone: {OzLevel}{vbLf}From: {fromm}   To: {too}{vbLf _
+                    }{vbLf}")
             Try
-                Dim request = CType(WebRequest.Create($"https://api.openuv.io/api/v1/protection?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&ozone={OzLevel}&from={fromm}&to={too}"), HttpWebRequest)
+                Dim request = CType _
+                    (WebRequest.Create($"https://api.openuv.io/api/v1/protection?lat={CLatitude}&lng={CLongitude}&alt={Altitude}&ozone={OzLevel}&from={fromm}&to={too}"),
+                    HttpWebRequest)
                 With request
                     .Headers.Add($"x-access-token: {ApiKey}")
                     .AutomaticDecompression = DecompressionMethods.GZip Or DecompressionMethods.Deflate
@@ -30,21 +34,21 @@ Namespace Modules
                     .UserAgent = Use_Agent
                 End With
 
-                Using response = CType(request.GetResponse(), HttpWebResponse)
-                    FrmMain.RtbLog.AppendText($"{response.StatusCode}{vbCrLf}{response.StatusDescription}{vbCrLf}{vbCrLf}")
+                Using response = CType(Await request.GetResponseAsync(), HttpWebResponse)
+                    FrmMain.RtbLog.AppendText($"{response.StatusCode}{vbLf}{response.StatusDescription}{vbLf}{vbLf}")
                     Dim dStr = response.GetResponseStream()
                     Using reader As New StreamReader(dStr)
                         Dim resp = Await reader.ReadToEndAsync()
-                        FrmMain.RtbLog.AppendText(resp & vbCrLf & vbCrLf)
+                        FrmMain.RtbLog.AppendText(resp & vbLf & vbLf)
                         File.WriteAllText(_upf, resp)
                         ProtNfo = Dpt.FromJson(resp)
                     End Using
                 End Using
-                FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded UV Protection file -> [{_upf}]{vbCrLf}")
+                FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded UV Protection file -> [{_upf}]{vbLf}")
             Catch ex As Exception
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
             Finally
-                FrmMain.RtbLog.AppendText($"{Squiggley}{vbCrLf}")
+                FrmMain.RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
                 SaveLogs()
             End Try
             DisplayProtectionInfo()
@@ -60,10 +64,9 @@ Namespace Modules
                     .LblProtHi.Left = .LblProtTo.Left + .LblProtTo.Width + 5
                     .LblProtHi.Text = $"UV: {ProtNfo.Result.ToUv}"
                 Catch ex As Exception
-                    FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbCrLf}   Location: {ex.TargetSite.ToString}{vbCrLf}   Trace: { ex.StackTrace.ToString}{vbCrLf}")
+                    FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
                 End Try
             End With
         End Sub
-
     End Module
 End Namespace

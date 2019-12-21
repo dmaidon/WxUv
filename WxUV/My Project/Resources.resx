@@ -190,9 +190,6 @@
   <data name="oz" xml:space="preserve">
     <value>Ozone</value>
   </data>
-  <data name="timesrun" xml:space="preserve">
-    <value>Times Run</value>
-  </data>
   <data name="uv_int" xml:space="preserve">
     <value>Interval: UV RealTime</value>
   </data>
@@ -210,5 +207,8 @@
   </data>
   <data name="wxuv_scale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\wxuv_scale.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="separator" xml:space="preserve">
+    <value>-----------------------------------------------------</value>
   </data>
 </root>
