@@ -345,6 +345,18 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Dennis N. Maidon
+        '''PAROLE Software
+        '''Written in VB.Net (4.8)
+        '''www.parolesoftware.com.
+        '''</summary>
+        Friend ReadOnly Property written_by() As String
+            Get
+                Return ResourceManager.GetString("written_by", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property wxuv_scale() As System.Drawing.Bitmap

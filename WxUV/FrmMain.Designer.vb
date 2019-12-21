@@ -1749,8 +1749,7 @@ Partial Friend Class FrmMain
         Me.LblAbout.Name = "LblAbout"
         Me.LblAbout.Size = New System.Drawing.Size(204, 77)
         Me.LblAbout.TabIndex = 2
-        Me.LblAbout.Text = "Dennis N. Maidon" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "PAROLE Software" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Written in VB.Net (4.8)" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "www.parolesoftware.co" &
-    "m"
+        Me.LblAbout.Text = "-"
         Me.LblAbout.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PictureBox2

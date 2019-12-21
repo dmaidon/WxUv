@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 Imports System.Net
-Imports WxUV.Protection
+Imports WxUV.Models.Protection
 
 Namespace Modules
     Friend Module UvProtection
@@ -31,7 +31,7 @@ Namespace Modules
                     .Accept = "application/json"
                     .Timeout = 120000
                     .Headers.Add("Accept-Encoding", "gzip, deflate")
-                    .UserAgent = Use_Agent
+                    .UserAgent = UseAgent
                 End With
 
                 Using response = CType(Await request.GetResponseAsync(), HttpWebResponse)
@@ -68,5 +68,6 @@ Namespace Modules
                 End Try
             End With
         End Sub
+
     End Module
 End Namespace

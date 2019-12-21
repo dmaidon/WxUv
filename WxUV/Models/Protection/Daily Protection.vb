@@ -1,7 +1,7 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports Newtonsoft.Json
 
-Namespace Protection
+Namespace Models.Protection
 
     Partial Public Class Dpt
         <JsonProperty("result")> Public Property Result As Result
@@ -45,6 +45,7 @@ Namespace Protection
             With {.MetadataPropertyHandling = MetadataPropertyHandling.Ignore, .DateParseHandling = DateParseHandling.None}
 
     End Class
+
 End Namespace
 
 ''{

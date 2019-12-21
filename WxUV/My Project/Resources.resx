@@ -211,4 +211,10 @@
   <data name="separator" xml:space="preserve">
     <value>-----------------------------------------------------</value>
   </data>
+  <data name="written_by" xml:space="preserve">
+    <value>Dennis N. Maidon
+PAROLE Software
+Written in VB.Net (4.8)
+www.parolesoftware.com</value>
+  </data>
 </root>

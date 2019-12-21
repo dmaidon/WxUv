@@ -2,7 +2,7 @@
 Imports System.Net
 Imports System.Text
 Imports Microsoft.Win32
-Imports WxUV.RealTime
+Imports WxUV.Models.RealTime
 
 Namespace Modules
     Friend Module UvRealTime
@@ -23,9 +23,8 @@ Namespace Modules
             ''date "&dt=" defaults to current time
             Dim dt = $"{Now:O}"
             ApiKey = KTok.GetValue(My.Resources.key_uv, "")
-            If ApiKey.Trim() = "" Then
+            If String.IsNullOrEmpty(ApiKey.Trim()) Then
                 Keyset = False
-                'MsgBox($"OpenUV API key not entered.{vblf}Please enter key on 'Settings' tab.")
                 FrmMain.TC.SelectedTab = FrmMain.TpSettings
                 Return
             Else
@@ -41,7 +40,7 @@ Namespace Modules
                     .Accept = "application/json"
                     .Timeout = 120000
                     .Headers.Add("Accept-Encoding", "gzip, deflate")
-                    .UserAgent = Use_Agent
+                    .UserAgent = UseAgent
                 End With
 
                 Using response = CType(Await request.GetResponseAsync(), HttpWebResponse)

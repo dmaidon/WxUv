@@ -1,10 +1,9 @@
 ﻿'Imports System.Runtime.CompilerServices
 Imports Newtonsoft.Json
 
-Namespace RealTime
-
+Namespace Models.RealTime
     Partial Public Class UvRtCast
-        <JsonProperty("result")> Public Property Result() As Result
+        <JsonProperty("result")> Public Property Result As Result
     End Class
 
     Partial Public Class Result
@@ -84,16 +83,14 @@ Namespace RealTime
 #Enable Warning IDE1006 ' Naming Styles
 
     Partial Public Class UvRtCast
-
         Friend Shared Function FromJson(json As String) As UvRtCast
             ''https://stackoverflow.com/questions/31813055/how-to-handle-null-empty-values-in-jsonconvert-deserializeobject
             Dim settings = New JsonSerializerSettings With {
-                    .NullValueHandling = NullValueHandling.Ignore,
-                    .MissingMemberHandling = MissingMemberHandling.Ignore
-                    }
+                .NullValueHandling = NullValueHandling.Ignore,
+                .MissingMemberHandling = MissingMemberHandling.Ignore
+                }
             Return JsonConvert.DeserializeObject(Of UvRtCast)(json, settings)
         End Function
-
     End Class
 
     'Module Serialize

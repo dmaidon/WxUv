@@ -1,8 +1,8 @@
 ﻿Imports System.IO
 Imports System.Net
 Imports Microsoft.Win32
-Imports WxUV.ElevationAPI
-Imports WxUV.Google
+Imports WxUV.Models.ElevationAPI
+Imports WxUV.Models.Google
 
 Namespace Modules
     Friend Module Elevations
@@ -41,7 +41,7 @@ Namespace Modules
                         .Accept = "application/json"
                         .Timeout = 120000
                         .Headers.Add("Accept-Encoding", "gzip, deflate")
-                        .UserAgent = Use_Agent
+                        .UserAgent = UseAgent
                     End With
                     Using response = CType(Await request.GetResponseAsync(), HttpWebResponse)
                         FrmMain.RtbLog.AppendText($"{response.StatusCode}{vbLf}{response.StatusDescription}{vbLf}{vbLf}")
@@ -81,7 +81,7 @@ Namespace Modules
                         .Accept = "application/json"
                         .Timeout = 120000
                         .Headers.Add("Accept-Encoding", "gzip, deflate")
-                        .UserAgent = Use_Agent
+                        .UserAgent = UseAgent
                     End With
                     Using response = CType(Await request.GetResponseAsync(), HttpWebResponse)
                         FrmMain.RtbLog.AppendText($"{response.StatusCode}{vbLf}{response.StatusDescription}{vbLf}{vbLf}")
@@ -104,5 +104,6 @@ Namespace Modules
                 End Try
             End If
         End Sub
+
     End Module
 End Namespace

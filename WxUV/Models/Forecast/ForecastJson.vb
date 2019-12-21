@@ -1,7 +1,7 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports Newtonsoft.Json
 
-Namespace Forecast
+Namespace Models.Forecast
 
     ''https://app.quicktype.io/#r=json2csharp
     Partial Public Class UvFcast
@@ -50,6 +50,7 @@ Namespace Forecast
             With {.MetadataPropertyHandling = MetadataPropertyHandling.Ignore, .DateParseHandling = DateParseHandling.None}
 
     End Class
+
 End Namespace
 
 ''{

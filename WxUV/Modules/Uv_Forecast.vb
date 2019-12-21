@@ -1,7 +1,7 @@
 ﻿Imports System.IO
 Imports System.Net
 Imports System.Text
-Imports WxUV.Forecast
+Imports WxUV.Models.Forecast
 
 Namespace Modules
     Friend Module UvForecast
@@ -88,7 +88,7 @@ Namespace Modules
                         Case Else
                             et = RtNfo.Result.SafeExposureTime.St6
                     End Select
-                    If et = vbNullString Then
+                    If String.IsNullOrEmpty(et) Then
                         et = "N/A"
                         mu = vbNullString
                     End If
@@ -105,9 +105,8 @@ Namespace Modules
         Private Async Sub DownloadUvForecast()
             OzLevel = KInfo.GetValue(My.Resources.oz, 0)
             ApiKey = KTok.GetValue(My.Resources.key_uv, "")
-            If ApiKey.Trim() = "" Then
+            If String.IsNullOrEmpty(ApiKey.Trim) Then
                 Keyset = False
-                'MsgBox($"OpenUV API key not entered.{vblf}Please enter key on 'Settings' tab.")
                 FrmMain.TC.SelectedTab = FrmMain.TpSettings
                 Return
             Else
@@ -122,7 +121,7 @@ Namespace Modules
                     .Accept = "application/json"
                     .Timeout = 120000
                     .Headers.Add("Accept-Encoding", "gzip, deflate")
-                    .UserAgent = Use_Agent
+                    .UserAgent = UseAgent
                 End With
 
                 Using response = CType(Await request.GetResponseAsync(), HttpWebResponse)
@@ -153,6 +152,8 @@ Namespace Modules
                     DisplayUvForecast()
                 End Using
                 FrmMain.RtbLog.AppendText($"-{Now:t}- Parsed UV Forecast -> [{fn}]{vbLf}")
+            Catch ex As ArgumentOutOfRangeException
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
             Catch ex As Exception
                 FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace.ToString}{vbLf}")
             Finally

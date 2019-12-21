@@ -1,8 +1,8 @@
 ﻿Imports System.IO
 Imports Microsoft.Win32
-Imports WxUV.Forecast
-Imports WxUV.Protection
-Imports WxUV.RealTime
+Imports WxUV.Models.Forecast
+Imports WxUV.Models.Protection
+Imports WxUV.Models.RealTime
 
 Module Globals
     Public ReadOnly KSet As RegistryKey = Registry.CurrentUser.CreateSubKey("Software\PAROLE Software\WxUV\Setup")
@@ -40,7 +40,7 @@ Module Globals
 
     Public Cpy As String
     Public LMsg As String
-    Public ReadOnly Updatetime As Integer = 0
+    'Public ReadOnly Updatetime As Integer = 0
 
     'Astro
     Public Daylight As Boolean = False
@@ -65,5 +65,5 @@ Module Globals
 
     Public ProtNfo As Dpt
 
-    Public Const Use_Agent As String = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3794.0 Safari/537.36 Edg/80.0.361.5"
+    Public Const UseAgent As String = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3794.0 Safari/537.36 Edg/80.0.361.5"
 End Module

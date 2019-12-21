@@ -40,7 +40,8 @@ Friend Class FrmMain
         LMsg = $"Log file started: {Now}{vbLf}"
         LMsg &= $"Program: {Application.ProductName} v{Application.ProductVersion}{vbLf}"
         LMsg &= $"Times run: {timesrun + 1}{vbLf}"
-        LMsg &= $"Update frequency: {Updatetime} minutes.{vbLf}{My.Resources.separator}{vbLf}"
+        'LMsg &= $"Update frequency: {Updatetime} minutes.{vbLf}"
+        LMsg &= $"{My.Resources.separator}{vbLf}"
         RtbLog.AppendText(LMsg)
 
         ''cleanup the logfile folder and delete the old files.
@@ -54,6 +55,7 @@ Friend Class FrmMain
             .TsslVer.Text = $"{Application.ProductVersion}"
             .TsslCpy.Text = $"{Cpy}"
             .TsslTimesRun.Text = String.Format(TsslTimesRun.Tag, timesrun)
+            .LblAbout.Text = My.Resources.written_by
             .SetTimers()
             .Show()
         End With
@@ -79,8 +81,6 @@ Friend Class FrmMain
     End Sub
 
     Private Sub FrmMain_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        'KMet.SetValue("Top", Top, RegistryValueKind.DWord)
-        'KMet.SetValue("Left", Left, RegistryValueKind.DWord)
         My.Settings.Save()
         RtbLog.AppendText($"Log closed @ {Now.ToLongTimeString()}")
         TIcon.Dispose()
