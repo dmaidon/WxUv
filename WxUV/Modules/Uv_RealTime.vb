@@ -7,7 +7,7 @@ Imports WxUV.Models.RealTime
 
 Namespace Modules
     Friend Module UvRealTime
-        Private _urt
+        Private _urt As String
 
         Friend Sub GetUvRealTime()
             _urt = Path.Combine(TempDir, RtFil)
@@ -23,7 +23,7 @@ Namespace Modules
             ''https://api.openuv.io/api/v1/uv?lat=-33.34&lng=115.342&dt=2018-01-24T10:50:52.283Z
             ''date "&dt=" defaults to current time
             Dim dt = $"{Now:O}"
-            ApiKey = KTok.GetValue(My.Resources.key_uv, "")
+            ApiKey = KTok.GetValue(My.Resources.key_uv, "").ToString
             If String.IsNullOrEmpty(ApiKey.Trim()) Then
                 Keyset = False
                 FrmMain.TC.SelectedTab = FrmMain.TpSettings
@@ -62,15 +62,15 @@ Namespace Modules
                         FrmMain.LblDayLen.Text = DisplayDayLen(TimeSpan.FromSeconds(b - a))
                         Dim t = RtNfo.Result.SunInfo.SunTimes.Sunrise.ToLocalTime
                         Dim x = RtNfo.Result.SunInfo.SunTimes.Sunset.ToLocalTime
-                        Dim dttSunrise As Date = t.ToShortTimeString()
-                        Dim dttSunset As Date = x.ToShortTimeString()
+                        Dim dttSunrise As Date = CType(t.ToShortTimeString(), Date)
+                        Dim dttSunset As Date = CType(x.ToShortTimeString(), Date)
                         If Now.IsDaylightSavingTime() Then
                             sunrise = sunrise.Add(Subduration)
                             sunset = sunset.Add(Subduration)
-                            FrmMain.RtbLog.AppendText($"{My.Resources.dst_calc}.{vbLf}")
+                            FrmMain.RtbLog.AppendText($"{My.Resources.dst_calc}{vbLf}")
                         End If
                         FrmMain.RtbLog.AppendText($"Now: {Now.ToLongTimeString()}     Sunrise: {sunrise}     Sunset: {sunset}{vbLf}")
-                        Daylight = My.Computer.Clock.LocalTime.ToShortTimeString >= dttSunrise AndAlso My.Computer.Clock.LocalTime.ToShortTimeString <= dttSunset
+                        Daylight = CDate(My.Computer.Clock.LocalTime.ToShortTimeString) >= dttSunrise AndAlso CDate(My.Computer.Clock.LocalTime.ToShortTimeString) <= dttSunset
                         FrmMain.RtbLog.AppendText($"Sunrise: {sunrise}     Daylight = {Daylight}{vbLf}{My.Resources.separator}{vbLf}")
                         FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Real-time UV Forecast -> [{_urt}]{vbLf}")
                         FrmMain.RtbLog.AppendText _

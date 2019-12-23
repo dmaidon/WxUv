@@ -218,6 +218,6 @@ Written in VB.Net (4.8)
 www.parolesoftware.com</value>
   </data>
   <data name="dst_calc" xml:space="preserve">
-    <value>Daylight Savings Time calculated</value>
+    <value>Daylight Savings Time calculated.</value>
   </data>
 </root>

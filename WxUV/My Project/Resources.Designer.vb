@@ -199,7 +199,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Daylight Savings Time calculated.
+        '''  Looks up a localized string similar to Daylight Savings Time calculated..
         '''</summary>
         Friend ReadOnly Property dst_calc() As String
             Get

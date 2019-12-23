@@ -7,7 +7,6 @@ Imports Microsoft.Win32
 Imports WxUV.Modules
 
 Friend Class FrmMain
-
     'Adds the applications AssemblyName to the Desktop's path and adds the .lnk extension used for shortcuts
     Private ReadOnly _desktopPathName As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), My.Application.Info.AssemblyName & $".lnk")
 
@@ -42,32 +41,28 @@ Friend Class FrmMain
         LMsg = $"Log file started: {Now}{vbLf}"
         LMsg &= $"Program: {Application.ProductName} v{Application.ProductVersion}{vbLf}"
         LMsg &= $"Times run: {timesrun + 1}{vbLf}"
-        'LMsg &= $"Update frequency: {Updatetime} minutes.{vbLf}"
         LMsg &= $"{My.Resources.separator}{vbLf}"
         RtbLog.AppendText(LMsg)
 
         ''cleanup the logfile folder and delete the old files.
         PerformLogMaintenance()
         GetUvRealTime()
-        'InitializeArrays()
         With Me
-            '.Top = CInt(KMet.GetValue("Top", 100))
-            '.Left = CInt(KMet.GetValue("Left", 100))
             .Text = $"{Application.ProductName}"
             .TsslVer.Text = $"{Application.ProductVersion}"
             .TsslCpy.Text = $"{Cpy}"
-            .TsslTimesRun.Text = String.Format(CultureInfo.CurrentCulture, TsslTimesRun.Tag, timesrun)
+            .TsslTimesRun.Text = String.Format(CultureInfo.CurrentCulture, TsslTimesRun.Tag.ToString, timesrun)
             .LblAbout.Text = My.Resources.written_by
             .SetTimers()
             .Show()
         End With
 
-        If KInfo.GetValue(My.Resources.alt_set, 0) = 0 Then
+        If CBool(KInfo.GetValue(My.Resources.alt_set, 0)) Then
             GetElevation()
         Else
             RtbLog.AppendText($"Altitude set from Registry: {KInfo.GetValue(My.Resources.alt, 0)} meters{vbLf}")
         End If
-        Altitude = ($"{KInfo.GetValue(My.Resources.alt, 0)}")
+        Altitude = CDbl(($"{KInfo.GetValue(My.Resources.alt, 0)}"))
 
         RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
         SaveLogs()
@@ -154,7 +149,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
 
     Private Sub SetTimers()
         Try
-            Dim aa As Integer = KInfo.GetValue(My.Resources.uv_int, 0)
+            Dim aa = CInt(KInfo.GetValue(My.Resources.uv_int, 0))
             If aa > 0 Then
                 TmrRtUV.Interval = TimeSpan.FromMinutes(aa).TotalMilliseconds ' * Timer_Multiplier
                 TmrRtUV.Enabled = True
@@ -261,7 +256,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
 #Region "Exposure"
 
     Private Sub BtnBurnCalc_Click(sender As Object, e As EventArgs) Handles BtnBurnCalc.Click
-        LblBurnTime.Text = $"{Time2Burn(CbSkinType.SelectedIndex, CbUv.SelectedItem)} minutes."
+        LblBurnTime.Text = $"{Time2Burn(CbSkinType.SelectedIndex, CDbl(CbUv.SelectedItem))} minutes."
     End Sub
 
 #End Region
@@ -327,17 +322,17 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
     End Sub
 
     Private Sub TpSettings_Enter(sender As Object, e As EventArgs) Handles TpSettings.Enter
-        TxtLatitude.Text = KSet.GetValue(My.Resources.reg_lat, "37.787644")
-        TxtLongitude.Text = KSet.GetValue(My.Resources.reg_lng, "-79.44189")
-        TxtUvKey.Text = KTok.GetValue(My.Resources.key_uv, "")
-        TxtGoogleKey.Text = KTok.GetValue(My.Resources.key_goog, "")
-        TxtElevationApiKey.Text = KTok.GetValue(My.Resources.key_elev, "")
-        ChkHideLog.Checked = KSet.GetValue(My.Resources.hide_log, 0)
-        NumElevation.Value = KInfo.GetValue(My.Resources.alt, 0)
-        NumRTInterval.Value = KInfo.GetValue(My.Resources.uv_int, 0)
-        NumLogDays.Value = KSet.GetValue(My.Resources.log_days, 3)
+        TxtLatitude.Text = CType(KSet.GetValue(My.Resources.reg_lat, "37.787644"), String)
+        TxtLongitude.Text = CType(KSet.GetValue(My.Resources.reg_lng, "-79.44189"), String)
+        TxtUvKey.Text = CType(KTok.GetValue(My.Resources.key_uv, ""), String)
+        TxtGoogleKey.Text = CType(KTok.GetValue(My.Resources.key_goog, ""), String)
+        TxtElevationApiKey.Text = CType(KTok.GetValue(My.Resources.key_elev, ""), String)
+        ChkHideLog.Checked = CBool(KSet.GetValue(My.Resources.hide_log, 0))
+        NumElevation.Value = CDec(KInfo.GetValue(My.Resources.alt, 0))
+        NumRTInterval.Value = CDec(KInfo.GetValue(My.Resources.uv_int, 0))
+        NumLogDays.Value = CDec(KSet.GetValue(My.Resources.log_days, 3))
         LblElevHelp.Text = My.Resources.elev_help
-        EOpt(KSet.GetValue(My.Resources.elev_toggle, 1)).Checked = True
+        EOpt(CInt(KSet.GetValue(My.Resources.elev_toggle, 1))).Checked = True
     End Sub
 
     Private Sub BntResetAlt_Click(sender As Object, e As EventArgs) Handles BntResetAlt.Click
@@ -387,6 +382,9 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
         KSet.SetValue(My.Resources.log_days, NumLogDays.Value, RegistryValueKind.DWord)
     End Sub
 
-#End Region
+    Private Sub DgvUv_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvUv.CellContentClick
+        DgvUv.ClearSelection()
+    End Sub
 
+#End Region
 End Class

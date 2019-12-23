@@ -12,8 +12,8 @@ Namespace Modules
         End Sub
 
         Private Async Sub DownloadUvProtection(fromm As Double, too As Double)
-            OzLevel = KInfo.GetValue(My.Resources.oz, 0)
-            ApiKey = KTok.GetValue(My.Resources.key_uv, "")
+            OzLevel = KInfo.GetValue(My.Resources.oz, 0).ToString
+            ApiKey = KTok.GetValue(My.Resources.key_uv, "").ToString
             If Not Keyset Then
                 FrmMain.TC.SelectedTab = FrmMain.TpSettings
                 Return

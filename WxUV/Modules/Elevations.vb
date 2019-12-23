@@ -16,18 +16,20 @@ Namespace Modules
         ''' </summary>
         Public Sub GetElevation()
             'Use the service which is checked on the "Settings" tab.
-            Select Case KSet.GetValue(My.Resources.elev_toggle, 1)
+            Select Case CInt(KSet.GetValue(My.Resources.elev_toggle, 1))
                 Case 0
                     DownloadGoogleElevation()
                 Case 1
                     DownloadElevationApi()
+                Case Else
+                    Return
             End Select
         End Sub
 
         Private Async Sub DownloadGoogleElevation()
-            Dim googleKey = KTok.GetValue(My.Resources.key_goog, "")
+            Dim googleKey = KTok.GetValue(My.Resources.key_goog, "").ToString
             Dim ue = Path.Combine(TempDir, GElev)
-            If googleKey.Trim() = $"" Then
+            If String.IsNullOrEmpty(googleKey.Trim()) Then
                 ''if we don't have the Google Elevation key set, exit this sub routine
                 FrmMain.RtbLog.AppendText($"Google Elevation API key not set -> Elevation not set.{vbLf}")
                 FrmMain.TC.SelectedTab = FrmMain.TpSettings
@@ -66,9 +68,9 @@ Namespace Modules
         End Sub
 
         Private Async Sub DownloadElevationApi()
-            Dim eKey = KTok.GetValue(My.Resources.key_elev, "")
+            Dim eKey = KTok.GetValue(My.Resources.key_elev, "").ToString
             Dim ue = Path.Combine(TempDir, GElev)
-            If eKey.Trim() = $"" Then
+            If String.IsNullOrEmpty(eKey.Trim) Then
                 ''if we don't have the Elevation-API key set, exit this sub routine
                 FrmMain.RtbLog.AppendText($"Elevation-API key not set -> Elevation not set.{vbLf}")
                 FrmMain.TC.SelectedTab = FrmMain.TpSettings
@@ -104,6 +106,5 @@ Namespace Modules
                 End Try
             End If
         End Sub
-
     End Module
 End Namespace

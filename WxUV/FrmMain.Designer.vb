@@ -24,6 +24,7 @@ Partial Friend Class FrmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TC = New System.Windows.Forms.TabControl()
         Me.TpDisplay = New System.Windows.Forms.TabPage()
         Me.PnlDisplay = New System.Windows.Forms.Panel()
@@ -41,43 +42,6 @@ Partial Friend Class FrmMain
         Me.GroupBox11 = New System.Windows.Forms.GroupBox()
         Me.LblDayLen = New System.Windows.Forms.Label()
         Me.LblSunrise = New System.Windows.Forms.Label()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.PbUv1 = New System.Windows.Forms.PictureBox()
-        Me.PbUv2 = New System.Windows.Forms.PictureBox()
-        Me.PbUv3 = New System.Windows.Forms.PictureBox()
-        Me.PbUv4 = New System.Windows.Forms.PictureBox()
-        Me.PbUv5 = New System.Windows.Forms.PictureBox()
-        Me.PbUv6 = New System.Windows.Forms.PictureBox()
-        Me.PbUv7 = New System.Windows.Forms.PictureBox()
-        Me.PbUv8 = New System.Windows.Forms.PictureBox()
-        Me.PbUv9 = New System.Windows.Forms.PictureBox()
-        Me.PbUv10 = New System.Windows.Forms.PictureBox()
-        Me.PbUv11 = New System.Windows.Forms.PictureBox()
-        Me.PbUv12 = New System.Windows.Forms.PictureBox()
-        Me.PbUv13 = New System.Windows.Forms.PictureBox()
-        Me.PbUv14 = New System.Windows.Forms.PictureBox()
-        Me.PbUv15 = New System.Windows.Forms.PictureBox()
-        Me.PbUv16 = New System.Windows.Forms.PictureBox()
-        Me.PbUv17 = New System.Windows.Forms.PictureBox()
-        Me.PbUv18 = New System.Windows.Forms.PictureBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.Label18 = New System.Windows.Forms.Label()
         Me.LblUvLevel = New System.Windows.Forms.Label()
         Me.PbUV = New System.Windows.Forms.PictureBox()
         Me.TpExposure = New System.Windows.Forms.TabPage()
@@ -168,31 +132,13 @@ Partial Friend Class FrmMain
         Me.TsmiLocate = New System.Windows.Forms.ToolStripMenuItem()
         Me.TxmiClose = New System.Windows.Forms.ToolStripMenuItem()
         Me.TTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.DgvUv = New System.Windows.Forms.DataGridView()
         Me.TC.SuspendLayout()
         Me.TpDisplay.SuspendLayout()
         Me.PnlDisplay.SuspendLayout()
         CType(Me.PbScale, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GbEt.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
-        Me.TableLayoutPanel1.SuspendLayout()
-        CType(Me.PbUv1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv5, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv6, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv7, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv8, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv9, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv10, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv11, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv12, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv13, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv14, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv15, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv16, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv17, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PbUv18, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PbUV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TpExposure.SuspendLayout()
         Me.Panel5.SuspendLayout()
@@ -225,6 +171,7 @@ Partial Friend Class FrmMain
         CType(Me.TmrClock, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Status.SuspendLayout()
         Me.Tmenu.SuspendLayout()
+        CType(Me.DgvUv, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TC
@@ -258,13 +205,13 @@ Partial Friend Class FrmMain
         '
         Me.PnlDisplay.BackColor = System.Drawing.Color.WhiteSmoke
         Me.PnlDisplay.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PnlDisplay.Controls.Add(Me.DgvUv)
         Me.PnlDisplay.Controls.Add(Me.PbScale)
         Me.PnlDisplay.Controls.Add(Me.BtnUpdateRT)
         Me.PnlDisplay.Controls.Add(Me.LblCurOzone)
         Me.PnlDisplay.Controls.Add(Me.GbEt)
         Me.PnlDisplay.Controls.Add(Me.LblDate)
         Me.PnlDisplay.Controls.Add(Me.GroupBox11)
-        Me.PnlDisplay.Controls.Add(Me.TableLayoutPanel1)
         Me.PnlDisplay.Controls.Add(Me.LblUvLevel)
         Me.PnlDisplay.Controls.Add(Me.PbUV)
         Me.PnlDisplay.Dock = System.Windows.Forms.DockStyle.Fill
@@ -419,497 +366,6 @@ Partial Friend Class FrmMain
         Me.LblSunrise.Size = New System.Drawing.Size(136, 47)
         Me.LblSunrise.TabIndex = 0
         Me.LblSunrise.Text = "sr"
-        '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.ColumnCount = 9
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv1, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv2, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv3, 2, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv4, 3, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv5, 4, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv6, 5, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv7, 6, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv8, 7, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv9, 8, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv10, 0, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv11, 1, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv12, 2, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv13, 3, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv14, 4, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv15, 5, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv16, 6, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv17, 7, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.PbUv18, 8, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label1, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label2, 1, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label3, 2, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label4, 3, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label5, 4, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label6, 5, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label7, 6, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label8, 7, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label9, 8, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label10, 0, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label11, 1, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label12, 2, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label13, 3, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label14, 4, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label15, 5, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label16, 6, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label17, 7, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label18, 8, 3)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(10, 153)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 4
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(400, 160)
-        Me.TableLayoutPanel1.TabIndex = 4
-        '
-        'PbUv1
-        '
-        Me.PbUv1.Location = New System.Drawing.Point(0, 0)
-        Me.PbUv1.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv1.Name = "PbUv1"
-        Me.PbUv1.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv1.TabIndex = 0
-        Me.PbUv1.TabStop = False
-        '
-        'PbUv2
-        '
-        Me.PbUv2.Location = New System.Drawing.Point(44, 0)
-        Me.PbUv2.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv2.Name = "PbUv2"
-        Me.PbUv2.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv2.TabIndex = 1
-        Me.PbUv2.TabStop = False
-        '
-        'PbUv3
-        '
-        Me.PbUv3.Location = New System.Drawing.Point(88, 0)
-        Me.PbUv3.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv3.Name = "PbUv3"
-        Me.PbUv3.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv3.TabIndex = 2
-        Me.PbUv3.TabStop = False
-        '
-        'PbUv4
-        '
-        Me.PbUv4.Location = New System.Drawing.Point(132, 0)
-        Me.PbUv4.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv4.Name = "PbUv4"
-        Me.PbUv4.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv4.TabIndex = 3
-        Me.PbUv4.TabStop = False
-        '
-        'PbUv5
-        '
-        Me.PbUv5.Location = New System.Drawing.Point(176, 0)
-        Me.PbUv5.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv5.Name = "PbUv5"
-        Me.PbUv5.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv5.TabIndex = 4
-        Me.PbUv5.TabStop = False
-        '
-        'PbUv6
-        '
-        Me.PbUv6.Location = New System.Drawing.Point(220, 0)
-        Me.PbUv6.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv6.Name = "PbUv6"
-        Me.PbUv6.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv6.TabIndex = 5
-        Me.PbUv6.TabStop = False
-        '
-        'PbUv7
-        '
-        Me.PbUv7.Location = New System.Drawing.Point(264, 0)
-        Me.PbUv7.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv7.Name = "PbUv7"
-        Me.PbUv7.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv7.TabIndex = 6
-        Me.PbUv7.TabStop = False
-        '
-        'PbUv8
-        '
-        Me.PbUv8.Location = New System.Drawing.Point(308, 0)
-        Me.PbUv8.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv8.Name = "PbUv8"
-        Me.PbUv8.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv8.TabIndex = 7
-        Me.PbUv8.TabStop = False
-        '
-        'PbUv9
-        '
-        Me.PbUv9.Location = New System.Drawing.Point(352, 0)
-        Me.PbUv9.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv9.Name = "PbUv9"
-        Me.PbUv9.Size = New System.Drawing.Size(48, 40)
-        Me.PbUv9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv9.TabIndex = 8
-        Me.PbUv9.TabStop = False
-        '
-        'PbUv10
-        '
-        Me.PbUv10.Location = New System.Drawing.Point(0, 80)
-        Me.PbUv10.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv10.Name = "PbUv10"
-        Me.PbUv10.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv10.TabIndex = 10
-        Me.PbUv10.TabStop = False
-        '
-        'PbUv11
-        '
-        Me.PbUv11.Location = New System.Drawing.Point(44, 80)
-        Me.PbUv11.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv11.Name = "PbUv11"
-        Me.PbUv11.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv11.TabIndex = 11
-        Me.PbUv11.TabStop = False
-        '
-        'PbUv12
-        '
-        Me.PbUv12.Location = New System.Drawing.Point(88, 80)
-        Me.PbUv12.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv12.Name = "PbUv12"
-        Me.PbUv12.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv12.TabIndex = 12
-        Me.PbUv12.TabStop = False
-        '
-        'PbUv13
-        '
-        Me.PbUv13.Location = New System.Drawing.Point(132, 80)
-        Me.PbUv13.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv13.Name = "PbUv13"
-        Me.PbUv13.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv13.TabIndex = 13
-        Me.PbUv13.TabStop = False
-        '
-        'PbUv14
-        '
-        Me.PbUv14.Location = New System.Drawing.Point(176, 80)
-        Me.PbUv14.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv14.Name = "PbUv14"
-        Me.PbUv14.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv14.TabIndex = 14
-        Me.PbUv14.TabStop = False
-        '
-        'PbUv15
-        '
-        Me.PbUv15.Location = New System.Drawing.Point(220, 80)
-        Me.PbUv15.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv15.Name = "PbUv15"
-        Me.PbUv15.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv15.TabIndex = 15
-        Me.PbUv15.TabStop = False
-        '
-        'PbUv16
-        '
-        Me.PbUv16.Location = New System.Drawing.Point(264, 80)
-        Me.PbUv16.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv16.Name = "PbUv16"
-        Me.PbUv16.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv16.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv16.TabIndex = 16
-        Me.PbUv16.TabStop = False
-        '
-        'PbUv17
-        '
-        Me.PbUv17.Location = New System.Drawing.Point(308, 80)
-        Me.PbUv17.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv17.Name = "PbUv17"
-        Me.PbUv17.Size = New System.Drawing.Size(44, 40)
-        Me.PbUv17.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv17.TabIndex = 17
-        Me.PbUv17.TabStop = False
-        '
-        'PbUv18
-        '
-        Me.PbUv18.Location = New System.Drawing.Point(352, 80)
-        Me.PbUv18.Margin = New System.Windows.Forms.Padding(0)
-        Me.PbUv18.Name = "PbUv18"
-        Me.PbUv18.Size = New System.Drawing.Size(48, 40)
-        Me.PbUv18.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PbUv18.TabIndex = 18
-        Me.PbUv18.TabStop = False
-        '
-        'Label1
-        '
-        Me.Label1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(0, 40)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(44, 40)
-        Me.Label1.TabIndex = 19
-        Me.Label1.Text = "."
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label2
-        '
-        Me.Label2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(44, 40)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(44, 40)
-        Me.Label2.TabIndex = 20
-        Me.Label2.Text = "."
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label3
-        '
-        Me.Label3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(88, 40)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(44, 40)
-        Me.Label3.TabIndex = 21
-        Me.Label3.Text = "."
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label4
-        '
-        Me.Label4.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(132, 40)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(44, 40)
-        Me.Label4.TabIndex = 22
-        Me.Label4.Text = "."
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label5
-        '
-        Me.Label5.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(176, 40)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(44, 40)
-        Me.Label5.TabIndex = 23
-        Me.Label5.Text = "."
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label6
-        '
-        Me.Label6.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(220, 40)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(44, 40)
-        Me.Label6.TabIndex = 24
-        Me.Label6.Text = "."
-        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label7
-        '
-        Me.Label7.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(264, 40)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(44, 40)
-        Me.Label7.TabIndex = 25
-        Me.Label7.Text = "."
-        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label8
-        '
-        Me.Label8.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(308, 40)
-        Me.Label8.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(44, 40)
-        Me.Label8.TabIndex = 26
-        Me.Label8.Text = "."
-        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label9
-        '
-        Me.Label9.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(352, 40)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(48, 40)
-        Me.Label9.TabIndex = 27
-        Me.Label9.Text = "."
-        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label10
-        '
-        Me.Label10.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(0, 120)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(44, 40)
-        Me.Label10.TabIndex = 28
-        Me.Label10.Text = "."
-        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label11
-        '
-        Me.Label11.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(44, 120)
-        Me.Label11.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(44, 40)
-        Me.Label11.TabIndex = 29
-        Me.Label11.Text = "."
-        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label12
-        '
-        Me.Label12.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(88, 120)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(44, 40)
-        Me.Label12.TabIndex = 30
-        Me.Label12.Text = "."
-        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label13
-        '
-        Me.Label13.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(132, 120)
-        Me.Label13.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(44, 40)
-        Me.Label13.TabIndex = 31
-        Me.Label13.Text = "."
-        Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label14
-        '
-        Me.Label14.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(176, 120)
-        Me.Label14.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(44, 40)
-        Me.Label14.TabIndex = 32
-        Me.Label14.Text = "."
-        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label15
-        '
-        Me.Label15.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(220, 120)
-        Me.Label15.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(44, 40)
-        Me.Label15.TabIndex = 33
-        Me.Label15.Text = "."
-        Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label16
-        '
-        Me.Label16.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(264, 120)
-        Me.Label16.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(44, 40)
-        Me.Label16.TabIndex = 34
-        Me.Label16.Text = "."
-        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label17
-        '
-        Me.Label17.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(308, 120)
-        Me.Label17.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(44, 40)
-        Me.Label17.TabIndex = 35
-        Me.Label17.Text = "."
-        Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label18
-        '
-        Me.Label18.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(352, 120)
-        Me.Label18.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(48, 40)
-        Me.Label18.TabIndex = 36
-        Me.Label18.Text = "."
-        Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'LblUvLevel
         '
@@ -1855,6 +1311,40 @@ Partial Friend Class FrmMain
         Me.TTip.IsBalloon = True
         Me.TTip.ToolTipTitle = "Information"
         '
+        'DgvUv
+        '
+        Me.DgvUv.AllowUserToAddRows = False
+        Me.DgvUv.AllowUserToDeleteRows = False
+        Me.DgvUv.AllowUserToResizeColumns = False
+        Me.DgvUv.AllowUserToResizeRows = False
+        Me.DgvUv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.DgvUv.BackgroundColor = System.Drawing.Color.WhiteSmoke
+        Me.DgvUv.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.DgvUv.CausesValidation = False
+        Me.DgvUv.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
+        Me.DgvUv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DgvUv.ColumnHeadersVisible = False
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.DodgerBlue
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DgvUv.DefaultCellStyle = DataGridViewCellStyle1
+        Me.DgvUv.EnableHeadersVisualStyles = False
+        Me.DgvUv.Location = New System.Drawing.Point(4, 166)
+        Me.DgvUv.MultiSelect = False
+        Me.DgvUv.Name = "DgvUv"
+        Me.DgvUv.RowHeadersVisible = False
+        Me.DgvUv.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Empty
+        Me.DgvUv.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DgvUv.RowTemplate.Height = 35
+        Me.DgvUv.RowTemplate.ReadOnly = True
+        Me.DgvUv.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DgvUv.Size = New System.Drawing.Size(412, 150)
+        Me.DgvUv.TabIndex = 11
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1878,26 +1368,6 @@ Partial Friend Class FrmMain
         Me.GbEt.PerformLayout()
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
-        Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel1.PerformLayout()
-        CType(Me.PbUv1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv5, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv6, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv7, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv8, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv9, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv10, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv11, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv12, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv13, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv14, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv15, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv16, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv17, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PbUv18, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PbUV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TpExposure.ResumeLayout(False)
         Me.Panel5.ResumeLayout(False)
@@ -1941,6 +1411,7 @@ Partial Friend Class FrmMain
         Me.Status.ResumeLayout(False)
         Me.Status.PerformLayout()
         Me.Tmenu.ResumeLayout(False)
+        CType(Me.DgvUv, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1975,43 +1446,6 @@ Partial Friend Class FrmMain
     Friend WithEvents TpLog As TabPage
     Friend WithEvents Panel2 As Panel
     Friend WithEvents RtbLog As RichTextBox
-    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents PbUv1 As PictureBox
-    Friend WithEvents PbUv2 As PictureBox
-    Friend WithEvents PbUv3 As PictureBox
-    Friend WithEvents PbUv4 As PictureBox
-    Friend WithEvents PbUv5 As PictureBox
-    Friend WithEvents PbUv6 As PictureBox
-    Friend WithEvents PbUv7 As PictureBox
-    Friend WithEvents PbUv8 As PictureBox
-    Friend WithEvents PbUv9 As PictureBox
-    Friend WithEvents PbUv10 As PictureBox
-    Friend WithEvents PbUv11 As PictureBox
-    Friend WithEvents PbUv12 As PictureBox
-    Friend WithEvents PbUv13 As PictureBox
-    Friend WithEvents PbUv14 As PictureBox
-    Friend WithEvents PbUv15 As PictureBox
-    Friend WithEvents PbUv16 As PictureBox
-    Friend WithEvents PbUv17 As PictureBox
-    Friend WithEvents PbUv18 As PictureBox
-    Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label6 As Label
-    Friend WithEvents Label7 As Label
-    Friend WithEvents Label8 As Label
-    Friend WithEvents Label9 As Label
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Label11 As Label
-    Friend WithEvents Label12 As Label
-    Friend WithEvents Label13 As Label
-    Friend WithEvents Label14 As Label
-    Friend WithEvents Label15 As Label
-    Friend WithEvents Label16 As Label
-    Friend WithEvents Label17 As Label
-    Friend WithEvents Label18 As Label
     Friend WithEvents LblAltitude As Label
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents Panel3 As Panel
@@ -2089,4 +1523,5 @@ Partial Friend Class FrmMain
     Friend WithEvents PbScale As PictureBox
     Friend WithEvents LblSi1 As Label
     Friend WithEvents LblSi2 As Label
+    Friend WithEvents DgvUv As DataGridView
 End Class

@@ -4,7 +4,6 @@ Imports Microsoft.Win32
 
 Namespace Modules
     Friend Module MiscRoutines
-
         ''count the number of times a string occurs within a string.  used bu UVForecast to determine max array of counter
         Public Function CountString(inputString As String, searchStr As String) As Integer
             Return Regex.Split(inputString, searchStr).Length - 1
@@ -16,7 +15,7 @@ Namespace Modules
         ''' <param name="st"></param>
         ''' <param name="uv"></param>
         ''' <returns></returns>
-        Public Function Time2Burn(st As Double, uv As Double) As Integer
+        Public Function Time2Burn(st As Double, uv As Double) As Double
             Select Case st ''.SelectedIndex
                 Case 0
                     Return 200 * 2.5 / (3 * uv)
@@ -71,7 +70,7 @@ Namespace Modules
         ''' <returns>Return Unix time stamp as long type</returns>
         Public Function Date2Unix(dt As Date) As Long
             Dim unixTimeSpan = dt.Subtract(New DateTime(1970, 1, 1, 0, 0, 0))
-            Return Fix(unixTimeSpan.TotalSeconds)
+            Return CLng(Fix(unixTimeSpan.TotalSeconds))
         End Function
 
         ''' <summary>
@@ -81,14 +80,15 @@ Namespace Modules
         Public Function GetEdgeVer() As String
             Dim reg = Registry.ClassesRoot.OpenSubKey("Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Packages")
             If reg IsNot Nothing Then
-                For Each rxEdgeVersion In From subkey In reg.GetSubKeyNames() Where subkey.StartsWith("Microsoft.MicrosoftEdge", System.StringComparison.CurrentCulture) Let rxEdgeVersion1 = CType(Nothing, Match)
-                                          Select rxEdgeVersion1 = Regex.Match(subkey, "(Microsoft.MicrosoftEdge.Canary_)(?<version>\d+\.\d+\.\d+\.\d+)(_neutral__8wekyb3d8bbwe)")
-                                          Where rxEdgeVersion1.Success
+                For Each rxEdgeVersion In _
+                    From subkey In reg.GetSubKeyNames() Where subkey.StartsWith("Microsoft.MicrosoftEdge", StringComparison.CurrentCulture)
+                        Let rxEdgeVersion1 = CType(Nothing, Match)
+                        Select rxEdgeVersion1 = Regex.Match(subkey, "(Microsoft.MicrosoftEdge.Canary_)(?<version>\d+\.\d+\.\d+\.\d+)(_neutral__8wekyb3d8bbwe)")
+                        Where rxEdgeVersion1.Success
                     Return rxEdgeVersion.Groups("version").Value
                 Next
             End If
             Return "80.0.361.5"
         End Function
-
     End Module
 End Namespace

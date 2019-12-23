@@ -6,18 +6,17 @@ Namespace Modules
     '''     keep the log folder clean and only store a set number of log files. Days to keep is set on the "Settings" tab
     ''' </summary>
     Friend Module LogMaint
-
         ''http://stackoverflow.com/questions/9194749/trying-to-delete-files-older-than-x-days-vb-net
         Public Sub PerformLogMaintenance()
 
             FrmMain.RtbLog.AppendText($"<{My.Resources.separator}{vbLf}")
-            Dim intdays = KSet.GetValue(My.Resources.log_days, 5)
+            Dim intdays = CInt(KSet.GetValue(My.Resources.log_days, 5))
             If intdays <= 0 Then
                 FrmMain.RtbLog.AppendText($"Logs set to keep all.{vbLf}")
                 Return
             End If
 
-            Dim fc As Short
+            Dim fc As Integer
             Try
                 For Each file In New DirectoryInfo(LogDir).GetFiles("uv_*.log")
                     If (Now - file.LastWriteTime).Days > intdays Then
@@ -59,6 +58,5 @@ Namespace Modules
                 ''
             End Try
         End Sub
-
     End Module
 End Namespace
