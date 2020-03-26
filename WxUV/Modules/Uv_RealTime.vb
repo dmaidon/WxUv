@@ -80,9 +80,9 @@ Namespace Modules
                     End Using
                 End Using
             Catch ex As NotSupportedException
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Catch ex As Exception
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Finally
                 ''
             End Try
@@ -171,7 +171,7 @@ Namespace Modules
                 End Using
                 FrmMain.RtbLog.AppendText($"-{Now:t}- Parsed UV Forecast -> [{fn}]{vbLf}")
             Catch ex As Exception
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Finally
                 ''
             End Try

@@ -132,7 +132,7 @@ Namespace Modules
                     LblStArr(j).Text = $"Skin Type {j + 1}: {et:N0}{mu}"
                 Next
             Catch ex As Exception
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Finally
                 FrmMain.RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
                 SaveLogs()
@@ -175,7 +175,7 @@ Namespace Modules
                 End Using
                 FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded UV Forecast -> [{_uf}]{vbLf}")
             Catch ex As Exception
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Finally
                 FrmMain.RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
                 SaveLogs()
@@ -192,9 +192,9 @@ Namespace Modules
                 End Using
                 FrmMain.RtbLog.AppendText($"-{Now:t}- Parsed UV Forecast -> [{fn}]{vbLf}")
             Catch ex As ArgumentOutOfRangeException
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Catch ex As Exception
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Finally
                 FrmMain.RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
             End Try

@@ -47,7 +47,7 @@ Namespace Modules
                 End Using
                 FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded UV Protection file -> [{_upf}]{vbLf}")
             Catch ex As Exception
-                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
+                FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
             Finally
                 FrmMain.RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
                 SaveLogs()
@@ -65,7 +65,7 @@ Namespace Modules
                     .LblProtHi.Left = .LblProtTo.Left + .LblProtTo.Width + 5
                     .LblProtHi.Text = $"UV: {ProtNfo.Result.ToUv}"
                 Catch ex As Exception
-                    FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
+                    FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
                 End Try
             End With
         End Sub

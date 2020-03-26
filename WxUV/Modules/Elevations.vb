@@ -59,7 +59,7 @@ Namespace Modules
                     FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Google Elevation file -> [{ue}]{vbLf}")
                     FrmMain.RtbLog.AppendText($"Elevation: {_gNfo.Results(0).Elevation:N6}{vbLf}{vbLf}")
                 Catch ex As Exception
-                    FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
+                    FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
                 Finally
                     FrmMain.RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
                     SaveLogs()
@@ -99,7 +99,7 @@ Namespace Modules
                     FrmMain.RtbLog.AppendText($"-{Now:t}- Downloaded Elevation-API file -> [{ue}]{vbLf}")
                     FrmMain.RtbLog.AppendText($"Elevation: {_eNfo.Elevations(0).ElevationElevation:N6}{vbLf}{vbLf}")
                 Catch ex As Exception
-                    FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite.ToString}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
+                    FrmMain.RtbLog.AppendText($"   Error: {ex.Message}{vbLf}   Location: {ex.TargetSite}{vbLf}   Trace: { ex.StackTrace}{vbLf}")
                 Finally
                     FrmMain.RtbLog.AppendText($"{My.Resources.separator}{vbLf}")
                     SaveLogs()
