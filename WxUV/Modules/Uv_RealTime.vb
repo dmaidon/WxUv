@@ -103,20 +103,15 @@ Namespace Modules
             Dim aa = GetUvLevel(ab)
             Select Case aa.Item(3)
                 Case "Green"
-                    'UvArr(j).BackColor = Color.Green
-                    FrmMain.PbUV.BackColor = Color.FromArgb(85, 139, 47)        ''#558b25
+                    FrmMain.PbUV.BackColor = ColorTranslator.FromHtml("#558b25")
                 Case "Yellow"
-                    'UvArr(j).BackColor = Color.Yellow
-                    FrmMain.PbUV.BackColor = Color.FromArgb(247, 228, 0)        ''#f9a825
+                    FrmMain.PbUV.BackColor = ColorTranslator.FromHtml("#f9a825")
                 Case "Orange"
-                    'UvArr(j).BackColor = Color.Orange
-                    FrmMain.PbUV.BackColor = Color.FromArgb(249, 108, 0)        ''#ef6c00
+                    FrmMain.PbUV.BackColor = ColorTranslator.FromHtml("#ef6c00")
                 Case "Red"
-                    'UvArr(j).BackColor = Color.Firebrick
-                    FrmMain.PbUV.BackColor = Color.FromArgb(183, 28, 28)        ''#b71c1c
+                    FrmMain.PbUV.BackColor = ColorTranslator.FromHtml("#b71c1c")
                 Case "Purple"
-                    'UvArr(j).BackColor = Color.Purple
-                    FrmMain.PbUV.BackColor = Color.FromArgb(106, 27, 154)        ''#681b9a
+                    FrmMain.PbUV.BackColor = ColorTranslator.FromHtml("#681b9a")
             End Select
         End Sub
 

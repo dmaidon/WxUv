@@ -60,15 +60,15 @@ Namespace Modules
                         If j <= 7 Then
                             Select Case aa.Item(3)
                                 Case "Green"
-                                    .Rows(0).Cells(j).Style.BackColor = Color.FromArgb(85, 139, 47)        ''#558b25
+                                    .Rows(0).Cells(j).Style.BackColor = ColorTranslator.FromHtml("#558b25")
                                 Case "Yellow"
-                                    .Rows(0).Cells(j).Style.BackColor = Color.FromArgb(247, 228, 0)        ''#f9a825
+                                    .Rows(0).Cells(j).Style.BackColor = ColorTranslator.FromHtml("#f9a825")
                                 Case "Orange"
-                                    .Rows(0).Cells(j).Style.BackColor = Color.FromArgb(249, 108, 0)        ''#ef6c00
+                                    .Rows(0).Cells(j).Style.BackColor = ColorTranslator.FromHtml("#ef6c00")
                                 Case "Red"
-                                    .Rows(0).Cells(j).Style.BackColor = Color.FromArgb(183, 28, 28)        ''#b71c1c
+                                    .Rows(0).Cells(j).Style.BackColor = ColorTranslator.FromHtml("#b71c1c")
                                 Case "Purple"
-                                    .Rows(0).Cells(j).Style.BackColor = Color.FromArgb(106, 27, 154)       ''#681b9a
+                                    .Rows(0).Cells(j).Style.BackColor = ColorTranslator.FromHtml("#681b9a")
                             End Select
                             .Rows(0).Cells(j).Value = ab
                             .Rows(1).Cells(j).Value = $"{aa.Item(1)}{vbLf}{ut.Hour}"
@@ -76,15 +76,15 @@ Namespace Modules
                         Else
                             Select Case aa.Item(3)
                                 Case "Green"
-                                    .Rows(2).Cells(j - 8).Style.BackColor = Color.FromArgb(85, 139, 47)        ''#558b25
+                                    .Rows(2).Cells(j - 8).Style.BackColor = ColorTranslator.FromHtml("#558b25")
                                 Case "Yellow"
-                                    .Rows(2).Cells(j - 8).Style.BackColor = Color.FromArgb(247, 228, 0)        ''#f9a825
+                                    .Rows(2).Cells(j - 8).Style.BackColor = ColorTranslator.FromHtml("#f9a825")
                                 Case "Orange"
-                                    .Rows(2).Cells(j - 8).Style.BackColor = Color.FromArgb(249, 108, 0)        ''#ef6c00
+                                    .Rows(2).Cells(j - 8).Style.BackColor = ColorTranslator.FromHtml("#ef6c00")
                                 Case "Red"
-                                    .Rows(2).Cells(j - 8).Style.BackColor = Color.FromArgb(183, 28, 28)        ''#b71c1c
+                                    .Rows(2).Cells(j - 8).Style.BackColor = ColorTranslator.FromHtml("#b71c1c")
                                 Case "Purple"
-                                    .Rows(2).Cells(j - 8).Style.BackColor = Color.FromArgb(106, 27, 154)       ''#681b9a
+                                    .Rows(2).Cells(j - 8).Style.BackColor = ColorTranslator.FromHtml("#681b9a")
                             End Select
                             .Rows(2).Cells(j - 8).Value = ab
                             .Rows(3).Cells(j - 8).Value = $"{aa.Item(1)}{vbLf}{ut.Hour}"

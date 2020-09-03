@@ -37,7 +37,7 @@ Friend Class FrmMain
 
         KInfo.SetValue("Last Run", Now.ToString(CultureInfo.CurrentCulture), RegistryValueKind.String)
         KInfo.SetValue("FirstRun", False, RegistryValueKind.String)
-        LogFile = $"{Path.Combine(Application.StartupPath, LogDir)}\uv_{Format(Now, "MMddyyyy_").ToString(CultureInfo.CurrentCulture)}{timesrun + 1}.log"
+        LogFile = $"{Path.Combine(Application.StartupPath, LogDir)}\uv_{Now:MMddyy}_{timesrun + 1}.log"
         LMsg = ""
         LMsg = $"Log file started: {Now}{vbLf}"
         LMsg &= $"Program: {Application.ProductName} v{Application.ProductVersion}{vbLf}"
@@ -75,7 +75,6 @@ Friend Class FrmMain
         End If
 
         CollectMemoryGarbage()
-        'MsgBox(GetEdgeVer)
     End Sub
 
     Private Sub FrmMain_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
@@ -155,7 +154,7 @@ Total memory collected: <%= (mbc - mac).ToString("#,### bytes") %>
         Try
             Dim aa = CInt(KInfo.GetValue(My.Resources.uv_int, 0))
             If aa > 0 Then
-                TmrRtUV.Interval = TimeSpan.FromMinutes(aa).TotalMilliseconds ' * Timer_Multiplier
+                TmrRtUV.Interval = TimeSpan.FromMinutes(aa).TotalMilliseconds
                 TmrRtUV.Enabled = True
                 TmrRtUV.Start()
             Else

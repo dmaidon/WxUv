@@ -2,7 +2,6 @@
     Friend Module Uvlevels
         Public Function GetUvLevel(lev As Double) As List(Of String)
             Dim uvLev As New List(Of String)
-            ' Dim bc As Color = Color.Green
             Select Case lev
                 Case 0 To 2.5
                     uvLev.Add("Low")
